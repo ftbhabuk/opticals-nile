@@ -75,7 +75,7 @@
 }
 
 @theme inline {
-  --font-sans: 'Geist', 'Geist Fallback';
+  --font-sans: 'Geist', sans-serif;
   --font-mono: 'Geist Mono', 'Geist Mono Fallback';
   --font-pixel: 'Courier Prime', monospace;
   --color-background: var(--background);

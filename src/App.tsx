@@ -1,14 +1,9 @@
-"use client"
-
 import React, { useRef, useEffect, useState, useCallback } from "react"
 
-import { AgentInterface } from "@/components/agent-interface"
 import { PixelIcon } from "@/components/pixel-icon"
-
 import { RevealText } from "@/components/reveal-text"
 import { StackingAgentCards } from "@/components/stacking-agent-cards"
 import  Navigation  from "@/components/mobile-nav"
-import { DevExSection } from "@/components/devex-section"
 import { JourneySection } from "@/components/journey-section"
 
 // ─── Intersection Observer hook ──────────────────────────────────────────────
@@ -77,10 +72,9 @@ function Tag({ children }: { children: React.ReactNode }) {
 }
 
 // ─── Main page ────────────────────────────────────────────────────────────────
-export default function AgenticPage() {
+export default function App() {
   const [heroReady, setHeroReady] = useState(false)
-  
-  // Set hero ready immediately since intro animation is removed
+
   useEffect(() => {
     setHeroReady(true)
   }, [])
@@ -103,7 +97,6 @@ export default function AgenticPage() {
 
         {/* 3D pattern background */}
         <img
-          // src="/images/hero-3d-pattern.png"
           src="https://wallpaperaccess.com/full/358942.jpg"
           alt=""
           aria-hidden="true"
@@ -112,8 +105,6 @@ export default function AgenticPage() {
             transform: "scale(1.05)",
           }}
         />
-
-
 
         {/* Progressive blur + light gradient rising from bottom */}
         <div className="absolute inset-x-0 bottom-0 z-10 pointer-events-none" style={{ height: "65%", background: "linear-gradient(to top, #F5F4F0 0%, #F5F4F0 18%, rgba(245,244,240,0.85) 35%, rgba(245,244,240,0.5) 55%, rgba(245,244,240,0.15) 75%, transparent 100%)" }} />
@@ -177,30 +168,25 @@ export default function AgenticPage() {
           </div>
 
           <div className="grid grid-cols-12 grid-rows-auto gap-3" onMouseMove={handleMouse}>
-            {/* Big left card — full width */}
             <BentoCard className="col-span-12 p-8 min-h-[200px] flex flex-col justify-between relative overflow-hidden" delay={0}>
-              {/* Background image */}
               <img
                 src="/images/spectacles-showcase.png"
                 alt="Eyewear collection"
                 className="absolute inset-0 w-full h-full object-cover"
                 style={{ objectPosition: "center 70%" }}
               />
-              {/* Progressive blur layer */}
               <div className="absolute inset-0" style={{
                 maskImage: "linear-gradient(to bottom, transparent 45%, black 100%)",
                 WebkitMaskImage: "linear-gradient(to bottom, transparent 45%, black 100%)",
                 backdropFilter: "blur(16px)",
                 WebkitBackdropFilter: "blur(16px)",
               }} />
-              {/* Fade-to-background gradient */}
               <div
                 className="absolute inset-0"
                 style={{
                   background: "linear-gradient(to bottom, transparent 35%, rgba(245,244,240,0.3) 50%, rgba(245,244,240,0.75) 65%, rgba(245,244,240,0.95) 80%, rgb(245,244,240) 100%)",
                 }}
               />
-              {/* Content */}
               <div className="relative z-10">
                 <div className="w-10 h-10 rounded-xl border border-black/10 bg-white/60 flex items-center justify-center mb-6" style={{ backdropFilter: "blur(8px)" }}>
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><circle cx="12" cy="12" r="1"/><path d="M12 2c-2.5 3-8 4-8 9s5.5 7 8 10c2.5-3 8-5 8-10s-5.5-6-8-9z"/></svg>
@@ -212,7 +198,6 @@ export default function AgenticPage() {
               </div>
             </BentoCard>
 
-            {/* Bottom row */}
             <BentoCard className="col-span-12 md:col-span-4 p-8 min-h-[200px]" delay={120}>
               <div className="w-10 h-10 rounded-xl border border-black/10 flex items-center justify-center mb-5">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/></svg>
@@ -279,10 +264,7 @@ export default function AgenticPage() {
             </p>
           </div>
 
-          {/* Full-width image block with glass cards */}
-          {/* Mobile: flex-col, image + cards stacked. Desktop: image fills block, cards absolute */}
           <div className="rounded-2xl overflow-hidden border border-black/[0.07] flex flex-col md:block md:relative" onMouseMove={handleMouse}>
-            {/* Image */}
             <div className="relative w-full h-[280px] md:h-[480px] shrink-0">
               <img
                 src="/images/spectacles-showcase.png"
@@ -291,7 +273,6 @@ export default function AgenticPage() {
               />
             </div>
 
-            {/* Cards — flex row on mobile (equal spacing), absolute on desktop */}
             <div className="flex flex-col gap-3 p-4 md:absolute md:bottom-4 md:right-4 md:p-0 md:w-72">
               <div
                 className="rounded-xl border border-white/50 p-6"
@@ -325,7 +306,7 @@ export default function AgenticPage() {
         </div>
       </section>
 
-      {/* ── SECURITY & OBSERVABILITY ──────────────────────────────────��──── */}
+      {/* ── WHY NILE OPTICALS ────────────────────────────────────────────────── */}
       <section id="why-nile" className="py-32 px-6 md:px-12 lg:px-20 border-t border-black/[0.06]">
         <div className="max-w-6xl mx-auto">
           <div className="mb-16">
@@ -336,9 +317,7 @@ export default function AgenticPage() {
             </RevealText>
           </div>
 
-          {/* Asymmetric grid: left text + title, right interactive content */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {/* Left side — descriptions */}
             <div className="space-y-6">
               <p className="text-sm text-black/45 leading-relaxed">
                 We&apos;ve been helping families see clearly and live better for over 15 years.
@@ -358,16 +337,10 @@ export default function AgenticPage() {
                   </div>
                 ))}
               </div>
-
-
             </div>
-
-
           </div>
         </div>
       </section>
-
-
 
       {/* ── OUR SHOP ──────────────────────────────────────────────────────────── */}
       <section id="gallery" className="py-32 px-6 md:px-12 lg:px-20 border-t border-black/[0.06]">
@@ -380,9 +353,7 @@ export default function AgenticPage() {
             </RevealText>
           </div>
 
-          {/* Shop Gallery Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-            {/* Large left image */}
             <div className="md:row-span-2 rounded-2xl overflow-hidden border border-black/[0.07] h-[300px] md:h-full">
               <img
                 src="/images/shop-interior-1.png"
@@ -391,7 +362,6 @@ export default function AgenticPage() {
               />
             </div>
 
-            {/* Right side - two smaller images */}
             <div className="rounded-2xl overflow-hidden border border-black/[0.07] h-[250px]">
               <img
                 src="/images/shop-interior-2.png"
@@ -408,7 +378,6 @@ export default function AgenticPage() {
             </div>
           </div>
 
-          {/* Location Info Card */}
           <BentoCard className="p-8" delay={0}>
             <div className="space-y-6">
               <div>
@@ -478,11 +447,8 @@ export default function AgenticPage() {
         </div>
       </section>
 
-
-
       {/* ── FOOTER ────────────────────────────────────────────────────────── */}
       <footer className="relative pt-32 pb-10 px-6 md:px-12 lg:px-20 border-t border-black/[0.06] overflow-hidden">
-        {/* Glass panels image — anchored to bottom center */}
         <img
           src="/images/footer.png"
           alt=""
@@ -490,7 +456,6 @@ export default function AgenticPage() {
           className="absolute bottom-0 left-0 w-full object-cover object-bottom pointer-events-none select-none"
           style={{ opacity: 0.85 }}
         />
-        {/* Progressive blur from bottom — blends into site bg */}
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
@@ -500,7 +465,6 @@ export default function AgenticPage() {
             WebkitBackdropFilter: "blur(18px)",
           }}
         />
-        {/* Colour fade from bottom to site bg #f5f4f0 */}
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
@@ -546,7 +510,6 @@ export default function AgenticPage() {
           <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-8 pt-10 border-t border-black/[0.06]">
             <span className="font-pixel text-xs tracking-[0.25em] text-black/50">NILE OPTICALS</span>
 
-            {/* Nav sections */}
             <div className="flex flex-wrap items-center gap-x-8 gap-y-3">
               {[
                 { label: "Collections",  href: "#products" },
