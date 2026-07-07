@@ -1,40 +1,40 @@
 import { useEffect, useRef, useState } from "react"
 
-const AGENTS = [
+const EYEWEAR_TYPES = [
   {
     label: "PRESCRIPTION",
     title: "Medical Eyeglasses",
-    desc: "Corrective lenses for nearsightedness, farsightedness, and astigmatism. Customized to your prescription with premium coatings.",
-    stats: [{ v: "500+", l: "frame styles" }, { v: "100%", l: "precision" }],
-    img: "/images/spectacles-showcase.png",
+    desc: "Corrective lenses for nearsightedness, farsightedness, and astigmatism — cut to your exact prescription with premium coatings.",
+    stats: [{ v: "Same-day", l: "service" }, { v: "100%", l: "precision" }],
+    accent: "linear-gradient(135deg, #e8e6e1 0%, #f5f4f0 100%)",
   },
   {
     label: "SUNGLASSES",
     title: "Premium Sunglasses",
-    desc: "UV protection with designer frames. Polarized lenses reduce glare and offer superior visual comfort in sunny conditions.",
-    stats: [{ v: "20+", l: "brands" }, { v: "99%", l: "UV blocking" }],
-    img: "/images/spectacles-showcase.png",
+    desc: "UV protection with designer frames. Polarized lenses reduce glare for driving, travel, and outdoor life in Pokhara.",
+    stats: [{ v: "99%", l: "UV blocking" }, { v: "Polarized", l: "options" }],
+    accent: "linear-gradient(135deg, #ddd9d0 0%, #f0eeea 100%)",
   },
   {
     label: "SPECIALTY",
     title: "Sports & Computer Glasses",
-    desc: "Anti-glare coatings for screen time and impact-resistant frames for active lifestyles. Performance meets comfort.",
-    stats: [{ v: "15+", l: "styles" }, { v: "24/7", l: "support" }],
-    img: "/images/spectacles-showcase.png",
+    desc: "Blue-cut coatings for long screen hours and impact-resistant frames for active lifestyles. Performance without compromise.",
+    stats: [{ v: "Blue-cut", l: "available" }, { v: "Lightweight", l: "frames" }],
+    accent: "linear-gradient(135deg, #d8dce3 0%, #eef0f4 100%)",
   },
   {
     label: "FASHION",
-    title: "Designer Collections",
-    desc: "Curated from world-renowned luxury brands. Premium materials and craftsmanship for discerning fashion enthusiasts.",
-    stats: [{ v: "100%", l: "authentic" }, { v: "5-star", l: "rated" }],
-    img: "/images/spectacles-showcase.png",
+    title: "Luxury Fashion Frames",
+    desc: "Statement pieces from world-renowned houses. Premium acetate, titanium, and handcrafted details for those who lead with style.",
+    stats: [{ v: "100%", l: "authentic" }, { v: "New", l: "arrivals" }],
+    accent: "linear-gradient(135deg, #e5e0d8 0%, #f7f5f1 100%)",
   },
 ]
 
-const STICKY_TOP   = 80   // matches top: 80px on first card
-const STICKY_STEP  = 16   // each card stacks 16px lower
-const SCALE_STEP   = 0.04 // scale reduction per card stacked on top
-const OFFSET_STEP  = 8    // px pushed down per card stacked on top
+const STICKY_TOP   = 80
+const STICKY_STEP  = 16
+const SCALE_STEP   = 0.04
+const OFFSET_STEP  = 8
 
 function Tag({ children }: { children: React.ReactNode }) {
   return (
@@ -46,20 +46,17 @@ function Tag({ children }: { children: React.ReactNode }) {
 
 export function StackingAgentCards() {
   const cardRefs = useRef<(HTMLDivElement | null)[]>([])
-  // depth[i] = 0..N how many cards are currently stacked on top of card i
-  const [depth, setDepth] = useState<number[]>(AGENTS.map(() => 0))
+  const [depth, setDepth] = useState<number[]>(EYEWEAR_TYPES.map(() => 0))
 
   useEffect(() => {
     function onScroll() {
-      const nextDepth = AGENTS.map((_, i) => {
-        // Count how many cards j > i are currently in sticky position (i.e. have scrolled past card i)
+      const nextDepth = EYEWEAR_TYPES.map((_, i) => {
         let count = 0
-        for (let j = i + 1; j < AGENTS.length; j++) {
+        for (let j = i + 1; j < EYEWEAR_TYPES.length; j++) {
           const el = cardRefs.current[j]
           if (!el) continue
           const rect = el.getBoundingClientRect()
           const stickyTopJ = STICKY_TOP + j * STICKY_STEP
-          // Card j is "on top of" card i when it has reached its sticky position
           if (rect.top <= stickyTopJ + 2) count++
         }
         return count
@@ -74,75 +71,38 @@ export function StackingAgentCards() {
 
   return (
     <div className="flex flex-col" style={{ perspective: "1400px", perspectiveOrigin: "50% 0%" }}>
-      {AGENTS.map((agent, i) => {
-        const d         = depth[i]
-        const scale     = 1 - d * SCALE_STEP
+      {EYEWEAR_TYPES.map((item, i) => {
+        const d = depth[i]
+        const scale = 1 - d * SCALE_STEP
         const translateY = d * OFFSET_STEP
 
         return (
           <div
-            key={agent.label}
+            key={item.label}
             ref={el => { cardRefs.current[i] = el }}
             className="sticky mb-4"
             style={{ top: `${STICKY_TOP + i * STICKY_STEP}px`, zIndex: 10 + i }}
           >
             <div
               style={{
-                transform:      `scale(${scale}) translateY(${translateY}px)`,
+                transform: `scale(${scale}) translateY(${translateY}px)`,
                 transformOrigin: "top center",
-                transition:     "transform 0.3s cubic-bezier(0.16,1,0.3,1)",
-                willChange:     "transform",
+                transition: "transform 0.3s cubic-bezier(0.16,1,0.3,1)",
+                willChange: "transform",
               }}
             >
-              <div className="group relative bg-[#faf9f7] rounded-2xl border border-black/[0.07] overflow-hidden cursor-pointer">
-
-                {/* ── MOBILE: image top, fades out at bottom ── */}
-                {agent.img && (
-                  <div className="relative w-full h-52 pointer-events-none md:hidden">
-                    <img
-                      src={agent.img}
-                      alt={agent.label}
-                      className="absolute inset-0 w-full h-full object-cover object-center"
-                      style={{
-                        maskImage: "linear-gradient(to bottom, black 0%, black 35%, transparent 85%)",
-                        WebkitMaskImage: "linear-gradient(to bottom, black 0%, black 35%, transparent 85%)",
-                      }}
-                    />
+              <div
+                className="group relative rounded-2xl border border-black/[0.07] overflow-hidden"
+                style={{ background: item.accent }}
+              >
+                <div className="relative z-10 p-8">
+                  <div className="flex items-start justify-between mb-6">
+                    <Tag>{item.label}</Tag>
                   </div>
-                )}
-
-                {/* ── DESKTOP: image right, fades out at left (absolute) ── */}
-                {agent.img && (
-                  <div className="hidden md:block absolute inset-y-0 right-0 w-1/2 pointer-events-none">
-                    <img
-                      src={agent.img}
-                      alt={agent.label}
-                      className="w-full h-full object-cover object-center"
-                    />
-                    <div
-                      className="absolute inset-0"
-                      style={{
-                        background: "linear-gradient(to right, #faf9f7 0%, transparent 55%)",
-                      }}
-                    />
-                  </div>
-                )}
-
-                {/* Text content */}
-                <div
-                  className="relative z-10 p-8"
-                  style={{ maxWidth: agent.img ? undefined : "100%" }}
-                  // On desktop limit to left 60% so text doesn't overlap image
-                >
-                  <div className="md:max-w-[60%]">
-                    <div className="flex items-start justify-between mb-6">
-                      <Tag>{agent.label}</Tag>
-                    </div>
-                    <h3 className="text-xl font-light mb-3">{agent.title}</h3>
-                    <p className="text-sm text-black/45 leading-relaxed mb-8">{agent.desc}</p>
-                  </div>
+                  <h3 className="text-xl font-light mb-3">{item.title}</h3>
+                  <p className="text-sm text-black/45 leading-relaxed mb-8 max-w-lg">{item.desc}</p>
                   <div className="flex gap-8 pt-6 border-t border-black/[0.06]">
-                    {agent.stats.map(s => (
+                    {item.stats.map(s => (
                       <div key={s.l}>
                         <div className="text-2xl font-light">{s.v}</div>
                         <div className="text-[11px] text-black/35 tracking-widest mt-0.5">{s.l}</div>
@@ -150,7 +110,6 @@ export function StackingAgentCards() {
                     ))}
                   </div>
                 </div>
-
               </div>
             </div>
           </div>

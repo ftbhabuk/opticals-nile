@@ -6,7 +6,7 @@ import { AnimatedLensFocus } from "@/components/animated-tetrahedron"
 const JOURNEY_STEPS = [
   { title: "Consultation", desc: "Visit our store for a complimentary eye health consultation. Let's find what suits you." },
   { title: "Exam", desc: "Professional vision testing with latest diagnostic equipment. Precise prescription crafted for you." },
-  { title: "Selection", desc: "Browse 500+ frames from luxury international brands. Try on with expert guidance." },
+  { title: "Selection", desc: "Browse our full in-store collection with expert guidance. Try on styles until you find the one." },
   { title: "Perfect Fit", desc: "Custom adjustments and fitting. Leave with glasses made perfectly for you." },
 ]
 

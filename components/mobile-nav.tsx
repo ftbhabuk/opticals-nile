@@ -31,17 +31,17 @@ export default function Navigation() {
       setIsScrolled(window.scrollY > 20);
     };
     window.addEventListener("scroll", handleScroll);
+    handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const close = () => setOpen(false);
+  const onHero = !isScrolled;
 
   return (
     <div
       className={`fixed z-50 flex justify-center px-4 pointer-events-none transition-all duration-500 ${
-        isScrolled
-          ? "top-4 inset-x-0"
-          : "top-0 inset-x-0"
+        isScrolled ? "top-4 inset-x-0" : "top-0 inset-x-0"
       }`}
     >
       <div
@@ -49,27 +49,24 @@ export default function Navigation() {
           isScrolled ? "max-w-3xl" : "max-w-[1400px]"
         }`}
       >
-        {/* Main bar */}
         <nav
           className={`flex items-center justify-between transition-all duration-500 ${
             isScrolled
               ? "px-5 py-3 rounded-2xl border border-black/[0.06]"
-              : "px-6 lg:px-10 py-5 rounded-none border-b border-black/[0.04]"
+              : "px-6 lg:px-10 py-5 rounded-none border-b border-white/10"
           }`}
           style={isScrolled ? GLASS_STYLE : undefined}
         >
-          {/* Logo */}
           <div className="flex flex-col items-start gap-0.5">
             <span
-              className={`font-pixel tracking-[0.25em] text-black/70 transition-all duration-500 ${
-                isScrolled ? "text-xs" : "text-sm"
+              className={`font-pixel tracking-[0.25em] transition-all duration-500 ${
+                isScrolled ? "text-xs text-black/70" : "text-sm text-white/90"
               }`}
             >
               NILE
             </span>
           </div>
 
-          {/* Desktop links */}
           <div
             className="hidden md:flex items-center gap-7"
             style={{ fontFamily: "system-ui, -apple-system, sans-serif" }}
@@ -78,64 +75,62 @@ export default function Navigation() {
               <a
                 key={l.label}
                 href={l.href}
-                className={`text-black/60 hover:text-black transition-all duration-200 tracking-wide relative group ${
-                  isScrolled ? "text-[11px]" : "text-sm"
+                className={`transition-all duration-200 tracking-wide relative group ${
+                  isScrolled
+                    ? "text-[11px] text-black/60 hover:text-black"
+                    : "text-sm text-white/75 hover:text-white"
                 }`}
               >
                 {l.label}
                 <span
-                  className="absolute -bottom-1 left-0 w-0 h-px bg-black transition-all duration-300 group-hover:w-full"
+                  className={`absolute -bottom-1 left-0 w-0 h-px transition-all duration-300 group-hover:w-full ${
+                    onHero ? "bg-white" : "bg-black"
+                  }`}
                 />
               </a>
             ))}
           </div>
 
-          {/* Right side */}
           <div className="flex items-center gap-3">
-         <button
-  className="text-[10px] px-3 py-1.5 rounded-xl bg-black text-white hover:bg-black/80 transition-all duration-200 tracking-wide hidden md:block"
-  style={{ fontFamily: "system-ui, -apple-system, sans-serif" }}
->
-  VISIT US
-</button>
+            <a
+              href="#gallery"
+              className={`text-[10px] px-3 py-1.5 rounded-xl transition-all duration-200 tracking-wide hidden md:block ${
+                isScrolled
+                  ? "bg-black text-white hover:bg-black/80"
+                  : "border border-white/80 text-white hover:bg-white/10"
+              }`}
+              style={{ fontFamily: "system-ui, -apple-system, sans-serif" }}
+            >
+              VISIT US
+            </a>
 
-            {/* Burger — mobile only */}
             <button
               onClick={() => setOpen((v) => !v)}
-              className="md:hidden flex flex-col justify-center items-center w-8 h-8 gap-[5px] rounded-lg hover:bg-black/[0.04] transition-colors"
+              className={`md:hidden flex flex-col justify-center items-center w-8 h-8 gap-[5px] rounded-lg transition-colors ${
+                onHero ? "hover:bg-white/10" : "hover:bg-black/[0.04]"
+              }`}
               aria-label={open ? "Close menu" : "Open menu"}
             >
-              <span
-                className="block h-px bg-black/60 transition-all duration-300 origin-center"
-                style={{
-                  width: "18px",
-                  transform: open
-                    ? "translateY(6px) rotate(45deg)"
-                    : "none",
-                }}
-              />
-              <span
-                className="block h-px bg-black/60 transition-all duration-300"
-                style={{
-                  width: "18px",
-                  opacity: open ? 0 : 1,
-                  transform: open ? "scaleX(0)" : "none",
-                }}
-              />
-              <span
-                className="block h-px bg-black/60 transition-all duration-300 origin-center"
-                style={{
-                  width: "18px",
-                  transform: open
-                    ? "translateY(-6px) rotate(-45deg)"
-                    : "none",
-                }}
-              />
+              {[0, 1, 2].map((i) => (
+                <span
+                  key={i}
+                  className={`block h-px transition-all duration-300 origin-center ${
+                    onHero ? "bg-white/80" : "bg-black/60"
+                  }`}
+                  style={{
+                    width: "18px",
+                    ...(i === 0
+                      ? { transform: open ? "translateY(6px) rotate(45deg)" : "none" }
+                      : i === 1
+                        ? { opacity: open ? 0 : 1, transform: open ? "scaleX(0)" : "none" }
+                        : { transform: open ? "translateY(-6px) rotate(-45deg)" : "none" }),
+                  }}
+                />
+              ))}
             </button>
           </div>
         </nav>
 
-        {/* Mobile dropdown */}
         <div
           className="md:hidden mt-2 overflow-hidden transition-all duration-300 ease-in-out"
           style={{ maxHeight: open ? "320px" : "0px", opacity: open ? 1 : 0 }}
@@ -150,9 +145,7 @@ export default function Navigation() {
                 href={l.href}
                 onClick={close}
                 className={`px-4 py-3 text-sm text-black/60 hover:text-black hover:bg-black/[0.03] rounded-xl transition-all tracking-wide ${
-                  open
-                    ? "opacity-100 translate-y-0"
-                    : "opacity-0 translate-y-2"
+                  open ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
                 }`}
                 style={{
                   fontFamily: "system-ui, -apple-system, sans-serif",
@@ -163,12 +156,14 @@ export default function Navigation() {
               </a>
             ))}
             <div className="mt-1 px-2 pb-1">
-              <button
-                className="w-full text-[11px] px-4 py-2.5 rounded-xl border border-black/10 text-black/60 hover:text-black hover:border-black/20 hover:bg-black/[0.03] transition-all duration-200 tracking-wide"
+              <a
+                href="#gallery"
+                onClick={close}
+                className="block w-full text-center text-[11px] px-4 py-2.5 rounded-xl border border-black/10 text-black/60 hover:text-black hover:border-black/20 hover:bg-black/[0.03] transition-all duration-200 tracking-wide"
                 style={{ fontFamily: "system-ui, -apple-system, sans-serif" }}
               >
                 VISIT US
-              </button>
+              </a>
             </div>
           </div>
         </div>
