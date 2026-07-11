@@ -281,7 +281,7 @@ export default function App() {
           <div className="rounded-2xl overflow-hidden border border-black/[0.07] flex flex-col md:block md:relative" onMouseMove={handleMouse}>
             <div className="relative w-full h-[280px] md:h-[480px] shrink-0">
               <img
-                src="/images/spectacles-showcase.png"
+                src="/images/landing.png"
                 alt="Premium lens and frame options"
                 className="absolute inset-0 w-full h-full object-cover object-center"
               />
