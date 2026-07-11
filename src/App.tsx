@@ -68,40 +68,16 @@ function Tag({ children }: { children: React.ReactNode }) {
 }
 
 const WHY_NILE = [
-  { label: "Rooted in Pokhara", desc: "A trusted Newroad destination for families across the valley since 2009." },
+  { label: "Rooted in Pokhara", desc: "A trusted Newroad destination for families across the valley." },
   { label: "Expert styling guidance", desc: "Our team helps you choose frames that suit your face, lifestyle, and budget." },
   { label: "Lifetime aftercare", desc: "Free adjustments, cleaning, and minor repairs — whenever you need them." },
   { label: "Walk-ins welcome", desc: "No appointment needed. Drop by anytime during store hours." },
 ]
 
-const COLLECTION_HIGHLIGHTS = [
-  {
-    title: "Handpicked Brands",
-    desc: "Curated frames from Ray-Ban, Oakley, Gucci, and other international names — all authentic.",
-    icon: (
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-      </svg>
-    ),
-  },
-  {
-    title: "Try Before You Buy",
-    desc: "Take your time in-store. Compare styles, lens options, and fit with hands-on guidance.",
-    icon: (
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-        <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z" /><circle cx="12" cy="12" r="3" />
-      </svg>
-    ),
-  },
-  {
-    title: "Honest Pricing",
-    desc: "Clear quotes upfront — frames, lenses, and coatings explained before you decide.",
-    icon: (
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-        <path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6" />
-      </svg>
-    ),
-  },
+const COLLECTION_DETAILS = [
+  { index: "01", label: "Verified houses", desc: "Ray-Ban, Oakley, Gucci, and other international labels sourced with care." },
+  { index: "02", label: "Unhurried try-ons", desc: "Compare shape, weight, lens tint, and face fit with hands-on guidance." },
+  { index: "03", label: "Clear lens pairing", desc: "Frames, coatings, and prescriptions explained before the final selection." },
 ]
 
 export default function App() {
@@ -225,10 +201,10 @@ export default function App() {
           <div className="grid grid-cols-12 gap-3" onMouseMove={handleMouse}>
             <BentoCard className="col-span-12 p-8 min-h-[240px] flex flex-col justify-end relative overflow-hidden" delay={0}>
               <img
-                src="/images/spectacles-showcase.png"
+                src="https://images.unsplash.com/photo-1648025231307-c7e665c5d184?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                 alt="Eyewear collection at Nile Opticals"
                 className="absolute inset-0 w-full h-full object-cover"
-                style={{ objectPosition: "center 70%" }}
+                style={{ objectPosition: "center 58%" }}
               />
               <div
                 className="absolute inset-0"
@@ -244,15 +220,22 @@ export default function App() {
               </div>
             </BentoCard>
 
-            {COLLECTION_HIGHLIGHTS.map((item, i) => (
-              <BentoCard key={item.title} className="col-span-12 md:col-span-4 p-8 min-h-[180px]" delay={120 + i * 40}>
-                <div className="w-10 h-10 rounded-xl border border-black/10 flex items-center justify-center mb-5">
-                  {item.icon}
-                </div>
-                <h3 className="text-lg font-light mb-2">{item.title}</h3>
-                <p className="text-sm text-black/45 leading-relaxed">{item.desc}</p>
-              </BentoCard>
-            ))}
+            <BentoCard className="col-span-12 p-0" delay={120}>
+              <div className="grid divide-y divide-black/[0.06] md:grid-cols-3 md:divide-x md:divide-y-0 md:divide-black/[0.06]">
+                {COLLECTION_DETAILS.map((item) => (
+                  <div key={item.index} className="flex min-h-[150px] flex-col justify-between p-6 md:p-7">
+                    <div className="mb-8 flex items-center justify-between gap-6">
+                      <span className="text-[11px] tracking-[0.22em] text-black/30">{item.index}</span>
+                      <span className="h-px flex-1 bg-black/[0.08]" />
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-light tracking-tight mb-2">{item.label}</h3>
+                      <p className="text-sm text-black/42 leading-relaxed">{item.desc}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </BentoCard>
           </div>
         </div>
       </section>
@@ -387,24 +370,31 @@ export default function App() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-            <div className="md:row-span-2 rounded-2xl overflow-hidden border border-black/[0.07] h-[300px] md:h-full">
+            <div className="md:row-span-3 rounded-2xl overflow-hidden border border-black/[0.07] h-[300px] md:h-full">
               <img
-                src="/images/shop-interior-1.png"
+                src="https://images.unsplash.com/photo-1776950227879-6e3b44cbe830?q=80&w=1400&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                 alt="Nile Opticals shop interior"
                 className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
               />
             </div>
             <div className="rounded-2xl overflow-hidden border border-black/[0.07] h-[250px]">
               <img
-                src="/images/shop-interior-2.png"
+                src="https://images.unsplash.com/photo-1641810780759-2e5cd4569da3?q=80&w=987&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                 alt="Frames display"
                 className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
               />
             </div>
             <div className="rounded-2xl overflow-hidden border border-black/[0.07] h-[250px]">
               <img
-                src="/images/shop-interior-3.png"
+                src="https://plus.unsplash.com/premium_photo-1700822899973-6ca101047daa?q=80&w=987&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
                 alt="Shop entrance"
+                className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+              />
+            </div>
+            <div className="rounded-2xl overflow-hidden border border-black/[0.07] h-[250px]">
+              <img
+                src="https://plus.unsplash.com/premium_photo-1661299306807-d93a1b0d3a2d?q=80&w=2600&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                alt="Optical shop display"
                 className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
               />
             </div>
@@ -539,10 +529,10 @@ export default function App() {
             </div>
           </div>
 
-          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-8 pt-10 border-t border-black/[0.06]">
+          <div className="flex flex-col md:flex-row items-center md:items-center justify-between gap-8 pt-10 border-t border-black/[0.06]">
             <span className="font-pixel text-xs tracking-[0.25em] text-black/50">NILE OPTICALS</span>
 
-            <div className="flex flex-wrap items-center gap-x-8 gap-y-3">
+            <div className="grid w-full grid-cols-3 gap-x-6 gap-y-4 text-center md:flex md:w-auto md:flex-wrap md:items-center md:gap-x-8 md:gap-y-3 md:text-left">
               {[
                 { label: "Collections", href: "#products" },
                 { label: "Eyewear", href: "#types" },
@@ -556,7 +546,7 @@ export default function App() {
             </div>
           </div>
           <div className="mt-8 pt-6 border-t border-black/[0.04]">
-            <span className="text-xs text-black/20">© 2009-{new Date().getFullYear()} Nile Opticals. All rights reserved.</span>
+            <span className="text-xs text-black/20">© {new Date().getFullYear()} Nile Opticals. All rights reserved.</span>
           </div>
         </div>
       </footer>

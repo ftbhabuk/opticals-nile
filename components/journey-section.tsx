@@ -102,7 +102,7 @@ export function JourneySection() {
             className="absolute inset-0 md:translate-x-[28%]"
           >
             {/* <AnimatedTetrahedron /> */}
-            <AnimatedLensFocus/>
+            <AnimatedLensFocus activeStep={activeStep} />
           </div>
 
           <div
