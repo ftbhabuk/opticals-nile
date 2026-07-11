@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useCallback } from "react"
+import React, { useState, useEffect, useCallback, useRef } from "react"
 import { PixelIcon } from "@/components/pixel-icon"
 import { RevealText } from "@/components/reveal-text"
-import { AnimatedLensFocus } from "@/components/animated-tetrahedron"
+import { AnimatedLensFocus } from "@/components/animated-lens-focus"
 
 const JOURNEY_STEPS = [
   { title: "Consultation", desc: "Visit our store for a complimentary eye health consultation. Let's find what suits you." },
@@ -10,7 +10,19 @@ const JOURNEY_STEPS = [
   { title: "Perfect Fit", desc: "Custom adjustments and fitting. Leave with glasses made perfectly for you." },
 ]
 
-const EASE = "cubic-bezier(0.16, 1, 0.3, 1)"
+/** Shared timing — card copy + ASCII animation stay phase-locked */
+export const JOURNEY_TIMING = {
+  /** Content fully visible; one ray sweep runs in this window */
+  dwellMs: 4600,
+  /** Fade-out before step swap */
+  outMs: 300,
+  /** Content / motion ease (CSS) */
+  ease: "cubic-bezier(0.16, 1, 0.3, 1)",
+  contentInMs: 560,
+  contentOutMs: 420,
+} as const
+
+const EASE = JOURNEY_TIMING.ease
 
 function Tag({ children }: { children: React.ReactNode }) {
   return (
@@ -23,60 +35,71 @@ function Tag({ children }: { children: React.ReactNode }) {
 export function JourneySection() {
   const [activeStep, setActiveStep] = useState(0)
   const [visible, setVisible] = useState(true)
+  /** Bumps whenever a step becomes active — animation resets its cycle */
+  const [cycleId, setCycleId] = useState(0)
+  const outTimerRef = useRef<number | null>(null)
 
-  const advanceStep = useCallback((next: number) => {
+  const goToStep = useCallback((next: number) => {
+    if (outTimerRef.current != null) {
+      window.clearTimeout(outTimerRef.current)
+      outTimerRef.current = null
+    }
+
     setVisible(false)
-    window.setTimeout(() => {
+    outTimerRef.current = window.setTimeout(() => {
       setActiveStep(next)
+      setCycleId((id) => id + 1)
       setVisible(true)
-    }, 240)
+      outTimerRef.current = null
+    }, JOURNEY_TIMING.outMs)
   }, [])
 
   const selectStep = useCallback(
     (idx: number) => {
-      if (idx === activeStep) return
-      advanceStep(idx)
+      if (idx === activeStep && visible) return
+      goToStep(idx)
     },
-    [activeStep, advanceStep]
+    [activeStep, visible, goToStep]
   )
 
+  // Autoplay: full dwell per step, timer restarts on every step change (manual or auto)
   useEffect(() => {
+    const total = JOURNEY_TIMING.dwellMs + JOURNEY_TIMING.outMs
     const interval = window.setInterval(() => {
-      setVisible(false)
-      window.setTimeout(() => {
-        setActiveStep((prev) => (prev + 1) % JOURNEY_STEPS.length)
-        setVisible(true)
-      }, 240)
-    }, 4200)
+      goToStep((activeStep + 1) % JOURNEY_STEPS.length)
+    }, total)
     return () => window.clearInterval(interval)
+  }, [activeStep, goToStep])
+
+  useEffect(() => {
+    return () => {
+      if (outTimerRef.current != null) window.clearTimeout(outTimerRef.current)
+    }
   }, [])
 
   const currentStep = JOURNEY_STEPS[activeStep]
+  const { contentInMs, contentOutMs } = JOURNEY_TIMING
+  const fadeMs = visible ? contentInMs : contentOutMs
 
-  const contentStyle: React.CSSProperties = {
+  const titleStyle: React.CSSProperties = {
     opacity: visible ? 1 : 0,
     filter: visible ? "blur(0px)" : "blur(10px)",
     transform: visible ? "translateY(0)" : "translateY(18px)",
-    transition: `opacity 560ms ${EASE}, filter 560ms ${EASE}, transform 560ms ${EASE}`,
-  }
-
-  const titleStyle: React.CSSProperties = {
-    ...contentStyle,
-    transitionDelay: visible ? "0ms" : "0ms",
+    transition: `opacity ${fadeMs}ms ${EASE}, filter ${fadeMs}ms ${EASE}, transform ${fadeMs}ms ${EASE}`,
   }
 
   const descStyle: React.CSSProperties = {
     opacity: visible ? 1 : 0,
     filter: visible ? "blur(0px)" : "blur(8px)",
     transform: visible ? "translateY(0)" : "translateY(12px)",
-    transition: `opacity 560ms ${EASE} 80ms, filter 560ms ${EASE} 80ms, transform 560ms ${EASE} 80ms`,
+    transition: `opacity ${fadeMs}ms ${EASE} ${visible ? 70 : 0}ms, filter ${fadeMs}ms ${EASE} ${visible ? 70 : 0}ms, transform ${fadeMs}ms ${EASE} ${visible ? 70 : 0}ms`,
   }
 
   const numberStyle: React.CSSProperties = {
     opacity: visible ? 1 : 0,
     filter: visible ? "blur(0px)" : "blur(6px)",
     transform: visible ? "scale(1)" : "scale(0.96)",
-    transition: `opacity 480ms ${EASE} 120ms, filter 480ms ${EASE} 120ms, transform 480ms ${EASE} 120ms`,
+    transition: `opacity ${Math.round(fadeMs * 0.85)}ms ${EASE} ${visible ? 100 : 0}ms, filter ${Math.round(fadeMs * 0.85)}ms ${EASE} ${visible ? 100 : 0}ms, transform ${Math.round(fadeMs * 0.85)}ms ${EASE} ${visible ? 100 : 0}ms`,
   }
 
   return (
@@ -98,11 +121,13 @@ export function JourneySection() {
             boxShadow: "0 1px 0 rgba(255,255,255,0.6) inset, 0 8px 32px rgba(0,0,0,0.04)",
           }}
         >
-          <div
-            className="absolute inset-0 md:translate-x-[28%]"
-          >
-            {/* <AnimatedTetrahedron /> */}
-            <AnimatedLensFocus activeStep={activeStep} />
+          <div className="absolute inset-0 md:translate-x-[28%]">
+            <AnimatedLensFocus
+              activeStep={activeStep}
+              cycleId={cycleId}
+              cycleMs={JOURNEY_TIMING.dwellMs}
+              contentVisible={visible}
+            />
           </div>
 
           <div
@@ -142,7 +167,7 @@ export function JourneySection() {
                   style={{
                     background: "linear-gradient(to bottom, rgba(0,0,0,0.22), transparent)",
                     opacity: visible ? 1 : 0,
-                    transition: `opacity 480ms ${EASE} 160ms`,
+                    transition: `opacity ${Math.round(fadeMs * 0.85)}ms ${EASE} ${visible ? 140 : 0}ms`,
                   }}
                 />
               </div>

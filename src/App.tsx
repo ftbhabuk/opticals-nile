@@ -213,8 +213,8 @@ export default function App() {
                 }}
               />
               <div className="relative z-10 max-w-md">
-                <h3 className="text-2xl font-light mb-3">The Nile Opticals Collection</h3>
-                <p className="text-sm text-black/45 leading-relaxed">
+                <h3 className="text-2xl font-light mb-3 text-black">The Nile Opticals Collection</h3>
+                <p className="text-sm text-black leading-relaxed">
                   From everyday classics to statement designer pieces — explore our full in-store range with expert help at every step.
                 </p>
               </div>
