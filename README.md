@@ -28,7 +28,7 @@ npm run preview   # preview the production build
 | Bundler | Vite 6 |
 | Styling | Tailwind CSS v4 (via `@tailwindcss/vite`) |
 | Language | TypeScript (strict) |
-| Analytics | `@vercel/analytics` |
+| Analytics | Cloudflare Web Analytics (dashboard) |
 | Animations | CSS keyframes + Intersection Observer + `requestAnimationFrame` |
 
 ## Structure

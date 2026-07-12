@@ -30,7 +30,8 @@ No test, lint, or typecheck scripts exist.
 - `components/` — per-section React components (hero, footer, bento cards, etc.).
 - `hooks/` — shared React hooks (`useInView`).
 - `public/images/` — static image assets.
-- `@vercel/analytics` — rendered in `src/main.tsx`.
+- **Analytics** — Cloudflare Web Analytics (injected via Cloudflare proxy, no code).
+- **Hosting** — Cloudflare Pages (connected to GitHub repo).
 
 ## Components (17 files)
 
