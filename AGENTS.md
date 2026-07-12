@@ -17,27 +17,49 @@ No test, lint, or typecheck scripts exist.
 
 ## Key config
 
-- **Vite** — `vite.config.ts`: `@` alias maps to project root `.`, not `./src`.
-- **Tailwind** — v4 via `@tailwindcss/vite` plugin (no PostCSS config, no `tailwind.config.*`).
-- **TypeScript** — `tsconfig.json`: `paths: { "@/*": ["./*"] }`, strict mode, includes `src/`, `components/`, `hooks/`, `lib/`.
+- **Path alias** — `@` maps to project root `.` (not `./src`). Config in `vite.config.ts` + `tsconfig.json`.
+- **Tailwind** — v4 via `@tailwindcss/vite` plugin. No PostCSS file, no `tailwind.config.*`.
+- **TypeScript** — strict mode, includes `src/`, `components/`, `hooks/`, `lib/`.
 - **Entrypoint** — `index.html` → `src/main.tsx` → `src/App.tsx`.
-- **Fonts** — loaded via `<link>` in `index.html` (Geist, IBM Plex Sans, Courier Prime). Not via `next/font`.
+- **Fonts** — loaded via `<link>` in `index.html` (Geist, IBM Plex Sans, Courier Prime).
 
 ## Architecture
 
-- `src/globals.css` — Tailwind import + shadcn theme variables + custom keyframes (marquee, glitch, word-reveal).
-- `components/` — per-section React components (no UI kit boilerplate: shadcn `components/ui/*` was removed).
+- `src/App.tsx` — orchestration layer, imports all section components.
+- `src/globals.css` — Tailwind import + CSS variables + custom keyframes.
+- `components/` — per-section React components (hero, footer, bento cards, etc.).
+- `hooks/` — shared React hooks (`useInView`).
 - `public/images/` — static image assets.
 - `@vercel/analytics` — rendered in `src/main.tsx`.
-- Canvas animation in `components/animated-tetrahedron.tsx` (uses `requestAnimationFrame`, no Three.js despite `three` being a dep).
-- All components are client-rendered (no `"use client"` — removed during Next.js→Vite migration).
 
-## History
+## Components (17 files)
 
-Migrated from Next.js to Vite + React. Old `app/`, `next.config.mjs`, `postcss.config.mjs`, `styles/`, `lib/`, `hooks/`, and all `components/ui/*` were deleted. No Next.js artifacts remain.
+```
+components/
+├── animated-lens-focus.tsx   Canvas animation via requestAnimationFrame
+├── bento-card.tsx            Reusable card wrapper with hover/track effects
+├── brand-marquee.tsx         Brand & lens scrolling marquee
+├── collection-section.tsx    "Our Collection" bento grid
+├── counter.tsx               Animated count-up (hero stats)
+├── eyewear-types-section.tsx "Eyewear Types" with stacking cards
+├── footer.tsx                CTA, nav links, social icons, copyright
+├── hero-section.tsx          Full-screen hero with image + stats
+├── journey-section.tsx       Brand journey timeline
+├── lens-brand-section.tsx    "Lenses & Brands" with glass cards
+├── mobile-nav.tsx            Navigation sidebar
+├── pixel-icon.tsx            Animated pixel-art icons
+├── reveal-text.tsx           Scroll-triggered text reveal
+├── stacking-agent-cards.tsx  Stacking card deck
+├── tag.tsx                   Pill badge component
+├── visit-section.tsx         Gallery + location/hours/contact
+└── why-nile-section.tsx      "Why Nile" list + testimonial quote
+```
+
+## Deprecated deps (present in package.json but unused)
+
+`three`, `@react-three/fiber`, `three-stdlib`, and the full Radix UI suite were carried over from a shadcn boilerplate. Not removed yet.  No `app/`, `lib/`, `hooks/` (project-level), `components/ui/` directories exist.
 
 ## Constraints
 
-- `dist/` and `.next/` are gitignored.
-- No CI/CD, no linter config, no test framework.
-- Branch `migrate-vite-react` contains the Vite setup; `main` still has Next.js.
+- `dist/` is gitignored. No `.next/` (Next.js was removed).
+- No CI/CD, no linter, no test framework.
