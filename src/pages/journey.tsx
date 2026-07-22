@@ -1,7 +1,7 @@
+import { useCallback, useRef, useState } from "react"
 import { useInView } from "@/hooks/use-in-view"
 import Navigation from "@/components/mobile-nav"
 import { Tag } from "@/components/tag"
-import { PixelIcon } from "@/components/pixel-icon"
 import { Footer } from "@/components/footer"
 
 const timeline = [
@@ -93,7 +93,108 @@ function FadeUp({
   )
 }
 
+const EASE = "cubic-bezier(0.16, 1, 0.3, 1)"
+
+function TimelineItem({
+  item,
+  index,
+  isLeft,
+  inView,
+}: {
+  item: (typeof timeline)[number]
+  index: number
+  isLeft: boolean
+  inView: boolean
+}) {
+  const delay = index * 120
+  return (
+    <div
+      className={`relative flex flex-col lg:flex-row items-start lg:items-center gap-6 lg:gap-12 mb-12 lg:mb-16 last:mb-0 ${
+        isLeft ? "lg:flex-row" : "lg:flex-row-reverse"
+      }`}
+    >
+      {/* Content */}
+      <div className={`flex-1 ${isLeft ? "lg:text-right" : "lg:text-left"}`}>
+        <span
+          className="text-xs tracking-[0.3em] uppercase text-black/20 block mb-1"
+          style={{
+            opacity: inView ? 1 : 0,
+            transform: inView ? "translateY(0)" : "translateY(12px)",
+            transition: `opacity 0.6s ${EASE} ${delay}ms, transform 0.6s ${EASE} ${delay}ms`,
+          }}
+        >
+          {item.step}
+        </span>
+        <h3
+          className="text-xl lg:text-2xl font-serif mb-3"
+          style={{
+            opacity: inView ? 1 : 0,
+            transform: inView ? "translateY(0)" : "translateY(16px)",
+            filter: inView ? "blur(0px)" : "blur(6px)",
+            transition: `opacity 0.7s ${EASE} ${delay + 80}ms, transform 0.7s ${EASE} ${delay + 80}ms, filter 0.7s ${EASE} ${delay + 80}ms`,
+          }}
+        >
+          {item.title}
+        </h3>
+        <p
+          className="text-black/45 leading-relaxed text-sm lg:text-base max-w-md inline-block"
+          style={{
+            opacity: inView ? 1 : 0,
+            transform: inView ? "translateY(0)" : `translateX(${isLeft ? "-16px" : "16px"})`,
+            filter: inView ? "blur(0px)" : "blur(4px)",
+            transition: `opacity 0.8s ${EASE} ${delay + 160}ms, transform 0.8s ${EASE} ${delay + 160}ms, filter 0.8s ${EASE} ${delay + 160}ms`,
+          }}
+        >
+          {item.description}
+        </p>
+      </div>
+
+      {/* Dot — sits between content & spacer in flex flow */}
+      <div className="hidden lg:block relative z-10">
+        <div
+          className="w-3 h-3 rounded-full bg-black/30"
+          style={{
+            transform: inView ? "scale(1)" : "scale(0)",
+            transition: `transform 0.5s ${EASE} ${delay}ms`,
+          }}
+        />
+      </div>
+
+      {/* Spacer */}
+      <div className="hidden lg:block flex-1" />
+    </div>
+  )
+}
+
 export default function JourneyPage() {
+  const [visibleItems, setVisibleItems] = useState<Set<number>>(new Set())
+  const itemRefs = useRef<(HTMLDivElement | null)[]>([])
+
+  const setItemRef = useCallback(
+    (idx: number) => (el: HTMLDivElement | null) => {
+      if (el && !visibleItems.has(idx)) {
+        const obs = new IntersectionObserver(
+          ([entry]) => {
+            if (entry.isIntersecting) {
+              setVisibleItems((prev) => {
+                const next = new Set(prev)
+                next.add(idx)
+                return next
+              })
+              obs.disconnect()
+            }
+          },
+          { threshold: 0.2 }
+        )
+        obs.observe(el)
+        itemRefs.current[idx] = el
+      }
+    },
+    [visibleItems]
+  )
+
+  const { ref: timelineRef, inView: timelineInView } = useInView(0.1)
+
   return (
     <div className="bg-white text-[#111] min-h-screen font-sans antialiased">
       <Navigation />
@@ -147,43 +248,31 @@ export default function JourneyPage() {
             <h2 className="text-3xl lg:text-5xl font-serif">The Nile Experience</h2>
           </FadeUp>
 
-          <div className="relative">
+          <div ref={timelineRef} className="relative">
             {/* Vertical line — hidden on mobile */}
-            <div className="hidden lg:block absolute left-1/2 top-0 bottom-0 w-px bg-black/[0.08]" />
+            <div className="hidden lg:block absolute left-1/2 top-0 bottom-0 w-px overflow-hidden">
+              {/* Base track */}
+              <div className="absolute inset-0 bg-black/[0.06]" />
+              {/* Fill — draws from top as section enters view */}
+              <div
+                className="absolute inset-0 bg-black/20 origin-top"
+                style={{
+                  transform: timelineInView ? "scaleY(1)" : "scaleY(0)",
+                  transition: "transform 1.8s cubic-bezier(0.16, 1, 0.3, 1)",
+                }}
+              />
+            </div>
 
-            {timeline.map((item, index) => {
-              const isLeft = index % 2 === 0
-              return (
-                <div
-                  key={item.step}
-                  className={`relative flex flex-col lg:flex-row items-start lg:items-center gap-6 lg:gap-12 mb-12 lg:mb-16 last:mb-0 ${
-                    isLeft ? "lg:flex-row" : "lg:flex-row-reverse"
-                  }`}
-                >
-                  {/* Content */}
-                  <FadeUp
-                    delay={index * 80}
-                    className={`flex-1 ${isLeft ? "lg:text-right" : "lg:text-left"}`}
-                  >
-                    <span className="text-xs tracking-[0.3em] uppercase text-black/20 block mb-1">
-                      {item.step}
-                    </span>
-                    <h3 className="text-xl lg:text-2xl font-serif mb-3">{item.title}</h3>
-                    <p className="text-black/45 leading-relaxed text-sm lg:text-base max-w-md inline-block">
-                      {item.description}
-                    </p>
-                  </FadeUp>
-
-                  {/* Dot — sits between content & spacer in flex flow */}
-                  <div className="hidden lg:block relative z-10">
-                    <div className="w-3 h-3 rounded-full bg-black/20" />
-                  </div>
-
-                  {/* Spacer */}
-                  <div className="hidden lg:block flex-1" />
-                </div>
-              )
-            })}
+            {timeline.map((item, index) => (
+              <div key={item.step} ref={setItemRef(index)}>
+                <TimelineItem
+                  item={item}
+                  index={index}
+                  isLeft={index % 2 === 0}
+                  inView={visibleItems.has(index)}
+                />
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -240,15 +329,12 @@ export default function JourneyPage() {
       {/* VISIT US */}
       <section id="gallery" className="py-20 lg:py-32 px-6 lg:px-8">
         <div className="max-w-6xl mx-auto">
-          <FadeUp className="mb-16">
-            <PixelIcon type="platform" size={40} />
-            <div className="mt-4">
+          <FadeUp className="text-center mb-16">
+            <div className="mb-4">
               <Tag>VISIT US</Tag>
             </div>
-            <h2 className="mt-5 text-4xl md:text-5xl font-light tracking-tight leading-[1.05]">
-              Come see us on
-              <br />
-              Newroad, Pokhara.
+            <h2 className="text-3xl lg:text-5xl font-serif text-balance">
+              Come see us on Newroad, Pokhara.
             </h2>
           </FadeUp>
 

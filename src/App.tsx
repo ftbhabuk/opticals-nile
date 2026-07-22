@@ -2,7 +2,6 @@ import Navigation from "@/components/mobile-nav"
 import { HeroSection } from "@/components/hero-section"
 import { CollectionSection } from "@/components/collection-section"
 import { EyewearTypesSection } from "@/components/eyewear-types-section"
-import { JourneySection } from "@/components/journey-section"
 import { LensBrandSection } from "@/components/lens-brand-section"
 import { WhyNileSection } from "@/components/why-nile-section"
 import { BrandMarquee } from "@/components/brand-marquee"
@@ -15,7 +14,6 @@ export default function App() {
       <HeroSection />
       <CollectionSection />
       <EyewearTypesSection />
-      <JourneySection />
       <LensBrandSection />
       <WhyNileSection />
       <BrandMarquee />
