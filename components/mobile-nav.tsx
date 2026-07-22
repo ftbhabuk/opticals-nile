@@ -41,7 +41,7 @@ export default function Navigation() {
 
   return (
     <div
-      className={`fixed z-50 flex justify-center px-4 pointer-events-none transition-all duration-500 ${
+      className={`fixed z-50 flex justify-center pointer-events-none transition-all duration-500 ${
         isScrolled ? "top-4 inset-x-0" : "top-0 inset-x-0"
       }`}
     >

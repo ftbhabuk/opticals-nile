@@ -3,23 +3,9 @@ import { ArrowRight } from "lucide-react"
 
 export function HeroSection() {
   return (
-    <section className="relative min-h-screen flex bg-[#111]">
-      {/* Left rail */}
-      <div className="hidden lg:flex w-[9.5%] xl:w-[10.5%] shrink-0 items-center justify-center bg-white border-r border-black/10">
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 0.5 }}
-          className="text-black/70 -rotate-90 whitespace-nowrap"
-        >
-          <span className="text-[11px] tracking-[0.35em] uppercase">
-            Pokhara&apos;s Refined Optical Boutique
-          </span>
-        </motion.div>
-      </div>
-
+    <section className="relative min-h-screen bg-[#111]">
       {/* Main panel */}
-      <div className="flex-1 relative min-h-screen">
+      <div className="relative min-h-screen">
         {/* Background */}
         <div className="absolute inset-0">
           <img
@@ -37,6 +23,18 @@ export function HeroSection() {
             }}
           />
         </div>
+
+        {/* Vertical label - left edge */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1, delay: 0.5 }}
+          className="absolute left-0 top-0 bottom-0 hidden lg:flex items-center justify-center z-20 -ml-41 -mt-49"
+        >
+          <span className="text-white/50 text-[11px] tracking-[0.35em] uppercase -rotate-90 whitespace-nowrap">
+            Pokhara&apos;s Refined Optical Boutique
+          </span>
+        </motion.div>
 
         {/* Content */}
         <div className="relative z-10 h-full min-h-screen flex flex-col justify-end pt-8 md:pt-12 lg:pt-16 pr-8 md:pr-12 lg:pr-16 pb-8 lg:pb-10 pl-4 md:pl-6 lg:pl-6">
