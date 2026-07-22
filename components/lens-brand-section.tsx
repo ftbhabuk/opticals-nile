@@ -41,7 +41,7 @@ export function LensBrandSection() {
         >
           <div className="relative w-full h-[260px] md:h-[400px]">
             <img
-              src="/images/landing.png"
+              src="https://images.unsplash.com/photo-1574258495973-f010dfbb5371?q=80&w=1400&auto=format&fit=crop"
               alt="Frame and lens options"
               className="absolute inset-0 w-full h-full object-cover object-center"
             />
@@ -50,9 +50,9 @@ export function LensBrandSection() {
               <p className="text-sm tracking-widest uppercase text-white/70">Every prescription, every style</p>
               <Link
                 to="/shop"
-                className="px-5 py-2.5 rounded-lg bg-white/90 text-black text-xs tracking-wider uppercase hover:bg-white transition-all duration-300"
+                className="px-6 py-3 bg-white text-black text-xs tracking-wider uppercase hover:bg-white/90 transition-all duration-300"
               >
-                Browse all frames
+                Browse Frames
               </Link>
             </div>
           </div>

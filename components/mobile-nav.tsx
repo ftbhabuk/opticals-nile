@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 
 const NAV_LINKS = [
-  { label: "Collections", href: "/#products" },
+  { label: "Home", href: "/" },
   { label: "Shop", href: "/shop" },
   { label: "Journey", href: "/journey" },
 ];

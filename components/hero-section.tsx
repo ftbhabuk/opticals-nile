@@ -21,7 +21,7 @@ export function HeroSection() {
           }}
         >
           <span className="text-[11px] tracking-[0.35em] uppercase">
-            Newroad · Pokhara · Est. Optical Boutique
+            Nile Opticals
           </span>
         </div>
       </div>
@@ -86,7 +86,6 @@ export function HeroSection() {
             }}
           >
             {[
-              { value: "15+", label: "Years" },
               { value: "10k+", label: "Customers" },
               { value: "500+", label: "Frames" },
             ].map((stat) => (

@@ -61,7 +61,7 @@ const values = [
   {
     title: "Community Roots",
     description:
-      "Proudly serving Pokhara for over 15 years. We're your neighbors, and your eye health is our commitment.",
+      "Proud to serve Pokhara from our Newroad shop. We're your neighbors, and your eye health is our commitment.",
     image:
       "https://images.unsplash.com/photo-1596462502278-27bfdc403348?q=80&w=1400&auto=format&fit=crop",
   },
@@ -231,8 +231,8 @@ export default function JourneyPage() {
             <p className="text-lg lg:text-xl text-black/50 leading-relaxed">
               At Nile Opticals, we believe choosing eyewear should be a pleasure, not a chore.
               Our shop on Newroad is designed to make you feel at ease — with expert guidance,
-              a vast selection, and a commitment to quality that has made us a trusted name in
-              Pokhara for over 15 years.
+              a vast selection, and a commitment to quality that makes us a welcoming name on
+              Newroad, Pokhara.
             </p>
           </FadeUp>
         </div>
