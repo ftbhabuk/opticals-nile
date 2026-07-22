@@ -2,11 +2,11 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 
 const NAV_LINKS = [
-  { label: "Collections", href: "#products" },
-  { label: "Eyewear", href: "#types" },
+  { label: "Collections", href: "/#products" },
+  { label: "Eyewear", href: "/#types" },
   { label: "Journey", href: "/journey" },
-  { label: "Brands", href: "#brands" },
-  { label: "About", href: "#why-nile" },
+  { label: "Brands", href: "/#brands" },
+  { label: "About", href: "/#why-nile" },
 ];
 
 const GLASS_STYLE = {
