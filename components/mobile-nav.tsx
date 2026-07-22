@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 
 const NAV_LINKS = [
   { label: "Collections", href: "#products" },
   { label: "Eyewear", href: "#types" },
-  { label: "Journey", href: "#journey" },
+  { label: "Journey", href: "/journey" },
   { label: "Brands", href: "#brands" },
   { label: "About", href: "#why-nile" },
 ];
@@ -25,6 +26,8 @@ const GLASS_STYLE_SOLID = {
 export default function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const location = useLocation();
+  const isJourney = location.pathname === "/journey";
 
   useEffect(() => {
     const handleScroll = () => {
@@ -57,7 +60,7 @@ export default function Navigation() {
           }`}
           style={isScrolled ? GLASS_STYLE : undefined}
         >
-          <div className="flex flex-col items-start gap-0.5">
+          <Link to="/" className="flex flex-col items-start gap-0.5">
             <span
               className={`font-pixel tracking-[0.25em] transition-all duration-500 ${
                 isScrolled ? "text-xs text-black/70" : "text-sm text-white/90"
@@ -65,35 +68,39 @@ export default function Navigation() {
             >
               NILE
             </span>
-          </div>
+          </Link>
 
           <div
             className="hidden md:flex items-center gap-7"
             style={{ fontFamily: "system-ui, -apple-system, sans-serif" }}
           >
-            {NAV_LINKS.map((l) => (
-              <a
-                key={l.label}
-                href={l.href}
-                className={`transition-all duration-200 tracking-wide relative group ${
-                  isScrolled
-                    ? "text-[11px] text-black/60 hover:text-black"
-                    : "text-sm text-white/75 hover:text-white"
-                }`}
-              >
-                {l.label}
-                <span
-                  className={`absolute -bottom-1 left-0 w-0 h-px transition-all duration-300 group-hover:w-full ${
-                    onHero ? "bg-white" : "bg-black"
+            {NAV_LINKS.map((l) => {
+              const Tag = l.href.startsWith("/") ? Link : "a"
+              const props = l.href.startsWith("/") ? { to: l.href } : { href: l.href }
+              return (
+                <Tag
+                  key={l.label}
+                  {...props}
+                  className={`transition-all duration-200 tracking-wide relative group ${
+                    isScrolled
+                      ? "text-[11px] text-black/60 hover:text-black"
+                      : "text-sm text-white/75 hover:text-white"
                   }`}
-                />
-              </a>
-            ))}
+                >
+                  {l.label}
+                  <span
+                    className={`absolute -bottom-1 left-0 w-0 h-px transition-all duration-300 group-hover:w-full ${
+                      onHero ? "bg-white" : "bg-black"
+                    }`}
+                  />
+                </Tag>
+              )
+            })}
           </div>
 
           <div className="flex items-center gap-3">
             <a
-              href="#gallery"
+              href={isJourney ? "#gallery" : "/journey"}
               className={`text-[10px] px-3 py-1.5 rounded-xl transition-all duration-200 tracking-wide hidden md:block ${
                 isScrolled
                   ? "bg-black text-white hover:bg-black/80"
@@ -139,25 +146,30 @@ export default function Navigation() {
             className="rounded-2xl border border-black/[0.06] px-2 py-2 flex flex-col"
             style={GLASS_STYLE_SOLID}
           >
-            {NAV_LINKS.map((l, i) => (
-              <a
-                key={l.label}
-                href={l.href}
-                onClick={close}
-                className={`px-4 py-3 text-sm text-black/60 hover:text-black hover:bg-black/[0.03] rounded-xl transition-all tracking-wide ${
-                  open ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
-                }`}
-                style={{
-                  fontFamily: "system-ui, -apple-system, sans-serif",
-                  transitionDelay: open ? `${i * 50}ms` : "0ms",
-                }}
-              >
-                {l.label}
-              </a>
-            ))}
+            {NAV_LINKS.map((l, i) => {
+              const Tag = l.href.startsWith("/") ? Link : "a"
+              const props = l.href.startsWith("/")
+                ? { to: l.href, onClick: close }
+                : { href: l.href, onClick: close }
+              return (
+                <Tag
+                  key={l.label}
+                  {...props}
+                  className={`px-4 py-3 text-sm text-black/60 hover:text-black hover:bg-black/[0.03] rounded-xl transition-all tracking-wide ${
+                    open ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
+                  }`}
+                  style={{
+                    fontFamily: "system-ui, -apple-system, sans-serif",
+                    transitionDelay: open ? `${i * 50}ms` : "0ms",
+                  }}
+                >
+                  {l.label}
+                </Tag>
+              )
+            })}
             <div className="mt-1 px-2 pb-1">
               <a
-                href="#gallery"
+                href={isJourney ? "#gallery" : "/journey"}
                 onClick={close}
                 className="block w-full text-center text-[11px] px-4 py-2.5 rounded-xl border border-black/10 text-black/60 hover:text-black hover:border-black/20 hover:bg-black/[0.03] transition-all duration-200 tracking-wide"
                 style={{ fontFamily: "system-ui, -apple-system, sans-serif" }}

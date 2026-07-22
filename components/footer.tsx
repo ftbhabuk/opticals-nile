@@ -97,12 +97,28 @@ function FadeIn({
   )
 }
 
-export function Footer() {
+function ClipReveal({ children }: { children: ReactNode }) {
+  const { ref, inView } = useInView(0.1)
+  return (
+    <div ref={ref} className="relative overflow-hidden">
+      <div
+        className="absolute inset-0 bg-[#111] z-20 pointer-events-none"
+        style={{
+          transform: inView ? "translateY(-100%)" : "translateY(0%)",
+          transition: "transform 1.2s cubic-bezier(0.16, 1, 0.3, 1)",
+        }}
+      />
+      {children}
+    </div>
+  )
+}
+
+export function Footer({ reveal = false }: { reveal?: boolean }) {
   function handleSubscribe(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
   }
 
-  return (
+  const inner = (
     <footer className="bg-[#111] text-white">
       <div className="max-w-7xl mx-auto px-6 lg:px-8 py-16 lg:py-24">
         {/* Main footer content */}
@@ -175,4 +191,6 @@ export function Footer() {
       </div>
     </footer>
   )
+
+  return reveal ? <ClipReveal>{inner}</ClipReveal> : inner
 }
