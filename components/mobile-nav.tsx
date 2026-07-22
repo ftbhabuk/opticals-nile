@@ -4,9 +4,8 @@ import { Link, useLocation } from "react-router-dom";
 const NAV_LINKS = [
   { label: "Collections", href: "/#products" },
   { label: "Eyewear", href: "/#types" },
+  { label: "Shop", href: "/shop" },
   { label: "Journey", href: "/journey" },
-  { label: "Brands", href: "/#brands" },
-  { label: "About", href: "/#why-nile" },
 ];
 
 const GLASS_STYLE = {

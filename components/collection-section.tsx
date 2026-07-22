@@ -124,10 +124,10 @@ export function CollectionSection() {
           }}
         >
           <a
-            href="#gallery"
+            href="/shop"
             className="inline-flex items-center text-xs tracking-[0.2em] uppercase border-b border-black/80 pb-1 hover:border-transparent transition-colors duration-300"
           >
-            Visit to Try On
+            View Full Collection
           </a>
         </div>
       </div>

@@ -4,28 +4,25 @@ import type { ReactNode } from "react"
 
 const footerLinks = {
   explore: [
-    { label: "Collections", href: "/#products" },
-    { label: "Eyewear Types", href: "/#types" },
-    { label: "Lenses & Brands", href: "/#brands" },
-    { label: "Prescription Frames", href: "/#types" },
+    { label: "All Frames", href: "/shop" },
+    { label: "Prescription", href: "/#types" },
     { label: "Sunglasses", href: "/#types" },
-  ],
-  about: [
-    { label: "Our Journey", href: "/journey" },
-    { label: "Why Nile", href: "/#why-nile" },
-    { label: "Visit the Shop", href: "/journey#gallery" },
-    { label: "Newroad, Pokhara", href: "/journey#gallery" },
+    { label: "Lenses & Brands", href: "/#brands" },
   ],
   visit: [
     { label: "Location & Hours", href: "/journey#gallery" },
+    { label: "Our Journey", href: "/journey" },
     { label: "Call Us", href: "tel:061520XXXX" },
     {
       label: "WhatsApp",
       href: "https://wa.me/9779841XXXXX",
       external: true,
     },
-    {
-      label: "Get Directions",
+  ],
+  shop: [
+    { label: "Browse Frames", href: "/shop" },
+    { label: "Custom Orders", href: "/shop#custom" },
+    { label: "Get Directions",
       href: "https://www.google.com/maps/dir//Pokhara+9,+Newroad,+18th+Street,+Purnima+Marga",
       external: true,
     },
@@ -140,8 +137,8 @@ export function Footer({ reveal = false }: { reveal?: boolean }) {
           </FadeIn>
 
           <FooterColumn title="Explore" links={footerLinks.explore} delay={100} />
-          <FooterColumn title="About" links={footerLinks.about} delay={200} />
-          <FooterColumn title="Visit" links={footerLinks.visit} delay={300} />
+          <FooterColumn title="Visit" links={footerLinks.visit} delay={200} />
+          <FooterColumn title="Shop" links={footerLinks.shop} delay={300} />
         </div>
 
         {/* Bottom bar */}

@@ -3,7 +3,6 @@ import { HeroSection } from "@/components/hero-section"
 import { CollectionSection } from "@/components/collection-section"
 import { EyewearTypesSection } from "@/components/eyewear-types-section"
 import { LensBrandSection } from "@/components/lens-brand-section"
-import { WhyNileSection } from "@/components/why-nile-section"
 import { BrandMarquee } from "@/components/brand-marquee"
 import { Footer } from "@/components/footer"
 
@@ -15,7 +14,6 @@ export default function App() {
       <CollectionSection />
       <EyewearTypesSection />
       <LensBrandSection />
-      <WhyNileSection />
       <BrandMarquee />
       <Footer />
     </div>
