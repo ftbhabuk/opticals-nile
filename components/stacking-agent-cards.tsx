@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react"
+import { motion } from "framer-motion"
 
 const EYEWEAR_TYPES = [
   {
@@ -97,16 +98,16 @@ export function StackingAgentCards() {
         const scale = 1 - d * SCALE_STEP
         const translateY = d * OFFSET_STEP
 
-        return (
-          <div
-            key={item.label}
-            ref={(el) => {
-              cardRefs.current[i] = el
-            }}
-            className="sticky mb-5 last:mb-0"
-            style={{ top: `${STICKY_TOP + i * STICKY_STEP}px`, zIndex: 10 + i }}
-          >
+          return (
             <div
+              key={item.label}
+              ref={(el) => {
+                cardRefs.current[i] = el
+              }}
+              className="sticky mb-5 last:mb-0"
+              style={{ top: `${STICKY_TOP + i * STICKY_STEP}px`, zIndex: 10 + i }}
+            >
+              <div
               style={{
                 transform: `scale(${scale}) translateY(${translateY}px)`,
                 transformOrigin: "top center",
@@ -114,7 +115,11 @@ export function StackingAgentCards() {
                 willChange: "transform",
               }}
             >
-              <div
+              <motion.div
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-40px" }}
+                transition={{ duration: 0.6, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
                 className="group relative overflow-hidden rounded-2xl border border-black/[0.07] bg-white shadow-[0_12px_40px_rgba(0,0,0,0.04)] transition-[border-color,box-shadow] duration-500 hover:border-black/[0.12] hover:shadow-[0_16px_48px_rgba(0,0,0,0.06)]"
               >
                 <div className="relative z-10 grid gap-8 p-6 md:grid-cols-[minmax(0,1fr)_minmax(280px,38%)] md:items-stretch md:gap-10 md:p-8 lg:p-10">
@@ -174,9 +179,9 @@ export function StackingAgentCards() {
                     />
                   </div>
                 </div>
-              </div>
-            </div>
+                </motion.div>
           </div>
+        </div>
         )
       })}
     </div>

@@ -1,23 +1,19 @@
+import { motion } from "framer-motion"
 import { StackingAgentCards } from "@/components/stacking-agent-cards"
-import { useInView } from "@/hooks/use-in-view"
 
 export function EyewearTypesSection() {
-  const { ref: headerRef, inView: headerInView } = useInView(0.15)
-
   return (
     <section
       id="types"
       className="py-24 lg:py-32 px-6 md:px-12 lg:px-20 border-t border-black/[0.06]"
     >
       <div className="max-w-7xl mx-auto">
-        <div
-          ref={headerRef}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-60px" }}
+          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
           className="text-center mb-16 lg:mb-24"
-          style={{
-            opacity: headerInView ? 1 : 0,
-            transform: headerInView ? "translateY(0)" : "translateY(20px)",
-            transition: "opacity 0.6s ease, transform 0.6s ease",
-          }}
         >
           <p className="text-[11px] tracking-[0.22em] uppercase text-black/35 mb-4">
             Eyewear Types
@@ -28,7 +24,7 @@ export function EyewearTypesSection() {
           <p className="text-sm text-black/45 leading-relaxed max-w-md mx-auto">
             Prescription, sun, specialty, and fashion — each category tailored to how you live and see.
           </p>
-        </div>
+        </motion.div>
 
         <StackingAgentCards />
       </div>

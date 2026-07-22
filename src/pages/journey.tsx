@@ -1,6 +1,6 @@
 import { useCallback, useRef, useState } from "react"
 import { useInView } from "@/hooks/use-in-view"
-import Navigation from "@/components/mobile-nav"
+
 import { Tag } from "@/components/tag"
 import { Footer } from "@/components/footer"
 
@@ -197,8 +197,7 @@ export default function JourneyPage() {
 
   return (
     <div className="bg-white text-[#111] min-h-screen font-sans antialiased">
-      <Navigation />
-
+      
       {/* HERO */}
       <section className="relative h-[70vh] lg:h-[80vh] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">

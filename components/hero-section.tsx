@@ -1,41 +1,34 @@
-import { useState, useEffect } from "react"
+import { motion } from "framer-motion"
 import { ArrowRight } from "lucide-react"
 
 export function HeroSection() {
-  const [ready, setReady] = useState(false)
-
-  useEffect(() => {
-    const id = requestAnimationFrame(() => setReady(true))
-    return () => cancelAnimationFrame(id)
-  }, [])
-
   return (
     <section className="relative min-h-screen flex bg-[#111]">
-      {/* Left rail — vertical label */}
-      <div className="hidden lg:flex w-[18%] xl:w-[20%] shrink-0 items-center justify-center border-r border-white/10">
-        <div
-          className="text-white/70 -rotate-90 whitespace-nowrap"
-          style={{
-            opacity: ready ? 1 : 0,
-            transition: "opacity 1s ease 0.5s",
-          }}
+      {/* Left rail */}
+      <div className="hidden lg:flex w-[9.5%] xl:w-[10.5%] shrink-0 items-center justify-center bg-white border-r border-black/10">
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1, delay: 0.5 }}
+          className="text-black/70 -rotate-90 whitespace-nowrap"
         >
           <span className="text-[11px] tracking-[0.35em] uppercase">
-            Nile Opticals
+            Pokhara&apos;s Refined Optical Boutique
           </span>
-        </div>
+        </motion.div>
       </div>
 
-      {/* Main visual panel */}
+      {/* Main panel */}
       <div className="flex-1 relative min-h-screen">
+        {/* Background */}
         <div className="absolute inset-0">
           <img
-            src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=1600&auto=format&fit=crop"
+            src="https://images.unsplash.com/photo-1687333621846-01628cae8300?q=80&w=1064&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
             alt="Premium eyewear at Nile Opticals"
-            className="h-full w-full object-cover"
-            style={{ objectPosition: "center 25%" }}
+            className="h-full w-full object-cover scale-x-[-1]"
+            style={{ objectPosition: "center 23%" }}
           />
-          <div className="absolute inset-0 bg-[#111]/45" />
+          <div className="absolute inset-0 bg-foreground/40" />
           <div
             className="absolute inset-0"
             style={{
@@ -46,44 +39,39 @@ export function HeroSection() {
         </div>
 
         {/* Content */}
-        <div className="relative z-10 h-full min-h-screen flex flex-col justify-end p-8 md:p-12 lg:p-16 pb-28 lg:pb-32">
-          <div
+        <div className="relative z-10 h-full min-h-screen flex flex-col justify-end pt-8 md:pt-12 lg:pt-16 pr-8 md:pr-12 lg:pr-16 pb-8 lg:pb-10 pl-4 md:pl-6 lg:pl-6">
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.85, delay: 0.3, ease: "easeOut" }}
             className="max-w-2xl"
-            style={{
-              opacity: ready ? 1 : 0,
-              transform: ready ? "translateY(0)" : "translateY(36px)",
-              transition:
-                "opacity 0.85s cubic-bezier(0.16,1,0.3,1) 0.25s, transform 0.85s cubic-bezier(0.16,1,0.3,1) 0.25s",
-            }}
           >
-            <p className="text-[11px] tracking-[0.28em] uppercase text-white/55 mb-5">
-              Nile Opticals
-            </p>
-            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-light text-white leading-[1.08] tracking-tight mb-6">
-              See clearly.
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif font-light text-white leading-[1.08] tracking-tight mb-5">
+              The Art of
               <br />
               Look refined.
             </h1>
-            <p className="text-white/70 text-sm md:text-base tracking-wide mb-10 max-w-md leading-relaxed">
+            <p className="text-white/70 text-sm md:text-base tracking-wide mb-5 max-w-md leading-relaxed">
               Premium frames, precise lenses, and unhurried guidance — crafted for
               how you live in Pokhara.
             </p>
-            <a
-              href="#products"
-              className="inline-flex items-center gap-3 bg-white text-[#111] px-8 py-4 text-xs tracking-[0.2em] uppercase hover:bg-white/90 transition-colors group"
-            >
-              Explore Collection
-              <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-            </a>
-          </div>
+            <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} className="mb-5">
+              <a
+                href="#products"
+                className="inline-flex items-center gap-3 bg-white text-foreground px-8 py-4 text-xs tracking-[0.2em] uppercase hover:bg-white/90 transition-colors group"
+              >
+                Explore Collection
+                <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+              </a>
+            </motion.div>
+          </motion.div>
 
-          {/* Compact stats */}
-          <div
-            className="mt-12 flex flex-wrap gap-8 sm:gap-12"
-            style={{
-              opacity: ready ? 1 : 0,
-              transition: "opacity 0.8s ease 0.55s",
-            }}
+          {/* Stats */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.55 }}
+            className="flex flex-wrap gap-8 sm:gap-12 mb-5"
           >
             {[
               { value: "10k+", label: "Customers" },
@@ -98,21 +86,35 @@ export function HeroSection() {
                 </div>
               </div>
             ))}
-          </div>
+          </motion.div>
         </div>
 
-        {/* Scroll indicator */}
-        <div
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2"
-          style={{
-            opacity: ready ? 1 : 0,
-            transition: "opacity 1s ease 1s",
-          }}
-        >
-          <div
-            className="w-px h-12 bg-white/40 origin-top"
-            style={{ animation: "hero-scroll-line 1.6s ease-in-out infinite" }}
-          />
+        {/* Label - far right */}
+        <div className="absolute bottom-8 right-8 z-10 flex flex-col items-end">
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1, delay: 1.1 }}
+          >
+            <span className="text-[11px] tracking-[0.35em] uppercase text-white/70 flex items-center gap-2 mb-3">
+              <span className="w-2 h-2 rounded-full bg-emerald-500" />
+              Nile Opticals
+            </span>
+          </motion.div>
+          <div className="flex flex-col items-end gap-[3px] overflow-hidden">
+            <motion.div
+              initial={{ scaleX: 0 }}
+              animate={{ scaleX: 1 }}
+              transition={{ duration: 0.8, delay: 1.3, ease: [0.16, 1, 0.3, 1] }}
+              className="h-px bg-white/40 origin-right w-16"
+            />
+            <motion.div
+              initial={{ scaleX: 0 }}
+              animate={{ scaleX: 1 }}
+              transition={{ duration: 0.8, delay: 1.4, ease: [0.16, 1, 0.3, 1] }}
+              className="h-px bg-white/40 origin-right w-10"
+            />
+          </div>
         </div>
       </div>
     </section>

@@ -1,6 +1,5 @@
 import { useState } from "react"
-import { useInView } from "@/hooks/use-in-view"
-import Navigation from "@/components/mobile-nav"
+
 import { ProductCard, type Product } from "@/components/product-card"
 import { Footer } from "@/components/footer"
 
@@ -115,8 +114,6 @@ export default function ShopPage() {
 
   return (
     <div className="bg-white text-[#111] min-h-screen font-sans antialiased">
-      <Navigation />
-
       {/* HERO */}
       <section className="relative h-[50vh] min-h-[420px] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">

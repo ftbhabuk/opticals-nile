@@ -47,14 +47,14 @@ export default function Navigation() {
     >
       <div
         className={`pointer-events-auto w-full transition-all duration-500 ${
-          isScrolled ? "max-w-3xl" : "max-w-[1400px]"
+          isScrolled ? "max-w-3xl" : "max-w-none"
         }`}
       >
         <nav
           className={`flex items-center justify-between transition-all duration-500 ${
             isScrolled
               ? "px-5 py-3 rounded-2xl border border-black/[0.06]"
-              : "px-6 lg:px-10 py-5 rounded-none border-b border-white/10"
+               : "px-6 lg:px-10 py-5 rounded-none border-b border-white/10"
           }`}
           style={isScrolled ? GLASS_STYLE : undefined}
         >
@@ -74,25 +74,27 @@ export default function Navigation() {
           >
             {NAV_LINKS.map((l) => {
               const hasHash = l.href.includes("#")
-              const Tag = hasHash ? "a" : Link
-              const props = hasHash ? { href: l.href } : { to: l.href }
-              return (
-                <Tag
-                  key={l.label}
-                  {...props}
-                  className={`transition-all duration-200 tracking-wide relative group ${
-                    isScrolled
-                      ? "text-[11px] text-black/60 hover:text-black"
-                      : "text-sm text-white/75 hover:text-white"
-                  }`}
-                >
-                  {l.label}
-                  <span
-                    className={`absolute -bottom-1 left-0 w-0 h-px transition-all duration-300 group-hover:w-full ${
-                      onHero ? "bg-white" : "bg-black"
-                    }`}
-                  />
-                </Tag>
+              const isActive = location.pathname === l.href
+              const linkClass = `transition-all duration-200 tracking-wide relative group ${
+                isScrolled
+                  ? "text-[11px] text-black/60 hover:text-black"
+                  : "text-sm text-white/75 hover:text-white"
+              }`
+              const underline = (
+                <span
+                  className={`absolute -bottom-1 left-0 h-px transition-all duration-300 ${
+                    onHero ? "bg-white" : "bg-black"
+                  } ${isActive ? "w-full" : "w-0 group-hover:w-full"}`}
+                />
+              )
+              return hasHash ? (
+                <a key={l.label} href={l.href} className={linkClass}>
+                  {l.label}{underline}
+                </a>
+              ) : (
+                <Link key={l.label} to={l.href} className={linkClass}>
+                  {l.label}{underline}
+                </Link>
               )
             })}
           </div>
@@ -147,24 +149,26 @@ export default function Navigation() {
           >
             {NAV_LINKS.map((l, i) => {
               const hasHash = l.href.includes("#")
-              const Tag = hasHash ? "a" : Link
-              const props = hasHash
-                ? { href: l.href, onClick: close }
-                : { to: l.href, onClick: close }
-              return (
-                <Tag
-                  key={l.label}
-                  {...props}
-                  className={`px-4 py-3 text-sm text-black/60 hover:text-black hover:bg-black/[0.03] rounded-xl transition-all tracking-wide ${
-                    open ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
-                  }`}
-                  style={{
-                    fontFamily: "system-ui, -apple-system, sans-serif",
-                    transitionDelay: open ? `${i * 50}ms` : "0ms",
-                  }}
-                >
+              const isActive = location.pathname === l.href
+              const linkClass = `px-4 py-3 text-sm rounded-xl transition-all tracking-wide ${
+                isActive
+                  ? "text-black font-medium bg-black/[0.04]"
+                  : "text-black/60 hover:text-black hover:bg-black/[0.03]"
+              } ${
+                open ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
+              }`
+              const delayStyle = {
+                fontFamily: "system-ui, -apple-system, sans-serif",
+                transitionDelay: open ? `${i * 50}ms` : "0ms",
+              }
+              return hasHash ? (
+                <a key={l.label} href={l.href} onClick={close} className={linkClass} style={delayStyle}>
                   {l.label}
-                </Tag>
+                </a>
+              ) : (
+                <Link key={l.label} to={l.href} onClick={close} className={linkClass} style={delayStyle}>
+                  {l.label}
+                </Link>
               )
             })}
             <div className="mt-1 px-2 pb-1">

@@ -1,5 +1,6 @@
+import { motion } from "framer-motion"
+import { Link } from "react-router-dom"
 import { ProductCard, type Product } from "@/components/product-card"
-import { useInView } from "@/hooks/use-in-view"
 
 const products: Product[] = [
   {
@@ -65,32 +66,27 @@ const products: Product[] = [
 ]
 
 export function CollectionSection() {
-  const { ref: headerRef, inView: headerInView } = useInView(0.15)
-  const { ref: ctaRef, inView: ctaInView } = useInView(0.15)
-
   return (
     <section id="products" className="py-24 lg:py-32 px-6 md:px-12 lg:px-20">
       <div className="max-w-7xl mx-auto">
         {/* Section header */}
-        <div
-          ref={headerRef}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
           className="text-center mb-16 lg:mb-24"
-          style={{
-            opacity: headerInView ? 1 : 0,
-            transform: headerInView ? "translateY(0)" : "translateY(20px)",
-            transition: "opacity 0.6s ease, transform 0.6s ease",
-          }}
         >
           <p className="text-[11px] tracking-[0.22em] uppercase text-black/35 mb-4">
             Our Collection
           </p>
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-light tracking-tight mb-4">
+          <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl mb-4">
             Curated Selection
           </h2>
           <p className="text-sm text-black/45 leading-relaxed max-w-md mx-auto">
             Frames for every face, lifestyle, and prescription — tried on with care in store.
           </p>
-        </div>
+        </motion.div>
 
         {/* Asymmetrical product grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
@@ -115,21 +111,20 @@ export function CollectionSection() {
           </div>
         </div>
 
-        <div
-          ref={ctaRef}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.3 }}
           className="text-center mt-16 lg:mt-24"
-          style={{
-            opacity: ctaInView ? 1 : 0,
-            transition: "opacity 0.6s ease 0.2s",
-          }}
         >
-          <a
-            href="/shop"
+          <Link
+            to="/shop"
             className="inline-flex items-center text-xs tracking-[0.2em] uppercase border-b border-black/80 pb-1 hover:border-transparent transition-colors duration-300"
           >
             View Full Collection
-          </a>
-        </div>
+          </Link>
+        </motion.div>
       </div>
     </section>
   )
