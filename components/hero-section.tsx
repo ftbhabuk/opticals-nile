@@ -1,97 +1,119 @@
-"use client"
 import { useState, useEffect } from "react"
-import { Counter } from "@/components/counter"
+import { ArrowRight } from "lucide-react"
 
 export function HeroSection() {
-  const [heroReady, setHeroReady] = useState(false)
+  const [ready, setReady] = useState(false)
 
   useEffect(() => {
-    setHeroReady(true)
+    const id = requestAnimationFrame(() => setReady(true))
+    return () => cancelAnimationFrame(id)
   }, [])
 
   return (
-    <section className="relative h-screen overflow-hidden bg-[#1a1a1a]">
-      <img
-        src="https://wallpaperaccess.com/full/358942.jpg"
-        alt=""
-        aria-hidden="true"
-        className="absolute inset-0 w-full h-full object-cover z-0"
-        style={{ objectPosition: "center 30%", transform: "scale(1.06)" }}
-      />
-
-      <div
-        className="absolute inset-0 z-10 pointer-events-none"
-        style={{
-          background: [
-            "linear-gradient(to bottom,",
-            "rgba(10,10,10,0.55) 0%,",
-            "rgba(10,10,10,0.28) 18%,",
-            "rgba(10,10,10,0.08) 38%,",
-            "rgba(245,244,240,0.0) 52%,",
-            "rgba(245,244,240,0.45) 68%,",
-            "rgba(245,244,240,0.82) 82%,",
-            "#F5F4F0 100%)",
-          ].join(" "),
-        }}
-      />
-
-      <div className="h-20" />
-
-      <div
-        className="absolute z-30 flex items-center gap-2"
-        style={{
-          right: "1rem",
-          bottom: "3rem",
-          opacity: heroReady ? 1 : 0,
-          filter: heroReady ? "blur(0px)" : "blur(24px)",
-          transform: heroReady ? "translateY(0px)" : "translateY(32px)",
-          transition: "opacity 1s cubic-bezier(0.16,1,0.3,1) 400ms, filter 1s cubic-bezier(0.16,1,0.3,1) 400ms, transform 1s cubic-bezier(0.16,1,0.3,1) 400ms",
-        }}
-      >
-        <span className="w-1.5 h-1.5 rounded-full bg-emerald-400/80" />
-        <span
-          className="text-xs tracking-[0.2em] uppercase text-black whitespace-nowrap"
-          style={{ fontFamily: '"IBM Plex Sans", sans-serif' }}
-        >
-          Pokhara's refined optical boutique
-        </span>
-      </div>
-
-      <div className="absolute inset-x-0 bottom-0 z-30 flex flex-col px-6 md:px-12 pb-12 max-w-3xl">
-        <h1
-          className="text-6xl sm:text-7xl md:text-8xl font-light text-[#111] leading-[1.0] tracking-tight mb-10"
+    <section className="relative min-h-screen flex bg-[#111]">
+      {/* Left rail — vertical label */}
+      <div className="hidden lg:flex w-[18%] xl:w-[20%] shrink-0 items-center justify-center border-r border-white/10">
+        <div
+          className="text-white/70 -rotate-90 whitespace-nowrap"
           style={{
-            fontFamily: '"IBM Plex Sans", sans-serif',
-            opacity: heroReady ? 1 : 0,
-            filter: heroReady ? "blur(0px)" : "blur(24px)",
-            transform: heroReady ? "translateY(0px)" : "translateY(32px)",
-            transition: "opacity 1s cubic-bezier(0.16,1,0.3,1) 0ms, filter 1s cubic-bezier(0.16,1,0.3,1) 0ms, transform 1s cubic-bezier(0.16,1,0.3,1) 0ms",
+            opacity: ready ? 1 : 0,
+            transition: "opacity 1s ease 0.5s",
           }}
         >
-          Precision<br/> with<br />presence.
-        </h1>
+          <span className="text-[11px] tracking-[0.35em] uppercase">
+            Newroad · Pokhara · Est. Optical Boutique
+          </span>
+        </div>
+      </div>
 
-        <div className="flex items-center gap-8 sm:gap-12">
-          {[
-            { end: 15, suffix: "+", label: "Years" },
-            { end: 10000, suffix: "+", label: "Happy Customers" },
-            { end: 500, suffix: "+", label: "Frame Styles" },
-          ].map((stat, i) => (
-            <div
-              key={stat.label}
-              style={{
-                opacity: heroReady ? 1 : 0,
-                filter: heroReady ? "blur(0px)" : "blur(16px)",
-                transform: heroReady ? "translateY(0px)" : "translateY(20px)",
-                transition: `opacity 0.8s cubic-bezier(0.16,1,0.3,1) ${120 + i * 80}ms, filter 0.8s cubic-bezier(0.16,1,0.3,1) ${120 + i * 80}ms, transform 0.8s cubic-bezier(0.16,1,0.3,1) ${120 + i * 80}ms`,
-              }}
+      {/* Main visual panel */}
+      <div className="flex-1 relative min-h-screen">
+        <div className="absolute inset-0">
+          <img
+            src="https://images.unsplash.com/photo-1556306535-0f09a537f0a3?q=80&w=1600&auto=format&fit=crop"
+            alt="Premium eyewear at Nile Opticals"
+            className="h-full w-full object-cover"
+            style={{ objectPosition: "center 25%" }}
+          />
+          <div className="absolute inset-0 bg-[#111]/45" />
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "linear-gradient(to top, rgba(17,17,17,0.75) 0%, rgba(17,17,17,0.25) 45%, rgba(17,17,17,0.15) 100%)",
+            }}
+          />
+        </div>
+
+        {/* Content */}
+        <div className="relative z-10 h-full min-h-screen flex flex-col justify-end p-8 md:p-12 lg:p-16 pb-28 lg:pb-32">
+          <div
+            className="max-w-2xl"
+            style={{
+              opacity: ready ? 1 : 0,
+              transform: ready ? "translateY(0)" : "translateY(36px)",
+              transition:
+                "opacity 0.85s cubic-bezier(0.16,1,0.3,1) 0.25s, transform 0.85s cubic-bezier(0.16,1,0.3,1) 0.25s",
+            }}
+          >
+            <p className="text-[11px] tracking-[0.28em] uppercase text-white/55 mb-5">
+              Nile Opticals
+            </p>
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-light text-white leading-[1.08] tracking-tight mb-6">
+              See clearly.
+              <br />
+              Look refined.
+            </h1>
+            <p className="text-white/70 text-sm md:text-base tracking-wide mb-10 max-w-md leading-relaxed">
+              Premium frames, precise lenses, and unhurried guidance — crafted for
+              how you live in Pokhara.
+            </p>
+            <a
+              href="#products"
+              className="inline-flex items-center gap-3 bg-white text-[#111] px-8 py-4 text-xs tracking-[0.2em] uppercase hover:bg-white/90 transition-colors group"
             >
-              <div className="text-3xl sm:text-4xl text-[#111] font-light tracking-tight" style={{ fontFamily: '"IBM Plex Sans", sans-serif' }}>
-                <Counter end={stat.end} suffix={stat.suffix} />
+              Explore Collection
+              <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+            </a>
+          </div>
+
+          {/* Compact stats */}
+          <div
+            className="mt-12 flex flex-wrap gap-8 sm:gap-12"
+            style={{
+              opacity: ready ? 1 : 0,
+              transition: "opacity 0.8s ease 0.55s",
+            }}
+          >
+            {[
+              { value: "15+", label: "Years" },
+              { value: "10k+", label: "Customers" },
+              { value: "500+", label: "Frames" },
+            ].map((stat) => (
+              <div key={stat.label}>
+                <div className="text-2xl sm:text-3xl font-light text-white tracking-tight">
+                  {stat.value}
+                </div>
+                <div className="text-[10px] tracking-[0.2em] uppercase text-white/45 mt-1">
+                  {stat.label}
+                </div>
               </div>
-              <div className="text-xs text-black/40 tracking-widest uppercase mt-1" style={{ fontFamily: '"IBM Plex Sans", sans-serif' }}>{stat.label}</div>
-            </div>
-          ))}
+            ))}
+          </div>
+        </div>
+
+        {/* Scroll indicator */}
+        <div
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2"
+          style={{
+            opacity: ready ? 1 : 0,
+            transition: "opacity 1s ease 1s",
+          }}
+        >
+          <div
+            className="w-px h-12 bg-white/40 origin-top"
+            style={{ animation: "hero-scroll-line 1.6s ease-in-out infinite" }}
+          />
         </div>
       </div>
     </section>

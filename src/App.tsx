@@ -11,7 +11,7 @@ import { Footer } from "@/components/footer"
 
 export default function App() {
   return (
-    <div className="bg-[#F5F4F0] text-[#111] min-h-screen font-sans antialiased">
+    <div className="bg-white text-[#111] min-h-screen font-sans antialiased">
       <Navigation />
       <HeroSection />
       <CollectionSection />

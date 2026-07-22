@@ -11,14 +11,14 @@ const NAV_LINKS = [
 const GLASS_STYLE = {
   backdropFilter: "blur(16px)",
   WebkitBackdropFilter: "blur(16px)",
-  background: "rgba(245,244,240,0.30)",
+  background: "rgba(255,255,255,0.72)",
   boxShadow: "0 8px 32px rgba(0,0,0,0.08), 0 2px 8px rgba(0,0,0,0.06)",
 } as const;
 
 const GLASS_STYLE_SOLID = {
   backdropFilter: "blur(20px)",
   WebkitBackdropFilter: "blur(20px)",
-  background: "rgba(245,244,240,0.85)",
+  background: "rgba(255,255,255,0.92)",
   boxShadow: "0 12px 40px rgba(0,0,0,0.12), 0 4px 12px rgba(0,0,0,0.08)",
 } as const;
 

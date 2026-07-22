@@ -125,7 +125,18 @@
   }
   body {
     @apply text-foreground;
-    background: #F5F4F0;
+    background: #ffffff;
+  }
+
+  @keyframes hero-scroll-line {
+    0%, 100% {
+      transform: scaleY(1);
+      opacity: 0.45;
+    }
+    50% {
+      transform: scaleY(0.55);
+      opacity: 0.85;
+    }
   }
 }
 

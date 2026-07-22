@@ -1,73 +1,134 @@
-"use client"
-import React from "react"
-import { PixelIcon } from "@/components/pixel-icon"
-import { RevealText } from "@/components/reveal-text"
-import { Tag } from "@/components/tag"
-import { BentoCard } from "@/components/bento-card"
+import { ProductCard, type Product } from "@/components/product-card"
+import { useInView } from "@/hooks/use-in-view"
 
-const COLLECTION_DETAILS = [
-  { index: "01", label: "Verified houses", desc: "Ray-Ban, Oakley, Gucci, and other international labels sourced with care." },
-  { index: "02", label: "Unhurried try-ons", desc: "Compare shape, weight, lens tint, and face fit with hands-on guidance." },
-  { index: "03", label: "Clear lens pairing", desc: "Frames, coatings, and prescriptions explained before the final selection." },
+const products: Product[] = [
+  {
+    id: "classic-acetate",
+    name: "Classic Acetate Frames",
+    price: 4500,
+    image:
+      "https://images.unsplash.com/photo-1711564354334-ee51baa830c2?q=80&w=800&auto=format&fit=crop",
+    hoverImage:
+      "https://images.unsplash.com/photo-1574258495973-f010dfbb5371?q=80&w=800&auto=format&fit=crop",
+    category: "Prescription",
+  },
+  {
+    id: "aviator-sun",
+    name: "Gold Aviator Sunglasses",
+    price: 6200,
+    image:
+      "https://images.unsplash.com/photo-1511499767150-a48a237f0083?q=80&w=800&auto=format&fit=crop",
+    hoverImage:
+      "https://images.unsplash.com/photo-1572635196237-14b3f281503f?q=80&w=800&auto=format&fit=crop",
+    category: "Sunglasses",
+  },
+  {
+    id: "titanium-wire",
+    name: "Titanium Wireframes",
+    price: 7800,
+    image:
+      "https://images.unsplash.com/photo-1591076482161-42ce6da69f67?q=80&w=800&auto=format&fit=crop",
+    hoverImage:
+      "https://images.unsplash.com/photo-1625591339971-4c9a87a66871?q=80&w=800&auto=format&fit=crop",
+    category: "Lightweight",
+  },
+  {
+    id: "blue-light",
+    name: "Blue-Light Specs",
+    price: 3900,
+    image:
+      "https://images.unsplash.com/photo-1741332528297-219f88563345?q=80&w=800&auto=format&fit=crop",
+    hoverImage:
+      "https://images.unsplash.com/photo-1556306535-0f09a537f0a3?q=80&w=800&auto=format&fit=crop",
+    category: "Computer",
+  },
+  {
+    id: "tortoise-statement",
+    name: "Tortoise Statement",
+    price: 9500,
+    image:
+      "https://images.unsplash.com/photo-1747640730472-3070d5ed690d?q=80&w=800&auto=format&fit=crop",
+    hoverImage:
+      "https://images.unsplash.com/photo-1614715838608-dd527c46231d?q=80&w=800&auto=format&fit=crop",
+    category: "Fashion",
+  },
+  {
+    id: "polarized-outdoor",
+    name: "Polarized Outdoor",
+    price: 5500,
+    image:
+      "https://images.unsplash.com/photo-1577803645773-f96470509666?q=80&w=800&auto=format&fit=crop",
+    hoverImage:
+      "https://images.unsplash.com/photo-1473496169904-658ba7c44d8a?q=80&w=800&auto=format&fit=crop",
+    category: "Sport",
+  },
 ]
 
-function handleMouse(e: React.MouseEvent<HTMLDivElement>) {
-  const el = e.currentTarget
-  const rect = el.getBoundingClientRect()
-  el.style.setProperty("--mouse-x", `${e.clientX - rect.left}px`)
-  el.style.setProperty("--mouse-y", `${e.clientY - rect.top}px`)
-}
-
 export function CollectionSection() {
+  const { ref: headerRef, inView: headerInView } = useInView(0.15)
+  const { ref: ctaRef, inView: ctaInView } = useInView(0.15)
+
   return (
-    <section id="products" className="py-32 px-6 md:px-12 lg:px-20">
-      <div className="max-w-6xl mx-auto">
-        <div className="mb-16">
-          <PixelIcon type="platform" size={40} />
-          <div className="mt-4"><Tag>OUR COLLECTION</Tag></div>
-          <RevealText className="mt-5 text-4xl md:text-5xl lg:text-6xl font-light tracking-tight leading-[1.05]">
-            {"Frames for every\nface shape & lifestyle."}
-          </RevealText>
+    <section id="products" className="py-24 lg:py-32 px-6 md:px-12 lg:px-20">
+      <div className="max-w-7xl mx-auto">
+        {/* Section header */}
+        <div
+          ref={headerRef}
+          className="text-center mb-16 lg:mb-24"
+          style={{
+            opacity: headerInView ? 1 : 0,
+            transform: headerInView ? "translateY(0)" : "translateY(20px)",
+            transition: "opacity 0.6s ease, transform 0.6s ease",
+          }}
+        >
+          <p className="text-[11px] tracking-[0.22em] uppercase text-black/35 mb-4">
+            Our Collection
+          </p>
+          <h2 className="text-3xl md:text-4xl lg:text-5xl font-light tracking-tight mb-4">
+            Curated Selection
+          </h2>
+          <p className="text-sm text-black/45 leading-relaxed max-w-md mx-auto">
+            Frames for every face, lifestyle, and prescription — tried on with care in store.
+          </p>
         </div>
 
-        <div className="grid grid-cols-12 gap-3" onMouseMove={handleMouse}>
-          <BentoCard className="col-span-12 p-8 min-h-[240px] flex flex-col justify-end relative overflow-hidden" delay={0}>
-            <img
-              src="https://images.unsplash.com/photo-1648025231307-c7e665c5d184?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-              alt="Eyewear collection at Nile Opticals"
-              className="absolute inset-0 w-full h-full object-cover"
-              style={{ objectPosition: "center 58%" }}
-            />
-            <div
-              className="absolute inset-0"
-              style={{
-                background: "linear-gradient(to bottom, transparent 20%, rgba(245,244,240,0.55) 55%, rgba(245,244,240,0.95) 80%, rgb(245,244,240) 100%)",
-              }}
-            />
-            <div className="relative z-10 max-w-md">
-              <h3 className="text-2xl font-light mb-3 text-black">The Nile Opticals Collection</h3>
-              <p className="text-sm text-black leading-relaxed">
-                From everyday classics to statement designer pieces — explore our full in-store range with expert help at every step.
-              </p>
-            </div>
-          </BentoCard>
+        {/* Asymmetrical product grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
+          <div className="lg:pt-12">
+            <ProductCard {...products[0]} index={0} />
+          </div>
+          <div>
+            <ProductCard {...products[1]} index={1} />
+          </div>
+          <div className="lg:pt-24">
+            <ProductCard {...products[2]} index={2} />
+          </div>
 
-          <BentoCard className="col-span-12 p-0" delay={120}>
-            <div className="grid divide-y divide-black/[0.06] md:grid-cols-3 md:divide-x md:divide-y-0 md:divide-black/[0.06]">
-              {COLLECTION_DETAILS.map((item) => (
-                <div key={item.index} className="flex min-h-[150px] flex-col justify-between p-6 md:p-7">
-                  <div className="mb-8 flex items-center justify-between gap-6">
-                    <span className="text-[11px] tracking-[0.22em] text-black/30">{item.index}</span>
-                    <span className="h-px flex-1 bg-black/[0.08]" />
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-light tracking-tight mb-2">{item.label}</h3>
-                    <p className="text-sm text-black/42 leading-relaxed">{item.desc}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </BentoCard>
+          <div>
+            <ProductCard {...products[3]} index={3} />
+          </div>
+          <div className="lg:pt-16">
+            <ProductCard {...products[4]} index={4} />
+          </div>
+          <div className="lg:-mt-8">
+            <ProductCard {...products[5]} index={5} />
+          </div>
+        </div>
+
+        <div
+          ref={ctaRef}
+          className="text-center mt-16 lg:mt-24"
+          style={{
+            opacity: ctaInView ? 1 : 0,
+            transition: "opacity 0.6s ease 0.2s",
+          }}
+        >
+          <a
+            href="#gallery"
+            className="inline-flex items-center text-xs tracking-[0.2em] uppercase border-b border-black/80 pb-1 hover:border-transparent transition-colors duration-300"
+          >
+            Visit to Try On
+          </a>
         </div>
       </div>
     </section>

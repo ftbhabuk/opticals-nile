@@ -1,76 +1,176 @@
-export function Footer() {
+import { Instagram, Facebook } from "lucide-react"
+import { useInView } from "@/hooks/use-in-view"
+import type { ReactNode, FormEvent } from "react"
+
+const footerLinks = {
+  explore: [
+    { label: "Collections", href: "#products" },
+    { label: "Eyewear Types", href: "#types" },
+    { label: "Lenses & Brands", href: "#brands" },
+    { label: "Prescription Frames", href: "#types" },
+    { label: "Sunglasses", href: "#types" },
+  ],
+  about: [
+    { label: "Our Journey", href: "#journey" },
+    { label: "Why Nile", href: "#why-nile" },
+    { label: "Visit the Shop", href: "#gallery" },
+    { label: "Newroad, Pokhara", href: "#gallery" },
+  ],
+  visit: [
+    { label: "Location & Hours", href: "#gallery" },
+    { label: "Call Us", href: "tel:061520XXXX" },
+    {
+      label: "WhatsApp",
+      href: "https://wa.me/9779841XXXXX",
+      external: true,
+    },
+    {
+      label: "Get Directions",
+      href: "https://www.google.com/maps/dir//Pokhara+9,+Newroad,+18th+Street,+Purnima+Marga",
+      external: true,
+    },
+  ],
+}
+
+function FooterColumn({
+  title,
+  links,
+  delay = 0,
+}: {
+  title: string
+  links: { label: string; href: string; external?: boolean }[]
+  delay?: number
+}) {
+  const { ref, inView } = useInView(0.1)
+
   return (
-    <footer className="relative pt-32 pb-10 px-6 md:px-12 lg:px-20 border-t border-black/[0.06] overflow-hidden">
-      <img
-        src="/images/footer.png"
-        alt=""
-        aria-hidden="true"
-        className="absolute bottom-0 left-0 w-full object-cover object-bottom pointer-events-none select-none"
-        style={{ opacity: 0.85 }}
-      />
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          maskImage: "linear-gradient(to top, transparent 0%, black 55%)",
-          WebkitMaskImage: "linear-gradient(to top, transparent 0%, black 55%)",
-          backdropFilter: "blur(18px)",
-          WebkitBackdropFilter: "blur(18px)",
-        }}
-      />
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          background: "linear-gradient(to top, rgb(245,244,240) 0%, rgba(245,244,240,0.92) 18%, rgba(245,244,240,0.55) 35%, transparent 55%)",
-        }}
-      />
-      <div className="relative z-10 max-w-6xl mx-auto">
-        <div className="text-center mb-16">
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-light tracking-tight leading-[1.05] mb-6">
-            Ready to find<br />your perfect pair?
-          </h2>
-          <p className="text-sm text-black/45 leading-relaxed max-w-md mx-auto mb-10">
-            Walk in anytime — our team is ready to help you see clearly and look great.
-          </p>
-          <a
-            href="#gallery"
-            className="inline-block text-xs px-6 py-3 rounded-xl bg-black text-white hover:bg-black/80 transition-colors tracking-wide mb-8"
-          >
-            Plan Your Visit
-          </a>
-          <div className="flex items-center justify-center gap-4">
-            <a href="https://www.instagram.com/nileopticals" target="_blank" rel="noopener noreferrer" className="w-8 h-8 flex items-center justify-center rounded-lg border border-black/10 hover:border-black/20 hover:bg-black/[0.03] transition-all" title="Instagram">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
-                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-                <circle cx="17.5" cy="6.5" r="1.5" />
-              </svg>
+    <div
+      ref={ref}
+      style={{
+        opacity: inView ? 1 : 0,
+        transform: inView ? "translateY(0)" : "translateY(20px)",
+        transition: `opacity 0.6s ease ${delay}ms, transform 0.6s ease ${delay}ms`,
+      }}
+    >
+      <h4 className="text-xs tracking-[0.2em] uppercase mb-6 text-white/50">{title}</h4>
+      <ul className="space-y-3">
+        {links.map((link) => (
+          <li key={link.label}>
+            <a
+              href={link.href}
+              {...(link.external
+                ? { target: "_blank", rel: "noopener noreferrer" }
+                : {})}
+              className="text-sm text-white/75 hover:text-white transition-colors"
+            >
+              {link.label}
             </a>
-            <a href="https://www.facebook.com/nileopticals" target="_blank" rel="noopener noreferrer" className="w-8 h-8 flex items-center justify-center rounded-lg border border-black/10 hover:border-black/20 hover:bg-black/[0.03] transition-all" title="Facebook">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                <path d="M18 2h-3a6 6 0 0 0-6 6v3H7v4h2v8h4v-8h3l1-4h-4V8a1 1 0 0 1 1-1h3z" />
-              </svg>
-            </a>
-          </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  )
+}
+
+function FadeIn({
+  children,
+  delay = 0,
+  className = "",
+}: {
+  children: ReactNode
+  delay?: number
+  className?: string
+}) {
+  const { ref, inView } = useInView(0.1)
+  return (
+    <div
+      ref={ref}
+      className={className}
+      style={{
+        opacity: inView ? 1 : 0,
+        transform: inView ? "translateY(0)" : "translateY(20px)",
+        transition: `opacity 0.6s ease ${delay}ms, transform 0.6s ease ${delay}ms`,
+      }}
+    >
+      {children}
+    </div>
+  )
+}
+
+export function Footer() {
+  function handleSubscribe(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault()
+  }
+
+  return (
+    <footer className="bg-[#111] text-white">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8 py-16 lg:py-24">
+        {/* Main footer content */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 mb-16">
+          {/* Newsletter */}
+          <FadeIn className="lg:col-span-1">
+            <h3 className="text-xl font-light tracking-tight mb-4">Stay Connected</h3>
+            <p className="text-white/50 text-sm mb-6 leading-relaxed">
+              Subscribe for new frame arrivals, lens tips, and updates from our Newroad shop.
+            </p>
+            <form onSubmit={handleSubscribe} className="relative">
+              <input
+                type="email"
+                name="email"
+                required
+                placeholder="Enter your email"
+                autoComplete="email"
+                className="w-full bg-transparent border-0 border-b border-white/25 py-3 pr-24 text-sm text-white placeholder:text-white/35 focus:outline-none focus:border-white transition-colors"
+              />
+              <button
+                type="submit"
+                className="absolute right-0 top-1/2 -translate-y-1/2 text-xs tracking-[0.15em] uppercase hover:opacity-60 transition-opacity"
+              >
+                Subscribe
+              </button>
+            </form>
+          </FadeIn>
+
+          <FooterColumn title="Explore" links={footerLinks.explore} delay={100} />
+          <FooterColumn title="About" links={footerLinks.about} delay={200} />
+          <FooterColumn title="Visit" links={footerLinks.visit} delay={300} />
         </div>
 
-        <div className="flex flex-col md:flex-row items-center md:items-center justify-between gap-8 pt-10 border-t border-black/[0.06]">
-          <span className="font-pixel text-xs tracking-[0.25em] text-black/50">NILE OPTICALS</span>
-
-          <div className="grid w-full grid-cols-3 gap-x-6 gap-y-4 text-center md:flex md:w-auto md:flex-wrap md:items-center md:gap-x-8 md:gap-y-3 md:text-left">
-            {[
-              { label: "Collections", href: "#products" },
-              { label: "Eyewear", href: "#types" },
-              { label: "Journey", href: "#journey" },
-              { label: "Brands", href: "#brands" },
-              { label: "About", href: "#why-nile" },
-              { label: "Visit", href: "#gallery" },
-            ].map(l => (
-              <a key={l.label} href={l.href} className="text-xs text-black/35 hover:text-black/70 transition-colors tracking-widest">{l.label}</a>
-            ))}
+        {/* Bottom bar */}
+        <div className="pt-8 border-t border-white/15 flex flex-col md:flex-row justify-between items-center gap-6">
+          <div className="flex items-center gap-8">
+            <a
+              href="#"
+              className="font-pixel text-xs tracking-[0.3em] uppercase text-white/90 hover:text-white transition-colors"
+            >
+              Nile Opticals
+            </a>
+            <div className="flex items-center gap-4">
+              <a
+                href="https://www.instagram.com/nileopticals"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:opacity-60 transition-opacity"
+                aria-label="Instagram"
+              >
+                <Instagram className="h-4 w-4 stroke-[1.5]" />
+              </a>
+              <a
+                href="https://www.facebook.com/nileopticals"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:opacity-60 transition-opacity"
+                aria-label="Facebook"
+              >
+                <Facebook className="h-4 w-4 stroke-[1.5]" />
+              </a>
+            </div>
           </div>
-        </div>
-        <div className="mt-8 pt-6 border-t border-black/[0.04]">
-          <span className="text-xs text-black/20">© {new Date().getFullYear()} Nile Opticals. All rights reserved.</span>
+
+          <div className="flex flex-wrap items-center justify-center gap-6 text-xs text-white/40">
+            <span>Pokhara 9 · Newroad · 18th Street</span>
+            <span>© {new Date().getFullYear()} Nile Opticals. All rights reserved.</span>
+          </div>
         </div>
       </div>
     </footer>
