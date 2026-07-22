@@ -30,7 +30,7 @@ export function HeroSection() {
       <div className="flex-1 relative min-h-screen">
         <div className="absolute inset-0">
           <img
-            src="https://images.unsplash.com/photo-1556306535-0f09a537f0a3?q=80&w=1600&auto=format&fit=crop"
+            src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=1600&auto=format&fit=crop"
             alt="Premium eyewear at Nile Opticals"
             className="h-full w-full object-cover"
             style={{ objectPosition: "center 25%" }}

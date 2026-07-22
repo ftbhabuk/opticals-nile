@@ -3,7 +3,6 @@ import { Link, useLocation } from "react-router-dom";
 
 const NAV_LINKS = [
   { label: "Collections", href: "/#products" },
-  { label: "Eyewear", href: "/#types" },
   { label: "Shop", href: "/shop" },
   { label: "Journey", href: "/journey" },
 ];
@@ -74,8 +73,9 @@ export default function Navigation() {
             style={{ fontFamily: "system-ui, -apple-system, sans-serif" }}
           >
             {NAV_LINKS.map((l) => {
-              const Tag = l.href.startsWith("/") ? Link : "a"
-              const props = l.href.startsWith("/") ? { to: l.href } : { href: l.href }
+              const hasHash = l.href.includes("#")
+              const Tag = hasHash ? "a" : Link
+              const props = hasHash ? { href: l.href } : { to: l.href }
               return (
                 <Tag
                   key={l.label}
@@ -146,10 +146,11 @@ export default function Navigation() {
             style={GLASS_STYLE_SOLID}
           >
             {NAV_LINKS.map((l, i) => {
-              const Tag = l.href.startsWith("/") ? Link : "a"
-              const props = l.href.startsWith("/")
-                ? { to: l.href, onClick: close }
-                : { href: l.href, onClick: close }
+              const hasHash = l.href.includes("#")
+              const Tag = hasHash ? "a" : Link
+              const props = hasHash
+                ? { href: l.href, onClick: close }
+                : { to: l.href, onClick: close }
               return (
                 <Tag
                   key={l.label}
