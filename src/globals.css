@@ -75,8 +75,8 @@
 }
 
 @theme inline {
-  --font-sans: 'Geist', sans-serif;
-  --font-mono: 'Geist Mono', 'Geist Mono Fallback';
+  --font-sans: 'Inter', sans-serif;
+  --font-serif: 'Playfair Display', serif;
   --font-pixel: 'Courier Prime', monospace;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
