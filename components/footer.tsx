@@ -1,6 +1,9 @@
+import { motion } from "framer-motion"
 import { Instagram, Facebook } from "lucide-react"
 import { useInView } from "@/hooks/use-in-view"
 import type { ReactNode } from "react"
+
+const EASE = "cubic-bezier(0.16, 1, 0.3, 1)"
 
 const footerLinks = {
   explore: [
@@ -46,7 +49,8 @@ function FooterColumn({
       style={{
         opacity: inView ? 1 : 0,
         transform: inView ? "translateY(0)" : "translateY(20px)",
-        transition: `opacity 0.6s ease ${delay}ms, transform 0.6s ease ${delay}ms`,
+        filter: inView ? "blur(0px)" : "blur(4px)",
+        transition: `opacity 0.8s ${EASE} ${delay}ms, transform 0.8s ${EASE} ${delay}ms, filter 0.8s ${EASE} ${delay}ms`,
       }}
     >
       <h4 className="text-xs tracking-[0.2em] uppercase mb-6 text-white/50">{title}</h4>
@@ -86,7 +90,8 @@ function FadeIn({
       style={{
         opacity: inView ? 1 : 0,
         transform: inView ? "translateY(0)" : "translateY(20px)",
-        transition: `opacity 0.6s ease ${delay}ms, transform 0.6s ease ${delay}ms`,
+        filter: inView ? "blur(0px)" : "blur(4px)",
+        transition: `opacity 0.8s ${EASE} ${delay}ms, transform 0.8s ${EASE} ${delay}ms, filter 0.8s ${EASE} ${delay}ms`,
       }}
     >
       {children}
@@ -102,7 +107,7 @@ function ClipReveal({ children }: { children: ReactNode }) {
         className="absolute inset-0 bg-[#111] z-20 pointer-events-none"
         style={{
           transform: inView ? "translateY(-100%)" : "translateY(0%)",
-          transition: "transform 1.2s cubic-bezier(0.16, 1, 0.3, 1)",
+          transition: `transform 1.2s ${EASE}`,
         }}
       />
       {children}
@@ -145,30 +150,34 @@ export function Footer({ reveal = false }: { reveal?: boolean }) {
         <div className="pt-8 border-t border-white/15 flex flex-col md:flex-row justify-between items-center gap-6">
           <div className="flex items-center gap-8">
             <a
-              href="#"
+              href="/"
               className="font-pixel text-xs tracking-[0.3em] uppercase text-white/90 hover:text-white transition-colors"
             >
               Nile Opticals
             </a>
             <div className="flex items-center gap-4">
-              <a
+              <motion.a
                 href="https://www.instagram.com/nileopticals"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:opacity-60 transition-opacity"
+                whileHover={{ scale: 1.15 }}
+                whileTap={{ scale: 0.95 }}
+                className="text-white/70 hover:text-white transition-colors"
                 aria-label="Instagram"
               >
                 <Instagram className="h-4 w-4 stroke-[1.5]" />
-              </a>
-              <a
+              </motion.a>
+              <motion.a
                 href="https://www.facebook.com/nileopticals"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="hover:opacity-60 transition-opacity"
+                whileHover={{ scale: 1.15 }}
+                whileTap={{ scale: 0.95 }}
+                className="text-white/70 hover:text-white transition-colors"
                 aria-label="Facebook"
               >
                 <Facebook className="h-4 w-4 stroke-[1.5]" />
-              </a>
+              </motion.a>
             </div>
           </div>
 

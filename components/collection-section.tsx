@@ -67,64 +67,41 @@ const products: Product[] = [
 
 export function CollectionSection() {
   return (
-    <section id="products" className="py-24 lg:py-32 px-6 md:px-12 lg:px-20">
+    <section id="products" className="bg-[#12231D] py-24 lg:py-32 px-6 md:px-12 lg:px-20">
       <div className="max-w-7xl mx-auto">
-        {/* Section header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16 lg:mb-24"
+          className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8 mb-16 lg:mb-24 pb-10 border-b border-[#B8935B]/20"
         >
-          <p className="text-[11px] tracking-[0.22em] uppercase text-black/35 mb-4">
-            Our Collection
-          </p>
-          <h2 className="font-serif text-3xl md:text-4xl lg:text-5xl mb-4">
-            Curated Selection
-          </h2>
-          <p className="text-sm text-black/45 leading-relaxed max-w-md mx-auto">
-            Frames for every face, lifestyle, and prescription — tried on with care in store.
-          </p>
+          <div>
+            <p className="font-mono text-[11px] tracking-[0.28em] uppercase text-[#B8935B]/80 mb-4">
+              Pokhara — Prescription &amp; Sun
+            </p>
+            <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-[#EAE4D6]">
+              Seen Clearly
+            </h2>
+          </div>
+          <div className="max-w-xs lg:text-right">
+            <p className="text-sm text-[#EAE4D6]/55 leading-relaxed mb-4">
+              Six frames, fitted by hand at our Pokhara atelier — from correctives to statement sun.
+            </p>
+            <Link
+              to="/shop"
+              className="inline-flex items-center gap-2 font-mono text-[11px] tracking-[0.2em] uppercase text-[#B8935B] border-b border-[#B8935B]/40 pb-1 hover:border-[#B8935B] transition-colors duration-300"
+            >
+              View Full Collection →
+            </Link>
+          </div>
         </motion.div>
 
-        {/* Asymmetrical product grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
-          <div className="lg:pt-12">
-            <ProductCard {...products[0]} index={0} />
-          </div>
-          <div>
-            <ProductCard {...products[1]} index={1} />
-          </div>
-          <div className="lg:pt-24">
-            <ProductCard {...products[2]} index={2} />
-          </div>
-
-          <div>
-            <ProductCard {...products[3]} index={3} />
-          </div>
-          <div className="lg:pt-16">
-            <ProductCard {...products[4]} index={4} />
-          </div>
-          <div className="lg:-mt-8">
-            <ProductCard {...products[5]} index={5} />
-          </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-10 gap-y-16">
+          {products.map((product, i) => (
+           <ProductCard key={product.id} {...product} index={i} variant="dark" />
+          ))}
         </div>
-
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="text-center mt-16 lg:mt-24"
-        >
-          <Link
-            to="/shop"
-            className="inline-flex items-center text-xs tracking-[0.2em] uppercase border-b border-black/80 pb-1 hover:border-transparent transition-colors duration-300"
-          >
-            View Full Collection
-          </Link>
-        </motion.div>
       </div>
     </section>
   )

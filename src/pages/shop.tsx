@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { motion, AnimatePresence } from "framer-motion"
 
 import { ProductCard, type Product } from "@/components/product-card"
 import { Footer } from "@/components/footer"
@@ -104,7 +105,7 @@ const products: Product[] = [
 
 const categories = ["All", ...new Set(products.map((p) => p.category))]
 
-const EASE = "cubic-bezier(0.16, 1, 0.3, 1)"
+const EASE = [0.16, 1, 0.3, 1] as const
 
 export default function ShopPage() {
   const [activeCategory, setActiveCategory] = useState("All")
@@ -117,60 +118,83 @@ export default function ShopPage() {
       {/* HERO */}
       <section className="relative h-[50vh] min-h-[420px] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
-          <img
+          <motion.img
             src="https://images.unsplash.com/photo-1613323596828-e32ce27e52b3?q=80&w=2000&auto=format&fit=crop"
-            alt="The Collection"
+            alt="The Nile Collection"
             className="w-full h-full object-cover"
+            initial={{ scale: 1.06 }}
+            animate={{ scale: 1.14 }}
+            transition={{ duration: 16, ease: "linear", repeat: Infinity, repeatType: "reverse" }}
           />
           <div className="absolute inset-0 bg-black/40" />
         </div>
-        <div
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: EASE }}
           className="relative z-10 text-center px-6 max-w-3xl mx-auto"
-          style={{
-            opacity: 1,
-            transform: "translateY(0)",
-            transition: `opacity 0.8s ${EASE}, transform 0.8s ${EASE}`,
-          }}
         >
           <p className="text-xs tracking-[0.4em] uppercase text-white/60 mb-6">Collection</p>
           <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif text-white mb-6 leading-[1.1] text-balance">
-            Browse Our Frames
+            The Nile Collection
           </h1>
           <p className="text-white/70 text-lg lg:text-xl leading-relaxed">
             Timeless pieces crafted with intention. 500+ styles in-store.
           </p>
-        </div>
+        </motion.div>
       </section>
 
       {/* CATEGORY FILTER */}
       <section className="border-b border-black/[0.06]">
-        <div className="max-w-7xl mx-auto px-6 py-6">
-          <nav className="flex flex-wrap items-center justify-center gap-4 md:gap-8">
-            {categories.map((category) => (
-              <button
-                key={category}
-                onClick={() => setActiveCategory(category)}
-                className={`text-xs tracking-widest uppercase transition-all duration-300 pb-1 border-b-2 ${
-                  activeCategory === category
-                    ? "border-black text-black"
-                    : "border-transparent text-black/30 hover:text-black/60"
-                }`}
-              >
-                {category}
-              </button>
-            ))}
+        <div className="max-w-7xl mx-auto px-6 py-8">
+          <nav className="flex flex-wrap items-center justify-center gap-2 md:gap-3">
+            {categories.map((category) => {
+              const active = activeCategory === category
+              return (
+                <button
+                  key={category}
+                  onClick={() => setActiveCategory(category)}
+                  className={`relative px-4 py-2 text-xs tracking-[0.18em] uppercase transition-colors duration-300 rounded-full ${
+                    active ? "text-white" : "text-black/40 hover:text-black/70"
+                  }`}
+                >
+                  {active && (
+                    <motion.span
+                      layoutId="shop-category-pill"
+                      className="absolute inset-0 -z-10 rounded-full bg-[#111]"
+                      transition={{ type: "spring", stiffness: 350, damping: 30 }}
+                    />
+                  )}
+                  {category}
+                </button>
+              )
+            })}
           </nav>
+          <p className="text-center text-[11px] tracking-[0.2em] uppercase text-black/30 mt-5">
+            {filteredProducts.length} {filteredProducts.length === 1 ? "Style" : "Styles"}
+          </p>
         </div>
       </section>
 
       {/* PRODUCT GRID */}
       <section className="py-16 md:py-24 px-6 md:px-12 lg:px-20">
         <div className="max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 md:gap-10">
-            {filteredProducts.map((product, index) => (
-              <ProductCard key={product.id} {...product} index={index} />
-            ))}
-          </div>
+          <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 md:gap-10">
+            <AnimatePresence mode="popLayout">
+              {filteredProducts.map((product, index) => (
+                <motion.div
+                  key={product.id}
+                  layout
+                  initial={{ opacity: 0, scale: 0.96 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.96 }}
+                  transition={{ duration: 0.4, ease: EASE }}
+                >
+                  <ProductCard {...product} index={index} />
+                </motion.div>
+              ))}
+            </AnimatePresence>
+          </motion.div>
         </div>
       </section>
 

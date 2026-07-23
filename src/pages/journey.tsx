@@ -1,4 +1,5 @@
-import { useCallback, useRef, useState } from "react"
+import { useRef } from "react"
+import { motion, useScroll } from "framer-motion"
 import { useInView } from "@/hooks/use-in-view"
 
 import { Tag } from "@/components/tag"
@@ -67,6 +68,8 @@ const values = [
   },
 ]
 
+const EASE = [0.16, 1, 0.3, 1] as const
+
 function FadeUp({
   children,
   delay = 0,
@@ -93,122 +96,89 @@ function FadeUp({
   )
 }
 
-const EASE = "cubic-bezier(0.16, 1, 0.3, 1)"
-
 function TimelineItem({
   item,
   index,
   isLeft,
-  inView,
 }: {
   item: (typeof timeline)[number]
   index: number
   isLeft: boolean
-  inView: boolean
 }) {
-  const delay = index * 120
+  const delay = index * 0.1
+
   return (
     <div
-      className={`relative flex flex-col lg:flex-row items-start lg:items-center gap-6 lg:gap-12 mb-12 lg:mb-16 last:mb-0 ${
+      className={`relative flex flex-col lg:flex-row items-start lg:items-center gap-6 lg:gap-16 mb-16 lg:mb-20 last:mb-0 ${
         isLeft ? "lg:flex-row" : "lg:flex-row-reverse"
       }`}
     >
-      {/* Content */}
       <div className={`flex-1 ${isLeft ? "lg:text-right" : "lg:text-left"}`}>
-        <span
-          className="text-xs tracking-[0.3em] uppercase text-black/20 block mb-1"
-          style={{
-            opacity: inView ? 1 : 0,
-            transform: inView ? "translateY(0)" : "translateY(12px)",
-            transition: `opacity 0.6s ${EASE} ${delay}ms, transform 0.6s ${EASE} ${delay}ms`,
-          }}
-        >
-          {item.step}
-        </span>
-        <h3
+        <motion.h3
+          initial={{ opacity: 0, y: 16, filter: "blur(6px)" }}
+          whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.7, delay: delay + 0.05, ease: EASE }}
           className="text-xl lg:text-2xl font-serif mb-3"
-          style={{
-            opacity: inView ? 1 : 0,
-            transform: inView ? "translateY(0)" : "translateY(16px)",
-            filter: inView ? "blur(0px)" : "blur(6px)",
-            transition: `opacity 0.7s ${EASE} ${delay + 80}ms, transform 0.7s ${EASE} ${delay + 80}ms, filter 0.7s ${EASE} ${delay + 80}ms`,
-          }}
         >
           {item.title}
-        </h3>
-        <p
+        </motion.h3>
+        <motion.p
+          initial={{ opacity: 0, y: 12 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ duration: 0.7, delay: delay + 0.13, ease: EASE }}
           className="text-black/45 leading-relaxed text-sm lg:text-base max-w-md inline-block"
-          style={{
-            opacity: inView ? 1 : 0,
-            transform: inView ? "translateY(0)" : `translateX(${isLeft ? "-16px" : "16px"})`,
-            filter: inView ? "blur(0px)" : "blur(4px)",
-            transition: `opacity 0.8s ${EASE} ${delay + 160}ms, transform 0.8s ${EASE} ${delay + 160}ms, filter 0.8s ${EASE} ${delay + 160}ms`,
-          }}
         >
           {item.description}
-        </p>
+        </motion.p>
       </div>
 
-      {/* Dot — sits between content & spacer in flex flow */}
-      <div className="hidden lg:block relative z-10">
-        <div
-          className="w-3 h-3 rounded-full bg-black/30"
-          style={{
-            transform: inView ? "scale(1)" : "scale(0)",
-            transition: `transform 0.5s ${EASE} ${delay}ms`,
-          }}
-        />
+      <div className="hidden lg:flex relative z-10 shrink-0">
+        <motion.div
+          initial={{ scale: 0 }}
+          whileInView={{ scale: 1 }}
+          viewport={{ once: true, margin: "-80px" }}
+          transition={{ delay, type: "spring", stiffness: 260, damping: 20 }}
+          className="w-11 h-11 rounded-full border border-black/15 bg-white flex items-center justify-center"
+        >
+          <span className="font-serif text-sm text-black/50">{item.step}</span>
+        </motion.div>
       </div>
 
-      {/* Spacer */}
       <div className="hidden lg:block flex-1" />
     </div>
   )
 }
 
 export default function JourneyPage() {
-  const [visibleItems, setVisibleItems] = useState<Set<number>>(new Set())
-  const itemRefs = useRef<(HTMLDivElement | null)[]>([])
-
-  const setItemRef = useCallback(
-    (idx: number) => (el: HTMLDivElement | null) => {
-      if (el && !visibleItems.has(idx)) {
-        const obs = new IntersectionObserver(
-          ([entry]) => {
-            if (entry.isIntersecting) {
-              setVisibleItems((prev) => {
-                const next = new Set(prev)
-                next.add(idx)
-                return next
-              })
-              obs.disconnect()
-            }
-          },
-          { threshold: 0.2 }
-        )
-        obs.observe(el)
-        itemRefs.current[idx] = el
-      }
-    },
-    [visibleItems]
-  )
-
-  const { ref: timelineRef, inView: timelineInView } = useInView(0.1)
+  const timelineRef = useRef<HTMLDivElement>(null)
+  const { scrollYProgress } = useScroll({
+    target: timelineRef,
+    offset: ["start center", "end center"],
+  })
 
   return (
     <div className="bg-white text-[#111] min-h-screen font-sans antialiased">
-      
       {/* HERO */}
       <section className="relative h-[70vh] lg:h-[80vh] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
-          <img
+          <motion.img
             src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?q=80&w=2000&auto=format&fit=crop"
             alt="Nile Opticals shop"
             className="w-full h-full object-cover"
+            initial={{ scale: 1.06 }}
+            animate={{ scale: 1.14 }}
+            transition={{ duration: 16, ease: "linear", repeat: Infinity, repeatType: "reverse" }}
           />
           <div className="absolute inset-0 bg-black/45" />
         </div>
-        <div className="relative z-10 text-center px-6 max-w-3xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: EASE }}
+          className="relative z-10 text-center px-6 max-w-3xl mx-auto"
+        >
           <p className="text-xs tracking-[0.4em] uppercase text-white/60 mb-6">
             Your Experience
           </p>
@@ -220,13 +190,14 @@ export default function JourneyPage() {
           <p className="text-white/70 text-lg lg:text-xl leading-relaxed">
             From the moment you step in, every detail is designed for your comfort and clarity.
           </p>
-        </div>
+        </motion.div>
       </section>
 
       {/* INTRO */}
       <section className="py-20 lg:py-32 px-6 lg:px-8">
         <div className="max-w-3xl mx-auto text-center">
           <FadeUp>
+            <p className="text-xs tracking-[0.4em] uppercase text-black/30 mb-6">Welcome</p>
             <p className="text-lg lg:text-xl text-black/50 leading-relaxed">
               At Nile Opticals, we believe choosing eyewear should be a pleasure, not a chore.
               Our shop on Newroad is designed to make you feel at ease — with expert guidance,
@@ -248,29 +219,16 @@ export default function JourneyPage() {
           </FadeUp>
 
           <div ref={timelineRef} className="relative">
-            {/* Vertical line — hidden on mobile */}
             <div className="hidden lg:block absolute left-1/2 top-0 bottom-0 w-px overflow-hidden">
-              {/* Base track */}
               <div className="absolute inset-0 bg-black/[0.06]" />
-              {/* Fill — draws from top as section enters view */}
-              <div
-                className="absolute inset-0 bg-black/20 origin-top"
-                style={{
-                  transform: timelineInView ? "scaleY(1)" : "scaleY(0)",
-                  transition: "transform 1.8s cubic-bezier(0.16, 1, 0.3, 1)",
-                }}
+              <motion.div
+                className="absolute inset-0 bg-black/25 origin-top"
+                style={{ scaleY: scrollYProgress }}
               />
             </div>
 
             {timeline.map((item, index) => (
-              <div key={item.step} ref={setItemRef(index)}>
-                <TimelineItem
-                  item={item}
-                  index={index}
-                  isLeft={index % 2 === 0}
-                  inView={visibleItems.has(index)}
-                />
-              </div>
+              <TimelineItem key={item.step} item={item} index={index} isLeft={index % 2 === 0} />
             ))}
           </div>
         </div>
@@ -289,11 +247,11 @@ export default function JourneyPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-12">
             {values.map((value, index) => (
               <FadeUp key={value.title} delay={index * 100} className="group">
-                <div className="aspect-[5/6] overflow-hidden mb-6 relative rounded-2xl border border-black/[0.07]">
+                <div className="aspect-[5/6] overflow-hidden mb-6 relative rounded-2xl border border-black/[0.07] transition-colors duration-500 group-hover:border-black/[0.14]">
                   <img
                     src={value.image}
                     alt={value.title}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                    className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                   />
                 </div>
                 <h3 className="text-xl lg:text-2xl font-serif mb-3">{value.title}</h3>
@@ -307,8 +265,11 @@ export default function JourneyPage() {
       </section>
 
       {/* QUOTE */}
-      <section className="py-20 lg:py-32 px-6 lg:px-8 bg-black/[0.03]">
-        <div className="max-w-4xl mx-auto text-center">
+      <section className="relative py-20 lg:py-32 px-6 lg:px-8 bg-black/[0.03] overflow-hidden">
+        <span className="pointer-events-none absolute -top-8 left-1/2 -translate-x-1/2 font-serif text-[220px] leading-none text-black/[0.04] select-none">
+          &ldquo;
+        </span>
+        <div className="relative max-w-4xl mx-auto text-center">
           <FadeUp>
             <blockquote>
               <p className="text-2xl lg:text-4xl font-serif leading-relaxed mb-8 text-balance text-black/80">

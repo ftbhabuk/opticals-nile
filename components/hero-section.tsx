@@ -1,5 +1,6 @@
 import { motion } from "framer-motion"
 import { ArrowRight } from "lucide-react"
+import { Counter } from "@/components/counter"
 
 export function HeroSection() {
   return (
@@ -14,7 +15,7 @@ export function HeroSection() {
             className="h-full w-full object-cover scale-x-[-1]"
             style={{ objectPosition: "center 23%" }}
           />
-          <div className="absolute inset-0 bg-foreground/40" />
+          <div className="absolute inset-0 bg-foreground/20" />
           <div
             className="absolute inset-0"
             style={{
@@ -29,7 +30,7 @@ export function HeroSection() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 1, delay: 0.5 }}
-          className="absolute left-0 top-0 bottom-0 hidden lg:flex items-center justify-center z-20 -ml-41 -mt-49"
+          className="absolute left-6 top-1/2 -translate-y-1/2 hidden lg:flex items-center justify-center z-20"
         >
           <span className="text-white/50 text-[11px] tracking-[0.35em] uppercase -rotate-90 whitespace-nowrap">
             Pokhara&apos;s Refined Optical Boutique
@@ -47,7 +48,7 @@ export function HeroSection() {
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-serif font-light text-white leading-[1.08] tracking-tight mb-5">
               The Art of
               <br />
-              Look refined.
+              Looking, Refined.
             </h1>
             <p className="text-white/70 text-sm md:text-base tracking-wide mb-5 max-w-md leading-relaxed">
               Premium frames, precise lenses, and unhurried guidance — crafted for
@@ -69,21 +70,27 @@ export function HeroSection() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.55 }}
-            className="flex flex-wrap gap-8 sm:gap-12 mb-5"
+            className="flex flex-wrap items-center gap-8 sm:gap-12 mb-5"
           >
-            {[
-              { value: "10k+", label: "Customers" },
-              { value: "500+", label: "Frames" },
-            ].map((stat) => (
-              <div key={stat.label}>
-                <div className="text-2xl sm:text-3xl font-light text-white tracking-tight">
-                  {stat.value}
-                </div>
-                <div className="text-[10px] tracking-[0.2em] uppercase text-white/45 mt-1">
-                  {stat.label}
-                </div>
+            <div>
+              <div className="text-2xl sm:text-3xl font-light text-white tracking-tight tabular-nums leading-none">
+                <Counter to={10} suffix="k+" />
               </div>
-            ))}
+              <div className="text-[10px] tracking-[0.2em] uppercase text-white/45 mt-1">
+                Customers
+              </div>
+            </div>
+
+            <div className="hidden sm:block w-px h-8 bg-white/10" />
+
+            <div>
+              <div className="text-2xl sm:text-3xl font-light text-white tracking-tight tabular-nums leading-none">
+                <Counter to={500} suffix="+" delay={250} />
+              </div>
+              <div className="text-[10px] tracking-[0.2em] uppercase text-white/45 mt-1">
+                Frames
+              </div>
+            </div>
           </motion.div>
         </div>
 

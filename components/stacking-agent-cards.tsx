@@ -62,13 +62,18 @@ const STICKY_TOP = 88
 const STICKY_STEP = 18
 const SCALE_STEP = 0.035
 const OFFSET_STEP = 6
+const ROTATE_STEP = 2
+const MAX_ROTATE = 6
+const BRIGHTNESS_STEP = 0.035
+const MIN_BRIGHTNESS = 0.85
 
 export function StackingAgentCards() {
   const cardRefs = useRef<(HTMLDivElement | null)[]>([])
+  const frameRef = useRef<number>()
   const [depth, setDepth] = useState<number[]>(EYEWEAR_TYPES.map(() => 0))
 
   useEffect(() => {
-    function onScroll() {
+    function measure() {
       const nextDepth = EYEWEAR_TYPES.map((_, i) => {
         let count = 0
         for (let j = i + 1; j < EYEWEAR_TYPES.length; j++) {
@@ -83,36 +88,50 @@ export function StackingAgentCards() {
       setDepth(nextDepth)
     }
 
+    function onScroll() {
+      if (frameRef.current) cancelAnimationFrame(frameRef.current)
+      frameRef.current = requestAnimationFrame(measure)
+    }
+
     window.addEventListener("scroll", onScroll, { passive: true })
-    onScroll()
-    return () => window.removeEventListener("scroll", onScroll)
+    measure()
+    return () => {
+      window.removeEventListener("scroll", onScroll)
+      if (frameRef.current) cancelAnimationFrame(frameRef.current)
+    }
   }, [])
 
   return (
-    <div
-      className="flex flex-col"
-      style={{ perspective: "1400px", perspectiveOrigin: "50% 0%" }}
-    >
+    <div className="flex flex-col">
       {EYEWEAR_TYPES.map((item, i) => {
         const d = depth[i]
         const scale = 1 - d * SCALE_STEP
         const translateY = d * OFFSET_STEP
+        const rotateX = Math.min(d * ROTATE_STEP, MAX_ROTATE)
+        const brightness = Math.max(1 - d * BRIGHTNESS_STEP, MIN_BRIGHTNESS)
 
-          return (
+        return (
+          <div
+            key={item.label}
+            ref={(el) => {
+              cardRefs.current[i] = el
+            }}
+            className="sticky mb-5 last:mb-0"
+            style={{
+              top: `${STICKY_TOP + i * STICKY_STEP}px`,
+              zIndex: 10 + i,
+              perspective: "1000px",
+              transformStyle: "preserve-3d",
+            }}
+          >
             <div
-              key={item.label}
-              ref={(el) => {
-                cardRefs.current[i] = el
-              }}
-              className="sticky mb-5 last:mb-0"
-              style={{ top: `${STICKY_TOP + i * STICKY_STEP}px`, zIndex: 10 + i }}
-            >
-              <div
               style={{
-                transform: `scale(${scale}) translateY(${translateY}px)`,
+                transform: `translateY(${translateY}px) scale(${scale}) rotateX(${rotateX}deg)`,
                 transformOrigin: "top center",
-                transition: "transform 0.35s cubic-bezier(0.16,1,0.3,1)",
-                willChange: "transform",
+                filter: `brightness(${brightness})`,
+                transition:
+                  "transform 0.35s cubic-bezier(0.16,1,0.3,1), filter 0.35s ease-out",
+                willChange: "transform, filter",
               }}
             >
               <motion.div
@@ -123,7 +142,6 @@ export function StackingAgentCards() {
                 className="group relative overflow-hidden rounded-2xl border border-black/[0.07] bg-white shadow-[0_12px_40px_rgba(0,0,0,0.04)] transition-[border-color,box-shadow] duration-500 hover:border-black/[0.12] hover:shadow-[0_16px_48px_rgba(0,0,0,0.06)]"
               >
                 <div className="relative z-10 grid gap-8 p-6 md:grid-cols-[minmax(0,1fr)_minmax(280px,38%)] md:items-stretch md:gap-10 md:p-8 lg:p-10">
-                  {/* Copy */}
                   <div className="flex min-h-[240px] flex-col justify-between">
                     <div>
                       <div className="mb-6 flex items-center gap-3">
@@ -157,7 +175,6 @@ export function StackingAgentCards() {
                     </div>
                   </div>
 
-                  {/* Image */}
                   <div className="relative min-h-[220px] overflow-hidden rounded-xl bg-black/[0.03] md:min-h-full">
                     <img
                       src={item.image}
@@ -179,9 +196,9 @@ export function StackingAgentCards() {
                     />
                   </div>
                 </div>
-                </motion.div>
+              </motion.div>
+            </div>
           </div>
-        </div>
         )
       })}
     </div>
