@@ -1,219 +1,211 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { motion, AnimatePresence } from "framer-motion"
+import { ArrowRight } from "lucide-react"
 
-import { ProductCard, type Product } from "@/components/product-card"
+import { ProductCard } from "@/components/product-card"
 import { Footer } from "@/components/footer"
-
-const products: Product[] = [
-  {
-    id: "classic-acetate",
-    name: "Classic Acetate Frames",
-    price: 4500,
-    image: "https://images.unsplash.com/photo-1711564354334-ee51baa830c2?q=80&w=800&auto=format&fit=crop",
-    hoverImage: "https://images.unsplash.com/photo-1574258495973-f010dfbb5371?q=80&w=800&auto=format&fit=crop",
-    category: "Prescription",
-  },
-  {
-    id: "aviator-sun",
-    name: "Gold Aviator Sunglasses",
-    price: 6200,
-    image: "https://images.unsplash.com/photo-1511499767150-a48a237f0083?q=80&w=800&auto=format&fit=crop",
-    hoverImage: "https://images.unsplash.com/photo-1572635196237-14b3f281503f?q=80&w=800&auto=format&fit=crop",
-    category: "Sunglasses",
-  },
-  {
-    id: "titanium-wire",
-    name: "Titanium Wireframes",
-    price: 7800,
-    image: "https://images.unsplash.com/photo-1591076482161-42ce6da69f67?q=80&w=800&auto=format&fit=crop",
-    hoverImage: "https://images.unsplash.com/photo-1625591339971-4c9a87a66871?q=80&w=800&auto=format&fit=crop",
-    category: "Lightweight",
-  },
-  {
-    id: "blue-light",
-    name: "Blue-Light Specs",
-    price: 3900,
-    image: "https://images.unsplash.com/photo-1741332528297-219f88563345?q=80&w=800&auto=format&fit=crop",
-    hoverImage: "https://images.unsplash.com/photo-1556306535-0f09a537f0a3?q=80&w=800&auto=format&fit=crop",
-    category: "Computer",
-  },
-  {
-    id: "tortoise-statement",
-    name: "Tortoise Statement",
-    price: 9500,
-    image: "https://images.unsplash.com/photo-1747640730472-3070d5ed690d?q=80&w=800&auto=format&fit=crop",
-    hoverImage: "https://images.unsplash.com/photo-1614715838608-dd527c46231d?q=80&w=800&auto=format&fit=crop",
-    category: "Fashion",
-  },
-  {
-    id: "polarized-outdoor",
-    name: "Polarized Outdoor",
-    price: 5500,
-    image: "https://images.unsplash.com/photo-1577803645773-f96470509666?q=80&w=800&auto=format&fit=crop",
-    hoverImage: "https://images.unsplash.com/photo-1473496169904-658ba7c44d8a?q=80&w=800&auto=format&fit=crop",
-    category: "Sport",
-  },
-  {
-    id: "retro-round",
-    name: "Retro Round Frames",
-    price: 4100,
-    image: "https://images.unsplash.com/photo-1574258495973-f010dfbb5371?q=80&w=800&auto=format&fit=crop",
-    hoverImage: "https://images.unsplash.com/photo-1625591339971-4c9a87a66871?q=80&w=800&auto=format&fit=crop",
-    category: "Vintage",
-  },
-  {
-    id: "slim-metal",
-    name: "Slim Metal Frame",
-    price: 5300,
-    image: "https://images.unsplash.com/photo-1473496169904-658ba7c44d8a?q=80&w=800&auto=format&fit=crop",
-    hoverImage: "https://images.unsplash.com/photo-1572635196237-14b3f281503f?q=80&w=800&auto=format&fit=crop",
-    category: "Minimal",
-  },
-  {
-    id: "cat-eye",
-    name: "Cat-Eye Statement",
-    price: 6800,
-    image: "https://images.unsplash.com/photo-1556306535-0f09a537f0a3?q=80&w=800&auto=format&fit=crop",
-    hoverImage: "https://images.unsplash.com/photo-1511499767150-a48a237f0083?q=80&w=800&auto=format&fit=crop",
-    category: "Fashion",
-  },
-  {
-    id: "clip-on",
-    name: "Clip-On Sunglasses",
-    price: 3200,
-    image: "https://images.unsplash.com/photo-1625591339971-4c9a87a66871?q=80&w=800&auto=format&fit=crop",
-    hoverImage: "https://images.unsplash.com/photo-1574258495973-f010dfbb5371?q=80&w=800&auto=format&fit=crop",
-    category: "Convertible",
-  },
-  {
-    id: "kids-safe",
-    name: "Kids Safe Frames",
-    price: 2800,
-    image: "https://images.unsplash.com/photo-1577803645773-f96470509666?q=80&w=800&auto=format&fit=crop",
-    hoverImage: "https://images.unsplash.com/photo-1556306535-0f09a537f0a3?q=80&w=800&auto=format&fit=crop",
-    category: "Children",
-  },
-  {
-    id: "premium-acetate",
-    name: "Premium Acetate",
-    price: 12000,
-    image: "https://images.unsplash.com/photo-1591076482161-42ce6da69f67?q=80&w=800&auto=format&fit=crop",
-    hoverImage: "https://images.unsplash.com/photo-1711564354334-ee51baa830c2?q=80&w=800&auto=format&fit=crop",
-    category: "Premium",
-  },
-]
-
-const categories = ["All", ...new Set(products.map((p) => p.category))]
+import { Skeleton } from "@/components/ui/skeleton"
+import { categories, products } from "@/src/data/products"
 
 const EASE = [0.16, 1, 0.3, 1] as const
+const shopCategories = categories.filter((category) =>
+  ["All", "Prescription", "Sunglasses", "Lightweight", "Computer", "Fashion", "Premium"].includes(category)
+)
 
 export default function ShopPage() {
   const [activeCategory, setActiveCategory] = useState("All")
+  const [catalogReady, setCatalogReady] = useState(false)
 
   const filteredProducts =
     activeCategory === "All" ? products : products.filter((p) => p.category === activeCategory)
 
+  useEffect(() => {
+    setCatalogReady(false)
+
+    const handle = window.setTimeout(() => {
+      setCatalogReady(true)
+    }, 420)
+
+    return () => window.clearTimeout(handle)
+  }, [activeCategory])
+
   return (
-    <div className="bg-white text-[#111] min-h-screen font-sans antialiased">
+    <div className="min-h-screen bg-[#F8F4ED] text-[#111] antialiased">
       {/* HERO */}
-      <section className="relative h-[50vh] min-h-[420px] flex items-center justify-center overflow-hidden">
+      <section className="relative flex h-[70vh] items-center justify-center overflow-hidden lg:h-[80vh]">
         <div className="absolute inset-0">
           <motion.img
             src="https://images.unsplash.com/photo-1615468822882-4828d2602857?q=80&w=2000&auto=format&fit=crop"
             alt="The Nile Collection"
-            className="w-full h-full object-cover"
+            className="h-full w-full object-cover"
             initial={{ scale: 1.06 }}
             animate={{ scale: 1.14 }}
             transition={{ duration: 16, ease: "linear", repeat: Infinity, repeatType: "reverse" }}
           />
-          <div className="absolute inset-0 bg-black/40" />
+          <div className="absolute inset-0 bg-black/45" />
         </div>
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: EASE }}
-          className="relative z-10 text-center px-6 max-w-3xl mx-auto"
+          className="relative z-10 mx-auto max-w-3xl px-6 text-center"
         >
-          <p className="text-xs tracking-[0.4em] uppercase text-white/60 mb-6">Collection</p>
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-serif text-white mb-6 leading-[1.1] text-balance">
+          <p className="mb-6 text-xs uppercase tracking-[0.4em] text-white/60">Collection</p>
+          <h1 className="mb-6 font-serif text-4xl leading-[1.1] text-white text-balance md:text-6xl lg:text-7xl">
             The Nile Collection
           </h1>
-          <p className="text-white/70 text-lg lg:text-xl leading-relaxed">
+          <p className="text-lg leading-relaxed text-white/70 lg:text-xl">
             Timeless pieces crafted with intention. 500+ styles in-store.
           </p>
         </motion.div>
       </section>
 
       {/* CATEGORY FILTER */}
-      <section className="border-b border-black/[0.06]">
-        <div className="max-w-7xl mx-auto px-6 py-8">
-          <nav className="flex flex-wrap items-center justify-center gap-4 md:gap-8">
-            {categories.map((category) => (
+      <section className="sticky top-0 z-30 border-b border-black/[0.08] bg-[#F8F4ED]/92 backdrop-blur-xl">
+        <div className="mx-auto max-w-7xl px-6 py-5">
+          <nav className="mx-auto flex w-fit max-w-full items-center gap-1 overflow-x-auto rounded-full border border-black/[0.08] bg-white/58 p-1 shadow-[0_12px_40px_rgba(20,17,13,0.06)] backdrop-blur-xl">
+            {shopCategories.map((category) => (
               <button
                 key={category}
                 onClick={() => setActiveCategory(category)}
-                className={`text-xs tracking-widest uppercase transition-all duration-300 pb-1 border-b-2 ${
+                className={`shrink-0 rounded-full px-4 py-2 text-[10px] uppercase tracking-[0.18em] transition-all duration-300 ${
                   activeCategory === category
-                    ? "border-black text-black"
-                    : "border-transparent text-black/30 hover:text-black/60"
+                    ? "bg-[#111] text-white shadow-sm"
+                    : "text-black/45 hover:bg-white/70 hover:text-black"
                 }`}
               >
                 {category}
               </button>
             ))}
           </nav>
-          <p className="text-center text-[11px] tracking-[0.2em] uppercase text-black/30 mt-5">
-            {filteredProducts.length} {filteredProducts.length === 1 ? "Style" : "Styles"}
-          </p>
+        </div>
+      </section>
+
+      {/* FEATURED EDIT */}
+      <section className="px-6 py-16 md:px-12 lg:px-20">
+        <div className="mx-auto grid max-w-7xl gap-8 border-b border-black/[0.08] pb-16 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
+          <div>
+            <p className="mb-4 text-[11px] uppercase tracking-[0.28em] text-[#8D7148]">
+              Current edit
+            </p>
+            <h2 className="font-serif text-4xl leading-[1.05] text-balance md:text-5xl">
+              A focused selection from 500+ in-store frames.
+            </h2>
+          </div>
+          <div className="grid gap-4 sm:grid-cols-3">
+            {[
+              ["12", "online highlights"],
+              ["500+", "frames in-store"],
+              ["6", "lens families"],
+            ].map(([value, label]) => (
+              <div key={label} className="border-t border-[#C9A46A]/35 pt-4">
+                <p className="font-serif text-3xl">{value}</p>
+                <p className="mt-1 text-[10px] uppercase tracking-[0.22em] text-black/38">{label}</p>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
       {/* PRODUCT GRID */}
-      <section className="py-16 md:py-24 px-6 md:px-12 lg:px-20">
-        <div className="max-w-7xl mx-auto">
-          <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 md:gap-10">
-            <AnimatePresence mode="popLayout">
-              {filteredProducts.map((product, index) => (
-                <motion.div
-                  key={product.id}
-                  layout
-                  initial={{ opacity: 0, scale: 0.96 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.96 }}
-                  transition={{ duration: 0.4, ease: EASE }}
-                >
-                  <ProductCard {...product} index={index} />
-                </motion.div>
-              ))}
-            </AnimatePresence>
-          </motion.div>
+      <section id="catalog" className="px-6 pb-20 md:px-12 lg:px-20 lg:pb-28">
+        <div className="mx-auto max-w-7xl">
+          <div className="mb-8 flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+            <p className="text-[11px] uppercase tracking-[0.22em] text-black/38">
+              {filteredProducts.length} {filteredProducts.length === 1 ? "style" : "styles"} shown
+            </p>
+            <p className="text-sm text-black/45">
+              Prices shown are starting prices. Final lens pricing depends on prescription.
+            </p>
+          </div>
+
+          <AnimatePresence mode="wait" initial={false}>
+            {!catalogReady ? (
+              <motion.div
+                key="catalog-skeleton"
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.35, ease: EASE }}
+                className="grid grid-cols-1 gap-x-7 gap-y-12 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+              >
+                {Array.from({ length: 8 }).map((_, index) => (
+                  <div key={index}>
+                    <div className="relative aspect-[4/5] overflow-hidden rounded-lg border border-black/[0.06] bg-white/70 p-4 shadow-[0_12px_32px_rgba(20,17,13,0.04)]">
+                      <Skeleton className="h-full w-full rounded-[14px] bg-black/[0.05]" />
+                      <div className="absolute left-4 top-4">
+                        <Skeleton className="h-6 w-20 rounded-full bg-black/[0.05]" />
+                      </div>
+                      <div className="absolute bottom-4 left-4 right-4">
+                        <Skeleton className="mb-3 h-4 w-24 rounded-full bg-black/[0.05]" />
+                        <Skeleton className="mb-2 h-6 w-3/4 rounded-full bg-black/[0.05]" />
+                        <Skeleton className="h-4 w-1/2 rounded-full bg-black/[0.05]" />
+                      </div>
+                    </div>
+                    <div className="mt-5 border-t border-black/[0.08] pt-5">
+                      <Skeleton className="mb-3 h-3 w-28 rounded-full bg-black/[0.05]" />
+                      <div className="flex items-start justify-between gap-4">
+                        <Skeleton className="h-7 w-40 rounded-full bg-black/[0.05]" />
+                        <Skeleton className="mt-1 h-4 w-16 rounded-full bg-black/[0.05]" />
+                      </div>
+                      <div className="mt-4 flex items-center justify-between gap-4">
+                        <Skeleton className="h-3 w-24 rounded-full bg-black/[0.05]" />
+                        <Skeleton className="h-3 w-20 rounded-full bg-black/[0.05]" />
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </motion.div>
+            ) : (
+              <motion.div
+                key="catalog-products"
+                layout
+                className="grid grid-cols-1 gap-x-7 gap-y-12 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+              >
+                <AnimatePresence mode="popLayout">
+                  {filteredProducts.map((product, index) => (
+                    <motion.div
+                      key={product.id}
+                      layout
+                      initial={{ opacity: 0, scale: 0.96 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.96 }}
+                      transition={{ duration: 0.4, ease: EASE }}
+                    >
+                      <ProductCard {...product} index={index} variant="light" />
+                    </motion.div>
+                  ))}
+                </AnimatePresence>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </section>
 
       {/* CUSTOM ORDER */}
-      <section className="border-t border-black/[0.06] py-16 md:py-24 px-6">
-        <div className="max-w-4xl mx-auto text-center">
-          <p className="text-xs tracking-[0.4em] uppercase text-black/30 mb-4">Custom Order</p>
-          <h2 className="text-3xl md:text-4xl font-serif mb-6 text-balance">
+      <section id="custom" className="border-t border-black/[0.06] bg-white px-6 py-16 md:py-24">
+        <div className="mx-auto max-w-4xl text-center">
+          <p className="mb-4 text-xs uppercase tracking-[0.4em] text-black/30">Custom Order</p>
+          <h2 className="mb-6 font-serif text-3xl text-balance md:text-4xl">
             Want something different?
           </h2>
-          <p className="text-black/45 leading-relaxed max-w-lg mx-auto mb-8">
+          <p className="mx-auto mb-8 max-w-lg leading-relaxed text-black/45">
             Don&rsquo;t see what you&rsquo;re looking for? We can source specific frames, lenses, and
             prescription types. Just give us a call.
           </p>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
             <a
               href="tel:061520XXXX"
-              className="inline-flex items-center gap-2 text-sm tracking-widest uppercase border-b border-black/80 pb-1 hover:gap-4 transition-all duration-300"
+              className="inline-flex items-center gap-2 border-b border-black/80 pb-1 text-sm uppercase tracking-widest transition-all duration-300 hover:gap-4"
             >
               Call 061-520-XXXX
             </a>
-            <span className="hidden sm:inline text-black/20">/</span>
+            <span className="hidden text-black/20 sm:inline">/</span>
             <a
               href="https://wa.me/9779841XXXXX"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-sm tracking-widest uppercase border-b border-black/80 pb-1 hover:gap-4 transition-all duration-300"
+              className="inline-flex items-center gap-2 border-b border-black/80 pb-1 text-sm uppercase tracking-widest transition-all duration-300 hover:gap-4"
             >
               Message on WhatsApp
             </a>

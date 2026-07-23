@@ -25,18 +25,6 @@ export function HeroSection() {
           />
         </div>
 
-        {/* Vertical label - left edge */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 0.5 }}
-          className="absolute left-6 top-1/2 -translate-y-1/2 hidden lg:flex items-center justify-center z-20"
-        >
-          <span className="text-white/50 text-[11px] tracking-[0.35em] uppercase -rotate-90 whitespace-nowrap">
-            Pokhara&apos;s Refined Optical Boutique
-          </span>
-        </motion.div>
-
         {/* Content */}
         <div className="relative z-10 h-full min-h-screen flex flex-col justify-end pt-8 md:pt-12 lg:pt-16 pr-8 md:pr-12 lg:pr-16 pb-8 lg:pb-10 pl-4 md:pl-6 lg:pl-6">
           <motion.div
@@ -95,11 +83,21 @@ export function HeroSection() {
         </div>
 
         {/* Label - far right */}
-        <div className="absolute bottom-8 right-8 z-10 flex flex-col items-end">
+        <div className="absolute bottom-8 right-8 z-10 flex-col items-end hidden lg:flex">
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1, delay: 0.8 }}
+          >
+            <span className="text-white/50 text-[11px] tracking-[0.35em] uppercase whitespace-nowrap">
+              Pokhara&apos;s Refined Optical Boutique
+            </span>
+          </motion.div>
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1, delay: 1.1 }}
+            className="mt-3"
           >
             <span className="text-[11px] tracking-[0.35em] uppercase text-white/70 flex items-center gap-2 mb-3">
               <span className="w-2 h-2 rounded-full bg-emerald-500" />
