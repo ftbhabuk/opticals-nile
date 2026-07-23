@@ -119,7 +119,7 @@ export default function ShopPage() {
       <section className="relative h-[50vh] min-h-[420px] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
           <motion.img
-            src="https://images.unsplash.com/photo-1613323596828-e32ce27e52b3?q=80&w=2000&auto=format&fit=crop"
+            src="https://images.unsplash.com/photo-1615468822882-4828d2602857?q=80&w=2000&auto=format&fit=crop"
             alt="The Nile Collection"
             className="w-full h-full object-cover"
             initial={{ scale: 1.06 }}
@@ -147,28 +147,20 @@ export default function ShopPage() {
       {/* CATEGORY FILTER */}
       <section className="border-b border-black/[0.06]">
         <div className="max-w-7xl mx-auto px-6 py-8">
-          <nav className="flex flex-wrap items-center justify-center gap-2 md:gap-3">
-            {categories.map((category) => {
-              const active = activeCategory === category
-              return (
-                <button
-                  key={category}
-                  onClick={() => setActiveCategory(category)}
-                  className={`relative px-4 py-2 text-xs tracking-[0.18em] uppercase transition-colors duration-300 rounded-full ${
-                    active ? "text-white" : "text-black/40 hover:text-black/70"
-                  }`}
-                >
-                  {active && (
-                    <motion.span
-                      layoutId="shop-category-pill"
-                      className="absolute inset-0 -z-10 rounded-full bg-[#111]"
-                      transition={{ type: "spring", stiffness: 350, damping: 30 }}
-                    />
-                  )}
-                  {category}
-                </button>
-              )
-            })}
+          <nav className="flex flex-wrap items-center justify-center gap-4 md:gap-8">
+            {categories.map((category) => (
+              <button
+                key={category}
+                onClick={() => setActiveCategory(category)}
+                className={`text-xs tracking-widest uppercase transition-all duration-300 pb-1 border-b-2 ${
+                  activeCategory === category
+                    ? "border-black text-black"
+                    : "border-transparent text-black/30 hover:text-black/60"
+                }`}
+              >
+                {category}
+              </button>
+            ))}
           </nav>
           <p className="text-center text-[11px] tracking-[0.2em] uppercase text-black/30 mt-5">
             {filteredProducts.length} {filteredProducts.length === 1 ? "Style" : "Styles"}

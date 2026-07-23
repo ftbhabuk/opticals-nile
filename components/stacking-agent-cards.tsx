@@ -69,7 +69,7 @@ const MIN_BRIGHTNESS = 0.85
 
 export function StackingAgentCards() {
   const cardRefs = useRef<(HTMLDivElement | null)[]>([])
-  const frameRef = useRef<number>()
+  const frameRef = useRef<number>(0)
   const [depth, setDepth] = useState<number[]>(EYEWEAR_TYPES.map(() => 0))
 
   useEffect(() => {

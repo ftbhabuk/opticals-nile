@@ -5,7 +5,7 @@ export function EyewearTypesSection() {
   return (
     <section
       id="types"
-      className="py-24 lg:py-32 px-6 md:px-12 lg:px-20 border-t border-black/[0.06]"
+      className="bg-black/[0.03] py-24 lg:py-32 px-6 md:px-12 lg:px-20"
     >
       <div className="max-w-7xl mx-auto">
         <motion.div

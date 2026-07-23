@@ -67,30 +67,30 @@ const products: Product[] = [
 
 export function CollectionSection() {
   return (
-    <section id="products" className="bg-[#12231D] py-24 lg:py-32 px-6 md:px-12 lg:px-20">
+    <section id="products" className="bg-black/[0.02] py-24 lg:py-32 px-6 md:px-12 lg:px-20">
       <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8 mb-16 lg:mb-24 pb-10 border-b border-[#B8935B]/20"
+          className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8 mb-16 lg:mb-24 pb-10 border-b border-black/[0.06]"
         >
           <div>
-            <p className="font-mono text-[11px] tracking-[0.28em] uppercase text-[#B8935B]/80 mb-4">
+            <p className="text-[11px] tracking-[0.28em] uppercase text-black/30 mb-4">
               Pokhara — Prescription &amp; Sun
             </p>
-            <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-[#EAE4D6]">
+            <h2 className="font-serif text-4xl md:text-5xl lg:text-6xl text-[#111]">
               Seen Clearly
             </h2>
           </div>
           <div className="max-w-xs lg:text-right">
-            <p className="text-sm text-[#EAE4D6]/55 leading-relaxed mb-4">
+            <p className="text-sm text-black/45 leading-relaxed mb-4">
               Six frames, fitted by hand at our Pokhara atelier — from correctives to statement sun.
             </p>
             <Link
               to="/shop"
-              className="inline-flex items-center gap-2 font-mono text-[11px] tracking-[0.2em] uppercase text-[#B8935B] border-b border-[#B8935B]/40 pb-1 hover:border-[#B8935B] transition-colors duration-300"
+              className="inline-flex items-center gap-2 text-[11px] tracking-[0.2em] uppercase text-black/50 border-b border-black/20 pb-1 hover:border-black/60 hover:text-black/80 transition-colors duration-300"
             >
               View Full Collection →
             </Link>

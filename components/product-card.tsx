@@ -48,7 +48,6 @@ export function ProductCard({
   name,
   price,
   image,
-  hoverImage,
   category,
   index = 0,
   variant = "light",
@@ -73,16 +72,7 @@ export function ProductCard({
             src={image}
             alt={name}
             className={`absolute inset-0 h-full w-full object-cover transition-all duration-700 ease-out ${
-              isHovered ? "opacity-0" : "opacity-100 blur-[3px] saturate-[0.85] scale-[1.04]"
-            }`}
-            loading="lazy"
-          />
-          <img
-            src={hoverImage}
-            alt=""
-            aria-hidden="true"
-            className={`absolute inset-0 h-full w-full object-cover transition-all duration-700 ease-out ${
-              isHovered ? "opacity-100 blur-0 scale-100" : "opacity-0 blur-[3px] scale-[1.04]"
+              isHovered ? "blur-0 saturate-100 scale-100" : "blur-[3px] saturate-[0.85] scale-[1.04]"
             }`}
             loading="lazy"
           />

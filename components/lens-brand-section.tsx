@@ -50,7 +50,7 @@ export function LensBrandSection() {
   const { ref, inView } = useInView(0.15)
 
   return (
-    <section id="brands" className="py-32 px-6 md:px-12 lg:px-20 border-t border-black/[0.06]">
+    <section id="brands" className="py-32 px-6 md:px-12 lg:px-20">
       <div className="max-w-6xl mx-auto">
         <div
           ref={ref}

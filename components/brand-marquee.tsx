@@ -1,7 +1,7 @@
 export function BrandMarquee() {
   return (
     <section
-      className="py-0 border-t border-black/[0.06] overflow-hidden select-none [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]"
+      className="bg-black/[0.02] py-0 overflow-hidden select-none [mask-image:linear-gradient(to_right,transparent,black_8%,black_92%,transparent)]"
       aria-hidden="true"
     >
       <div
