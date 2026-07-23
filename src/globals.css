@@ -143,6 +143,15 @@
   animation: glitch-shift 5s infinite ease-in-out, glitch-opacity 3s infinite ease-in-out;
 }
 
+/* Hide scrollbar */
+.scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+
 /* Marquee animations */
 @keyframes marqueeLeft {
   from { transform: translateX(0); }

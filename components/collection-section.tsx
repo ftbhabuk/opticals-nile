@@ -1,122 +1,275 @@
-import { motion } from "framer-motion"
+import { useRef, useState, useEffect } from "react"
+import { motion, AnimatePresence } from "framer-motion"
 import { Link } from "react-router-dom"
 import { ArrowRight } from "lucide-react"
 import { ProductCard } from "@/components/product-card"
 import { featuredProducts } from "@/src/data/products"
+import type { Product } from "@/src/data/products"
 
-const notes = ["Hand-fitted in Pokhara", "Prescription and sun", "500+ frames in-store"]
+const testImages: Record<string, { image: string; hoverImage: string }> = {
+  "classic-acetate": {
+    image:
+      "https://images.unsplash.com/photo-1574258495973-f010dfbb5371?q=80&w=1000&auto=format&fit=crop",
+    hoverImage:
+      "https://images.unsplash.com/photo-1511499767150-a48a237f0083?q=80&w=1000&auto=format&fit=crop",
+  },
+  "aviator-sun": {
+    image:
+      "https://images.unsplash.com/photo-1572635196237-14b3f281503f?q=80&w=1000&auto=format&fit=crop",
+    hoverImage:
+      "https://images.unsplash.com/photo-1591076482161-42ce6da69f67?q=80&w=1000&auto=format&fit=crop",
+  },
+  "titanium-wire": {
+    image:
+      "https://images.unsplash.com/photo-1625591339971-4c9a87a66871?q=80&w=1000&auto=format&fit=crop",
+    hoverImage:
+      "https://images.unsplash.com/photo-1711564354334-ee51baa830c2?q=80&w=1000&auto=format&fit=crop",
+  },
+  "blue-light": {
+    image:
+      "https://images.unsplash.com/photo-1556306535-0f09a537f0a3?q=80&w=1000&auto=format&fit=crop",
+    hoverImage:
+      "https://images.unsplash.com/photo-1741332528297-219f88563345?q=80&w=1000&auto=format&fit=crop",
+  },
+  "tortoise-statement": {
+    image:
+      "https://images.unsplash.com/photo-1614715838608-dd527c46231d?q=80&w=1000&auto=format&fit=crop",
+    hoverImage:
+      "https://images.unsplash.com/photo-1747640730472-3070d5ed690d?q=80&w=1000&auto=format&fit=crop",
+  },
+  "polarized-outdoor": {
+    image:
+      "https://images.unsplash.com/photo-1473496169904-658ba7c44d8a?q=80&w=1000&auto=format&fit=crop",
+    hoverImage:
+      "https://images.unsplash.com/photo-1577803645773-f96470509666?q=80&w=1000&auto=format&fit=crop",
+  },
+}
 
-const showroomImages = [
-  {
-    src: "/images/spectacles-showcase.png",
-    alt: "Premium eyewear display at Nile Opticals",
-  },
-  {
-    src: "/images/shop-interior-2.png",
-    alt: "Nile Opticals frame wall",
-  },
-  {
-    src: "/images/shop-interior-3.png",
-    alt: "Eyewear shelves at Nile Opticals",
-  },
-]
+const p: (Product & { testImage: string; testHover: string })[] = featuredProducts.map((product) => ({
+  ...product,
+  testImage: testImages[product.id]?.image ?? product.image,
+  testHover: testImages[product.id]?.hoverImage ?? product.hoverImage,
+}))
+
+const spring = { type: "spring" as const, stiffness: 120, damping: 22, mass: 0.8 }
+const smooth = [0.16, 1, 0.3, 1] as const
 
 export function CollectionSection() {
+  const [activeIndex, setActiveIndex] = useState(0)
+  const scrollRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    const el = scrollRef.current
+    if (!el) return
+    const handleScroll = () => {
+      const items = el.querySelectorAll<HTMLElement>("[data-index]")
+      const scrollCenter = el.scrollTop + el.clientHeight / 2
+      let best = 0
+      let bestDist = Infinity
+      items.forEach((item) => {
+        const i = Number(item.dataset.index)
+        const itemCenter = item.offsetTop + item.offsetHeight / 2
+        const dist = Math.abs(itemCenter - scrollCenter)
+        if (dist < bestDist) {
+          bestDist = dist
+          best = i
+        }
+      })
+      setActiveIndex(best)
+    }
+    el.addEventListener("scroll", handleScroll, { passive: true })
+    handleScroll()
+    return () => el.removeEventListener("scroll", handleScroll)
+  }, [])
+
   return (
-    <section
-      id="products"
-      className="overflow-hidden bg-[#F6F1E8] px-6 py-24 text-[#14110D] md:px-12 lg:px-20 lg:py-32"
-    >
-      <div className="mx-auto max-w-7xl">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-          className="mb-16 grid gap-10 border-b border-[#C9A46A]/30 pb-12 lg:mb-20 lg:grid-cols-[1.05fr_0.95fr] lg:items-end"
-        >
-          <div className="max-w-3xl">
-            <p className="mb-5 text-[11px] uppercase tracking-[0.32em] text-[#8D7148]">
-              Curated eyewear edit
-            </p>
-            <h2 className="font-serif text-4xl leading-[1.02] text-balance md:text-6xl lg:text-7xl">
-              Frames chosen like wardrobe pieces.
-            </h2>
-          </div>
-          <div className="max-w-md lg:justify-self-end">
-            <p className="mb-7 text-sm leading-relaxed text-black/52">
-              A tighter edit from our shelves: optical, sun, titanium, acetate, and everyday
-              computer frames selected for proportion, finish, and wearability.
-            </p>
-            <Link
-              to="/shop"
-              className="group inline-flex items-center gap-3 bg-[#14110D] px-6 py-4 text-[11px] uppercase tracking-[0.22em] text-white transition-colors duration-300 hover:bg-[#2A2117]"
-            >
-              View full collection
-              <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-            </Link>
-          </div>
-        </motion.div>
-
-        <div className="grid gap-10 lg:grid-cols-[0.92fr_1.08fr] lg:items-stretch">
-          <div className="grid min-h-[620px] grid-cols-1 gap-4 sm:grid-cols-2">
-            <motion.div
-              initial={{ opacity: 0, y: 28 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
-              className="relative overflow-hidden rounded-[28px] bg-[#1B1712] sm:col-span-2 sm:min-h-[330px]"
-            >
-              <img
-                src={showroomImages[0].src}
-                alt={showroomImages[0].alt}
-                className="h-full w-full object-cover"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/62 via-black/8 to-transparent" />
-              <div className="absolute bottom-0 left-0 right-0 p-7 text-white">
-                <p className="mb-3 text-[10px] uppercase tracking-[0.28em] text-[#E6C78E]">
-                  In-store selection
-                </p>
-                <p className="max-w-sm font-serif text-3xl leading-tight text-balance">
-                  Try the finish, weight, and fit before you decide.
-                </p>
-              </div>
-            </motion.div>
-
-            {showroomImages.slice(1).map((image, index) => (
-              <motion.div
-                key={image.src}
-                initial={{ opacity: 0, y: 28 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-80px" }}
-                transition={{ duration: 0.75, delay: 0.08 + index * 0.08, ease: [0.16, 1, 0.3, 1] }}
-                className="min-h-[260px] overflow-hidden rounded-[28px] bg-[#1B1712]"
-              >
-                <img src={image.src} alt={image.alt} className="h-full w-full object-cover" />
-              </motion.div>
-            ))}
-          </div>
-
-          <div>
-            <div className="mb-8 grid grid-cols-1 border-y border-[#C9A46A]/25 sm:grid-cols-3">
-              {notes.map((note) => (
-                <div
-                  key={note}
-                  className="border-b border-[#C9A46A]/25 py-5 text-[10px] uppercase tracking-[0.22em] text-black/42 last:border-b-0 sm:border-b-0 sm:border-r sm:last:border-r-0"
-                >
-                  {note}
-                </div>
-              ))}
+    <>
+      <section className="bg-[#F6F1E8] px-6 pb-8 pt-24 text-[#14110D] md:px-12 lg:px-20 lg:pb-4 lg:pt-32">
+        <div className="mx-auto max-w-7xl">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+            className="grid gap-10 border-b border-[#C9A46A]/30 pb-12 lg:grid-cols-[1.05fr_0.95fr] lg:items-end"
+          >
+            <div className="max-w-3xl">
+              <p className="mb-5 text-[11px] uppercase tracking-[0.32em] text-[#8D7148]">
+                Curated eyewear edit
+              </p>
+              <h2 className="font-serif text-4xl leading-[1.02] text-balance md:text-6xl lg:text-7xl">
+                Frames chosen like wardrobe pieces.
+              </h2>
             </div>
+            <div className="max-w-md lg:justify-self-end">
+              <p className="mb-7 text-sm leading-relaxed text-black/52">
+                A tighter edit from our shelves: optical, sun, titanium, acetate, and everyday
+                computer frames selected for proportion, finish, and wearability.
+              </p>
+              <Link
+                to="/shop"
+                className="group inline-flex items-center gap-3 bg-[#14110D] px-6 py-4 text-[11px] uppercase tracking-[0.22em] text-white transition-colors duration-300 hover:bg-[#2A2117]"
+              >
+                View full collection
+                <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+              </Link>
+            </div>
+          </motion.div>
+        </div>
+      </section>
 
-            <div className="grid grid-cols-1 gap-x-7 gap-y-12 md:grid-cols-2">
-              {featuredProducts.map((product, i) => (
-                <ProductCard key={product.id} {...product} index={i} variant="editorial" />
-              ))}
+      <section
+        id="products"
+        className="hidden h-screen overflow-hidden bg-[#F6F1E8] lg:block"
+      >
+        <div className="flex h-full">
+          <div
+            ref={scrollRef}
+            className="scrollbar-none w-[42%] overflow-y-auto px-6 pl-16 pr-10 xl:pl-20 xl:pr-12"
+          >
+            <div className="h-[15vh]" />
+
+            {p.map((product, i) => {
+              const isActive = i === activeIndex
+              return (
+                <div
+                  key={product.id}
+                  data-index={i}
+                  className="flex min-h-[65vh] items-center border-t border-[#C9A46A]/15 py-10 last:border-b"
+                >
+                  <motion.div
+                    animate={{
+                      opacity: isActive ? 1 : 0.2,
+                      x: isActive ? 0 : -16,
+                    }}
+                    transition={{ ...spring, stiffness: isActive ? 140 : 100 }}
+                    className="w-full"
+                  >
+                    <AnimatePresence mode="popLayout">
+                      {isActive && (
+                        <motion.div
+                          key="bar"
+                          initial={{ width: 0, opacity: 0 }}
+                          animate={{ width: 48, opacity: 1 }}
+                          exit={{ width: 0, opacity: 0 }}
+                          transition={{ duration: 0.4, ease: smooth }}
+                          className="mb-5 h-px bg-[#C9A46A]"
+                        />
+                      )}
+                    </AnimatePresence>
+                    <p
+                      className={`mb-2 text-[10px] uppercase tracking-[0.28em] transition-all duration-500 ${
+                        isActive ? "text-[#C9A46A]" : "text-[#8D7148]"
+                      }`}
+                    >
+                      {String(i + 1).padStart(2, "0")} — {product.category}
+                    </p>
+                    <motion.h3
+                      layout
+                      animate={{
+                        fontSize: isActive ? "2.25rem" : "1.75rem",
+                      }}
+                      transition={spring}
+                      className={`font-serif leading-tight text-balance transition-colors duration-500 ${
+                        isActive ? "text-[#14110D]" : "text-[#14110D]/50"
+                      }`}
+                    >
+                      {product.name}
+                    </motion.h3>
+                    <motion.p
+                      animate={{ opacity: isActive ? 1 : 0.3 }}
+                      transition={{ duration: 0.3 }}
+                      className="mb-4 mt-4 text-sm text-black/45"
+                    >
+                      Rs.&nbsp;{product.price.toLocaleString("en-NP")}
+                    </motion.p>
+                    <motion.div
+                      animate={{ opacity: isActive ? 1 : 0.2 }}
+                      transition={{ duration: 0.3 }}
+                      className="flex items-center gap-4 text-[10px] uppercase tracking-[0.22em] text-black/42"
+                    >
+                      <span>{product.material}</span>
+                      <span className="text-[#C9A46A]/50">|</span>
+                      <span>{product.fit}</span>
+                    </motion.div>
+                  </motion.div>
+                </div>
+              )
+            })}
+
+            <div className="h-[15vh]" />
+          </div>
+
+          <div className="sticky top-0 flex h-screen w-[58%] items-center justify-center px-10 xl:px-16">
+            <div className="relative w-full max-w-lg">
+              <AnimatePresence mode="popLayout">
+                <motion.div
+                  key={p[activeIndex].id}
+                  initial={{ opacity: 0, scale: 0.9, rotateZ: -2 }}
+                  animate={{ opacity: 1, scale: 1, rotateZ: 0 }}
+                  exit={{ opacity: 0, scale: 0.9, rotateZ: 2 }}
+                  transition={{ ...spring, stiffness: 140, damping: 26 }}
+                  className="relative"
+                >
+                  <div className="relative overflow-hidden rounded-[28px] shadow-2xl">
+                    <motion.img
+                      key={`main-${p[activeIndex].id}`}
+                      src={p[activeIndex].testImage}
+                      alt={p[activeIndex].name}
+                      className="w-full object-cover aspect-[4/5]"
+                      initial={{ scale: 1.1 }}
+                      animate={{ scale: 1 }}
+                      transition={{ duration: 0.6, ease: smooth }}
+                    />
+                    <div className="absolute inset-0 rounded-[28px] ring-1 ring-inset ring-black/6" />
+                  </div>
+                  <motion.div
+                    initial={{ opacity: 0, y: 24, scale: 0.95 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    transition={{ ...spring, delay: 0.15, stiffness: 130 }}
+                    className="absolute -bottom-4 -right-4 w-[55%] overflow-hidden rounded-2xl shadow-2xl"
+                  >
+                    <div className="relative overflow-hidden rounded-2xl">
+                      <motion.img
+                        key={`hover-${p[activeIndex].id}`}
+                        src={p[activeIndex].testHover}
+                        alt={p[activeIndex].name}
+                        className="w-full object-cover aspect-[3/4]"
+                        initial={{ scale: 1.15 }}
+                        animate={{ scale: 1 }}
+                        transition={{ duration: 0.6, ease: smooth }}
+                      />
+                      <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-black/6" />
+                    </div>
+                  </motion.div>
+                </motion.div>
+              </AnimatePresence>
+
+              <motion.div
+                key={activeIndex}
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.3 }}
+                className="absolute -left-8 top-1/2 -translate-y-1/2"
+              >
+                <p className="text-[10px] uppercase tracking-[0.32em] text-[#C9A46A] [writing-mode:vertical-rl]">
+                  {String(activeIndex + 1).padStart(2, "0")} / {String(p.length).padStart(2, "0")}
+                </p>
+              </motion.div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+
+      <section className="bg-[#F6F1E8] px-6 pb-24 text-[#14110D] md:px-12 lg:hidden">
+        <div className="mx-auto max-w-7xl">
+          <div className="grid grid-cols-1 gap-x-7 gap-y-12 md:grid-cols-2">
+            {featuredProducts.map((product, i) => (
+              <ProductCard key={product.id} {...product} index={i} variant="editorial" />
+            ))}
+          </div>
+        </div>
+      </section>
+    </>
   )
 }
