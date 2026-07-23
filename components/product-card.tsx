@@ -25,7 +25,7 @@ const THEME: Record<Variant, {
   light: {
     placeholder: "bg-black/[0.03]",
     reticle: "border-black/30",
-    hairline: "border-black/[0.08]",
+    hairline: "border-[#B8935B]/25",
     eyebrow: "text-black/35",
     eyebrowFont: "font-sans",
     name: "text-[#111]",
@@ -72,7 +72,7 @@ export function ProductCard({
             src={image}
             alt={name}
             className={`absolute inset-0 h-full w-full object-cover transition-all duration-700 ease-out ${
-              isHovered ? "blur-0 saturate-100 scale-100" : "blur-[3px] saturate-[0.85] scale-[1.04]"
+              isHovered ? "scale-105" : "scale-100"
             }`}
             loading="lazy"
           />
