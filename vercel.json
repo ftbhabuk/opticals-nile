@@ -2,7 +2,7 @@
   "rewrites": [
     { "source": "/shop", "destination": "/shop/index.html" },
     { "source": "/journey", "destination": "/journey/index.html" },
-    { "source": "/(.*)", "destination": "/index.html" }
+    { "source": "/((?!.*\\.html$|assets/|images/|sitemap\\.xml|robots\\.txt|google.*\\.html).*)", "destination": "/index.html" }
   ],
   "headers": [
     {
