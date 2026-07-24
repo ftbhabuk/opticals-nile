@@ -50,23 +50,23 @@ export default function Navigation() {
           isScrolled ? "max-w-3xl" : "max-w-none"
         }`}
       >
-        <nav
-          className={`flex items-center justify-between transition-all duration-500 ${
-            isScrolled
-              ? "px-5 py-3 rounded-2xl border border-black/[0.06]"
-               : "px-6 lg:px-10 py-5 rounded-none border-b border-white/10"
-          }`}
-          style={isScrolled ? GLASS_STYLE : undefined}
-        >
-          <Link to="/" className="flex flex-col items-start gap-0.5">
-            <span
-              className={`font-pixel tracking-[0.25em] transition-all duration-500 ${
-                isScrolled ? "text-xs text-black/70" : "text-sm text-white/90"
-              }`}
-            >
-              NILE
-            </span>
-          </Link>
+       <nav
+  className={`flex items-center justify-between transition-all duration-500 ${
+    isScrolled
+      ? "h-16 px-5 rounded-2xl border border-black/[0.06]"
+      : "h-20 px-6 lg:px-10 rounded-none border-b border-white/10"
+  }`}
+  style={isScrolled ? GLASS_STYLE : undefined}
+>
+<Link to="/" className="flex items-center shrink-0">
+  <img
+    src="/logo.svg"
+    alt="Nile Opticals"
+    className={`h-24 w-auto shrink-0 transition-all duration-500 ${
+      isScrolled ? "opacity-80" : "brightness-0 invert opacity-90"
+    }`}
+  />
+</Link>
 
           <div
             className="hidden md:flex items-center gap-7"
