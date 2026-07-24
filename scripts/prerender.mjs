@@ -1,8 +1,8 @@
-import { chromium } from "playwright"
 import fs from "fs"
 import path from "path"
 import { fileURLToPath } from "url"
 import { spawn } from "child_process"
+import puppeteer from "puppeteer"
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
@@ -39,21 +39,11 @@ async function prerenderRoute(page, route, outDir) {
   const url = `${baseUrl}${route.path}`
   console.log(`🔄 Prerendering ${url}...`)
 
-  await page.goto(url, { waitUntil: "networkidle", timeout: 60000 })
+  await page.goto(url, { waitUntil: "networkidle0", timeout: 60000 })
 
-  await page.waitForLoadState("domcontentloaded")
+  await page.waitForSelector("#root", { timeout: 15000 })
 
   await sleep(2000)
-
-  await page.waitForFunction(
-    () => {
-      const root = document.getElementById("root")
-      return root && root.children.length > 0 && root.innerHTML.trim().length > 100
-    },
-    { timeout: 15000 }
-  ).catch(() => {
-    console.log("  ⚠️  Timeout waiting for React hydration, proceeding anyway...")
-  })
 
   const html = await page.content()
 
@@ -80,17 +70,19 @@ async function main() {
   console.log(`📁 Output directory: ${distDir}`)
 
   let server
+  let browser
   try {
     server = await serveDist()
     console.log(`🌐 Preview server started on ${baseUrl}`)
     await sleep(2000)
 
-    const browser = await chromium.launch({ headless: true })
-    const context = await browser.newContext({
-      viewport: { width: 1280, height: 720 },
-      userAgent: "Mozilla/5.0 (compatible; NileOpticalsBot/1.0; +https://nileopticals.com)",
+    browser = await puppeteer.launch({
+      headless: "new",
+      args: ["--no-sandbox", "--disable-setuid-sandbox", "--disable-dev-shm-usage", "--disable-gpu"],
     })
-    const page = await context.newPage()
+    const page = await browser.newPage()
+    await page.setViewport({ width: 1280, height: 720 })
+    await page.setUserAgent("Mozilla/5.0 (compatible; NileOpticalsBot/1.0; +https://nileopticals.com)")
 
     for (const route of routes) {
       await prerenderRoute(page, route, route.outDir)
@@ -105,6 +97,9 @@ async function main() {
     if (server) {
       server.kill()
       console.log("🛑 Preview server stopped")
+    }
+    if (browser && browser.connected) {
+      await browser.close()
     }
   }
 }
