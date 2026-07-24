@@ -59,25 +59,41 @@ export function CollectionSection() {
   const scrollRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
+    // Scroll-driven active index detection.
+    // Finds the [data-index] item closest to viewport center on each scroll.
+    // Uses document listener + rAF throttling for cross-browser reliability
+    // (Chromium and Firefox both confirmed working).
+    //
+    // If this breaks: check that [data-index] attributes are intact on product
+    // divs, and that scrollRef targets the correct container. The sticky image
+    // column depends on p[activeIndex] — verify AnimatePresence key matches.
+    let ticking = false
     const handleScroll = () => {
-      const items = document.querySelectorAll<HTMLElement>("[data-index]")
-      const mid = window.innerHeight / 2
-      let closest = 0
-      let minDist = Infinity
-      items.forEach((item) => {
-        const rect = item.getBoundingClientRect()
-        const itemMid = rect.top + rect.height / 2
-        const dist = Math.abs(itemMid - mid)
-        if (dist < minDist) {
-          minDist = dist
-          closest = Number(item.getAttribute("data-index"))
-        }
+      if (ticking) return
+      ticking = true
+      requestAnimationFrame(() => {
+        const el = scrollRef.current
+        if (!el) return
+        const items = el.querySelectorAll<HTMLElement>("[data-index]")
+        const mid = window.innerHeight / 2
+        let closest = 0
+        let minDist = Infinity
+        items.forEach((item) => {
+          const rect = item.getBoundingClientRect()
+          const itemMid = rect.top + rect.height / 2
+          const dist = Math.abs(itemMid - mid)
+          if (dist < minDist) {
+            minDist = dist
+            closest = Number(item.getAttribute("data-index"))
+          }
+        })
+        setActiveIndex(closest)
+        ticking = false
       })
-      setActiveIndex(closest)
     }
-    window.addEventListener("scroll", handleScroll, { passive: true })
+    document.addEventListener("scroll", handleScroll, { passive: true })
     handleScroll()
-    return () => window.removeEventListener("scroll", handleScroll)
+    return () => document.removeEventListener("scroll", handleScroll)
   }, [])
 
   return (
