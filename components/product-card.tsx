@@ -3,46 +3,19 @@ import type { Product } from "@/src/data/products"
 
 export type { Product }
 
-type Variant = "light" | "editorial"
-
 const ROUNDED = "rounded-2xl"
 
-const THEME: Record<Variant, {
-  placeholder: string
-  border: string
-  hairline: string
-  eyebrow: string
-  name: string
-  price: string
-  badge: string
-  meta: string
-  labelBorder: string
-  labelText: string
-}> = {
-  light: {
-    placeholder: "bg-[#F4F0E8]",
-    border: "border-black/[0.06]",
-    hairline: "border-black/[0.08]",
-    eyebrow: "text-black/40",
-    name: "text-[#111]",
-    price: "text-black/55",
-    badge: "bg-white/85 text-black/60 ring-black/[0.06]",
-    meta: "text-black/38",
-    labelBorder: "border-white/50",
-    labelText: "text-white",
-  },
-  editorial: {
-    placeholder: "bg-[#F2EEE6]",
-    border: "border-[#C9A46A]/20",
-    hairline: "border-[#C9A46A]/30",
-    eyebrow: "text-[#8D7148]",
-    name: "text-[#111]",
-    price: "text-black/45",
-    badge: "bg-[#18130D] text-white ring-black/10",
-    meta: "text-black/36",
-    labelBorder: "border-white/50",
-    labelText: "text-white",
-  },
+const THEME = {
+  placeholder: "bg-[#F4F0E8]",
+  border: "border-black/[0.06]",
+  hairline: "border-black/[0.08]",
+  eyebrow: "text-black/40",
+  name: "text-[#111]",
+  price: "text-black/55",
+  badge: "bg-white/85 text-black/60 ring-black/[0.06]",
+  meta: "text-black/38",
+  labelBorder: "border-white/50",
+  labelText: "text-white",
 }
 
 export function ProductCard({
@@ -55,9 +28,8 @@ export function ProductCard({
   fit,
   badge,
   index = 0,
-  variant = "light",
-}: Product & { index?: number; variant?: Variant }) {
-  const t = THEME[variant]
+}: Product & { index?: number }) {
+  const t = THEME
 
   return (
     <motion.div

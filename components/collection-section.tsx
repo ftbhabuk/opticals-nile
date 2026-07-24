@@ -273,7 +273,7 @@ export function CollectionSection() {
         <div className="mx-auto max-w-7xl">
           <div className="grid grid-cols-1 gap-x-7 gap-y-12 md:grid-cols-2">
             {featuredProducts.map((product, i) => (
-              <ProductCard key={product.id} {...product} index={i} variant="editorial" />
+              <ProductCard key={product.id} {...product} index={i} />
             ))}
           </div>
         </div>

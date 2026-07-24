@@ -1,0 +1,25 @@
+{
+  "rewrites": [
+    { "source": "/shop", "destination": "/shop/index.html" },
+    { "source": "/journey", "destination": "/journey/index.html" },
+    { "source": "/(.*)", "destination": "/index.html" }
+  ],
+  "headers": [
+    {
+      "source": "/sitemap.xml",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=86400, s-maxage=86400" }]
+    },
+    {
+      "source": "/robots.txt",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=86400, s-maxage=86400" }]
+    },
+    {
+      "source": "/shop/index.html",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }]
+    },
+    {
+      "source": "/journey/index.html",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=0, must-revalidate" }]
+    }
+  ]
+}

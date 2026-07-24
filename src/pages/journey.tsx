@@ -4,6 +4,7 @@ import { useInView } from "@/hooks/use-in-view"
 
 import { Tag } from "@/components/tag"
 import { Footer } from "@/components/footer"
+import { Seo } from "@/src/components/Seo"
 
 const timeline = [
   {
@@ -160,6 +161,13 @@ export default function JourneyPage() {
 
   return (
     <div className="bg-white text-[#111] min-h-screen font-sans antialiased">
+      <Seo
+        title="Your Journey to Perfect Vision — Nile Opticals Experience"
+        description="From expert consultation to precision exams and custom fitting, discover the Nile Opticals experience on Newroad, Pokhara. 6-step journey to your perfect eyewear."
+        canonicalPath="/journey"
+        ogImage="/images/landing.png"
+        ogType="website"
+      />
       {/* HERO */}
       <section className="relative h-[70vh] lg:h-[80vh] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">

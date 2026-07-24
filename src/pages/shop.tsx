@@ -6,6 +6,7 @@ import { ProductCard } from "@/components/product-card"
 import { Footer } from "@/components/footer"
 import { Skeleton } from "@/components/ui/skeleton"
 import { categories, products } from "@/src/data/products"
+import { Seo, ProductJsonLd } from "@/src/components/Seo"
 
 const EASE = [0.16, 1, 0.3, 1] as const
 const shopCategories = categories.filter((category) =>
@@ -19,6 +20,8 @@ export default function ShopPage() {
   const filteredProducts =
     activeCategory === "All" ? products : products.filter((p) => p.category === activeCategory)
 
+  const siteUrl = import.meta.env.VITE_SITE_URL || "https://nileopticals.com"
+
   useEffect(() => {
     setCatalogReady(false)
 
@@ -31,6 +34,14 @@ export default function ShopPage() {
 
   return (
     <div className="min-h-screen bg-[#F8F4ED] text-[#111] antialiased">
+      <Seo
+        title="Shop Eyewear — Prescription, Sunglasses & Specialty Frames | Nile Opticals"
+        description="Browse 500+ premium frames at Nile Opticals, Pokhara. Prescription glasses, polarized sunglasses, blue-cut computer glasses, and fashion frames from Ray-Ban, Oakley, Gucci & more."
+        canonicalPath="/shop"
+        ogImage="/images/landing.png"
+        ogType="website"
+        jsonLd={ProductJsonLd(products)}
+      />
       {/* HERO */}
       <section className="relative flex h-[70vh] items-center justify-center overflow-hidden lg:h-[80vh]">
         <div className="absolute inset-0">
@@ -172,7 +183,7 @@ export default function ShopPage() {
                       exit={{ opacity: 0, scale: 0.96 }}
                       transition={{ duration: 0.4, ease: EASE }}
                     >
-                      <ProductCard {...product} index={index} variant="light" />
+                      <ProductCard {...product} index={index} />
                     </motion.div>
                   ))}
                 </AnimatePresence>
