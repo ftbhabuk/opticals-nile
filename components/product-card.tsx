@@ -3,7 +3,7 @@ import type { Product } from "@/src/data/products"
 
 export type { Product }
 
-type Variant = "light" | "dark" | "editorial"
+type Variant = "light" | "editorial"
 
 const ROUNDED = "rounded-2xl"
 
@@ -30,18 +30,6 @@ const THEME: Record<Variant, {
     meta: "text-black/38",
     labelBorder: "border-white/50",
     labelText: "text-white",
-  },
-  dark: {
-    placeholder: "bg-[#191714]",
-    border: "border-white/10",
-    hairline: "border-white/12",
-    eyebrow: "text-white/45",
-    name: "text-white",
-    price: "text-white/58",
-    badge: "bg-[#C9A46A]/95 text-[#17120C] ring-white/10",
-    meta: "text-white/38",
-    labelBorder: "border-white/25",
-    labelText: "text-white/75",
   },
   editorial: {
     placeholder: "bg-[#F2EEE6]",
