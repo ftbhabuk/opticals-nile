@@ -59,27 +59,25 @@ export function CollectionSection() {
   const scrollRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    const el = scrollRef.current
-    if (!el) return
     const handleScroll = () => {
-      const items = el.querySelectorAll<HTMLElement>("[data-index]")
-      const scrollCenter = el.scrollTop + el.clientHeight / 2
-      let best = 0
-      let bestDist = Infinity
+      const items = document.querySelectorAll<HTMLElement>("[data-index]")
+      const mid = window.innerHeight / 2
+      let closest = 0
+      let minDist = Infinity
       items.forEach((item) => {
-        const i = Number(item.dataset.index)
-        const itemCenter = item.offsetTop + item.offsetHeight / 2
-        const dist = Math.abs(itemCenter - scrollCenter)
-        if (dist < bestDist) {
-          bestDist = dist
-          best = i
+        const rect = item.getBoundingClientRect()
+        const itemMid = rect.top + rect.height / 2
+        const dist = Math.abs(itemMid - mid)
+        if (dist < minDist) {
+          minDist = dist
+          closest = Number(item.getAttribute("data-index"))
         }
       })
-      setActiveIndex(best)
+      setActiveIndex(closest)
     }
-    el.addEventListener("scroll", handleScroll, { passive: true })
+    window.addEventListener("scroll", handleScroll, { passive: true })
     handleScroll()
-    return () => el.removeEventListener("scroll", handleScroll)
+    return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
   return (
@@ -118,15 +116,9 @@ export function CollectionSection() {
         </div>
       </section>
 
-      <section
-        id="products"
-        className="hidden h-screen overflow-hidden bg-[#F6F1E8] lg:block"
-      >
-        <div className="flex h-full">
-          <div
-            ref={scrollRef}
-            className="scrollbar-none w-[42%] overflow-y-auto px-6 pl-16 pr-10 xl:pl-20 xl:pr-12"
-          >
+      <section id="products" className="hidden bg-[#F6F1E8] lg:block">
+  <div className="flex">
+    <div ref={scrollRef} className="w-[42%] px-6 pl-16 pr-10 xl:pl-20 xl:pr-12">
             <div className="h-[15vh]" />
 
             {p.map((product, i) => {
