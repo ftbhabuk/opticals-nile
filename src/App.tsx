@@ -8,7 +8,7 @@ import { Footer } from "@/components/footer"
 import { Seo, LocalBusinessJsonLd } from "@/src/components/Seo"
 
 export default function App() {
-  const siteUrl = import.meta.env.VITE_SITE_URL || "https://nileopticals.com"
+  const siteUrl = (typeof import.meta !== "undefined" ? import.meta.env?.VITE_SITE_URL : undefined) || (typeof process !== "undefined" ? process.env?.VITE_SITE_URL : undefined) || "https://nileopticals.com"
 
   return (
     <div className="bg-white text-[#111] min-h-screen font-sans antialiased">

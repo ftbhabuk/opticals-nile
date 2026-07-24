@@ -15,7 +15,8 @@ const SITE_NAME = "Nile Opticals"
 const DEFAULT_OG_IMAGE = "/og-default.png"
 
 function getSiteUrl(): string {
-  return import.meta.env.VITE_SITE_URL || "http://localhost:5173"
+  // Check process.env first (Node.js/prerender), then import.meta.env (browser/Vite)
+  return (typeof process !== 'undefined' && process.env?.VITE_SITE_URL) || import.meta.env?.VITE_SITE_URL || "http://localhost:5173"
 }
 
 function absoluteUrl(path: string): string {
