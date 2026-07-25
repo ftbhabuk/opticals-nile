@@ -6,49 +6,46 @@ import { ProductCard } from "@/components/product-card"
 import { featuredProducts } from "@/src/data/products"
 import type { Product } from "@/src/data/products"
 
-const testImages: Record<string, { image: string; hoverImage: string }> = {
+const testImages: Record<string, { image: string; hoverImage: string; imagePosition?: string; hoverPosition?: string }> = {
   "classic-acetate": {
-    image:
-      "https://images.unsplash.com/photo-1752486268262-6ce6b339a8de?q=80&w=987&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    hoverImage:
-      "https://images.unsplash.com/photo-1764737707504-f1ce82f76a16?q=80&w=2532&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    image: "/images/products/classic-acetate-main.jpg",
+    hoverImage: "/images/products/classic-acetate-hover.jpg",
+    hoverPosition: "center 90%",
   },
   "aviator-sun": {
-    image:
-      "https://images.unsplash.com/photo-1552958791-a034dec52705?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    hoverImage:
-      "https://images.unsplash.com/photo-1589642380614-4a8c2147b857?q=80&w=1674&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    image: "/images/products/aviator-sun-main.jpg",
+    hoverImage: "/images/products/aviator-sun-hover.jpg",
+    imagePosition: "center 99%",
   },
   "titanium-wire": {
-    image:
-      "https://plus.unsplash.com/premium_photo-1669704098858-8cd103f4ac2e?q=80&w=988&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    hoverImage:
-      "https://images.unsplash.com/photo-1606357100116-f787c70ea04f?q=80&w=1674&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    image: "/images/products/titanium-wire-main.jpg",
+    hoverImage: "/images/products/titanium-wire-hover.jpg",
+    imagePosition: "center 99%",
   },
   "blue-light": {
-    image:
-      "https://plus.unsplash.com/premium_photo-1661319147577-fe52598a037a?q=80&w=1771&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    hoverImage:
-      "https://images.unsplash.com/photo-1661525244755-3dc7926c347a?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    image: "/images/products/blue-light-main.jpg",
+    hoverImage: "/images/products/blue-light-hover.jpg",
+    imagePosition: "center 99%",
   },
   "tortoise-statement": {
-    image:
-      "https://www.net-a-porter.com/variants/images/1647597334165801/ou/w2000_q60.jpg",
-    hoverImage:
-      "https://thefoschini.vtexassets.com/arquivos/ids/221456937-1200-1600?v=638968942656930000&width=1200&height=1600&aspect=true",
+    image: "/images/products/tortoise-statement-main.jpg",
+    hoverImage: "/images/products/tortoise-statement-hover.jpg",
+    imagePosition: "center 99%",
   },
   "polarized-outdoor": {
-    image:
-      "https://plus.unsplash.com/premium_photo-1752192844608-9e4be077452d?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    hoverImage:
-      "https://images.unsplash.com/photo-1606196480588-43eaeb825006?q=80&w=1674&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    image: "/images/products/polarized-outdoor-main.jpg",
+    hoverImage: "/images/products/polarized-outdoor-hover.jpg",
+    imagePosition: "center 90%",
+    hoverPosition: "center 10%",
   },
 }
 
-const p: (Product & { testImage: string; testHover: string })[] = featuredProducts.map((product) => ({
+const p: (Product & { testImage: string; testHover: string; testImagePos?: string; testHoverPos?: string })[] = featuredProducts.map((product) => ({
   ...product,
   testImage: testImages[product.id]?.image ?? product.image,
   testHover: testImages[product.id]?.hoverImage ?? product.hoverImage,
+  testImagePos: testImages[product.id]?.imagePosition,
+  testHoverPos: testImages[product.id]?.hoverPosition,
 }))
 
 const spring = { type: "spring" as const, stiffness: 120, damping: 22, mass: 0.8 }
@@ -219,18 +216,21 @@ export function CollectionSection() {
                   transition={{ ...spring, stiffness: 140, damping: 26 }}
                   className="relative"
                 >
-                  <div className="relative overflow-hidden rounded-[28px] shadow-2xl">
-                    <motion.img
+                  <motion.div
+                    initial={{ scale: 1.1 }}
+                    animate={{ scale: 1 }}
+                    transition={{ duration: 0.6, ease: smooth }}
+                    className="relative overflow-hidden rounded-[28px] shadow-2xl"
+                  >
+                    <img
                       key={`main-${p[activeIndex].id}`}
                       src={p[activeIndex].testImage}
                       alt={p[activeIndex].name}
-                      className="w-full object-cover aspect-[4/5]"
-                      initial={{ scale: 1.1 }}
-                      animate={{ scale: 1 }}
-                      transition={{ duration: 0.6, ease: smooth }}
+                      className="w-full h-full object-cover aspect-[4/5]"
+                      style={{ objectPosition: p[activeIndex].testImagePos ?? "center" }}
                     />
                     <div className="absolute inset-0 rounded-[28px] ring-1 ring-inset ring-black/6" />
-                  </div>
+                  </motion.div>
                   <motion.div
                     initial={{ opacity: 0, y: 24, scale: 0.95 }}
                     animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -238,14 +238,12 @@ export function CollectionSection() {
                     className="absolute -bottom-4 -right-4 w-[55%] overflow-hidden rounded-2xl shadow-2xl"
                   >
                     <div className="relative overflow-hidden rounded-2xl">
-                      <motion.img
+                      <img
                         key={`hover-${p[activeIndex].id}`}
                         src={p[activeIndex].testHover}
                         alt={p[activeIndex].name}
-                        className="w-full object-cover aspect-[3/4]"
-                        initial={{ scale: 1.15 }}
-                        animate={{ scale: 1 }}
-                        transition={{ duration: 0.6, ease: smooth }}
+                        className="w-full h-full object-cover aspect-[3/4]"
+                        style={{ objectPosition: p[activeIndex].testHoverPos ?? "center" }}
                       />
                       <div className="absolute inset-0 rounded-2xl ring-1 ring-inset ring-black/6" />
                     </div>

@@ -15,10 +15,8 @@ export const products: Product[] = [
     id: "classic-acetate",
     name: "Classic Acetate",
     price: 4500,
-    image:
-      "https://images.unsplash.com/photo-1764737707504-f1ce82f76a16?q=80&w=2532&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    hoverImage:
-      "https://images.unsplash.com/photo-1752486268262-6ce6b339a8de?q=80&w=987&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    image: "/images/products/classic-acetate-main.jpg",
+    hoverImage: "/images/products/classic-acetate-hover.jpg",
     category: "Prescription",
     material: "Italian acetate",
     fit: "Medium fit",
@@ -28,10 +26,8 @@ export const products: Product[] = [
     id: "aviator-sun",
     name: "Gold Aviator Sun",
     price: 6200,
-    image:
-      "https://images.unsplash.com/photo-1589642380614-4a8c2147b857?q=80&w=1674&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    hoverImage:
-      "https://images.unsplash.com/photo-1552958791-a034dec52705?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    image: "/images/products/aviator-sun-main.jpg",
+    hoverImage: "/images/products/aviator-sun-hover.jpg",
     category: "Sunglasses",
     material: "Brushed metal",
     fit: "Adjustable pads",
@@ -40,10 +36,8 @@ export const products: Product[] = [
     id: "titanium-wire",
     name: "Titanium Wireframe",
     price: 7800,
-    image:
-      "https://images.unsplash.com/photo-1606357100116-f787c70ea04f?q=80&w=1674&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    hoverImage:
-      "https://plus.unsplash.com/premium_photo-1669704098858-8cd103f4ac2e?q=80&w=988&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    image: "/images/products/titanium-wire-main.jpg",
+    hoverImage: "/images/products/titanium-wire-hover.jpg",
     category: "Lightweight",
     material: "Titanium alloy",
     fit: "Featherweight",
@@ -53,10 +47,8 @@ export const products: Product[] = [
     id: "blue-light",
     name: "Blue-Cut Optical",
     price: 3900,
-    image:
-      "https://images.unsplash.com/photo-1661525244755-3dc7926c347a?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    hoverImage:
-      "https://plus.unsplash.com/premium_photo-1661319147577-fe52598a037a?q=80&w=1771&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    image: "/images/products/blue-light-main.jpg",
+    hoverImage: "/images/products/blue-light-hover.jpg",
     category: "Computer",
     material: "TR-flex frame",
     fit: "All-day comfort",
@@ -65,10 +57,8 @@ export const products: Product[] = [
     id: "tortoise-statement",
     name: "Tortoise Statement",
     price: 9500,
-    image:
-      "https://thefoschini.vtexassets.com/arquivos/ids/221456937-1200-1600?v=638968942656930000&width=1200&height=1600&aspect=true",
-    hoverImage:
-      "https://www.net-a-porter.com/variants/images/1647597334165801/ou/w2000_q60.jpg",
+    image: "/images/products/tortoise-statement-main.jpg",
+    hoverImage: "/images/products/tortoise-statement-hover.jpg",
     category: "Fashion",
     material: "Layered acetate",
     fit: "Bold profile",
@@ -78,10 +68,8 @@ export const products: Product[] = [
     id: "polarized-outdoor",
     name: "Polarized Outdoor",
     price: 5500,
-    image:
-      "https://images.unsplash.com/photo-1606196480588-43eaeb825006?q=80&w=1674&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    hoverImage:
-      "https://plus.unsplash.com/premium_photo-1752192844608-9e4be077452d?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    image: "/images/products/polarized-outdoor-main.jpg",
+    hoverImage: "/images/products/polarized-outdoor-hover.jpg",
     category: "Sport",
     material: "Polarized lenses",
     fit: "Secure grip",
