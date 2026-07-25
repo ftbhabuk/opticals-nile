@@ -9,39 +9,39 @@ import type { Product } from "@/src/data/products"
 const testImages: Record<string, { image: string; hoverImage: string }> = {
   "classic-acetate": {
     image:
-      "https://images.unsplash.com/photo-1574258495973-f010dfbb5371?q=80&w=1000&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1752486268262-6ce6b339a8de?q=80&w=987&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     hoverImage:
-      "https://images.unsplash.com/photo-1511499767150-a48a237f0083?q=80&w=1000&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1764737707504-f1ce82f76a16?q=80&w=2532&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
   "aviator-sun": {
     image:
-      "https://images.unsplash.com/photo-1572635196237-14b3f281503f?q=80&w=1000&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1552958791-a034dec52705?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     hoverImage:
-      "https://images.unsplash.com/photo-1591076482161-42ce6da69f67?q=80&w=1000&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1589642380614-4a8c2147b857?q=80&w=1674&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
   "titanium-wire": {
     image:
-      "https://images.unsplash.com/photo-1625591339971-4c9a87a66871?q=80&w=1000&auto=format&fit=crop",
+      "https://plus.unsplash.com/premium_photo-1669704098858-8cd103f4ac2e?q=80&w=988&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     hoverImage:
-      "https://images.unsplash.com/photo-1711564354334-ee51baa830c2?q=80&w=1000&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1606357100116-f787c70ea04f?q=80&w=1674&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
   "blue-light": {
     image:
-      "https://images.unsplash.com/photo-1556306535-0f09a537f0a3?q=80&w=1000&auto=format&fit=crop",
+      "https://plus.unsplash.com/premium_photo-1661319147577-fe52598a037a?q=80&w=1771&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     hoverImage:
-      "https://images.unsplash.com/photo-1741332528297-219f88563345?q=80&w=1000&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1661525244755-3dc7926c347a?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
   "tortoise-statement": {
     image:
-      "https://images.unsplash.com/photo-1614715838608-dd527c46231d?q=80&w=1000&auto=format&fit=crop",
+      "https://www.net-a-porter.com/variants/images/1647597334165801/ou/w2000_q60.jpg",
     hoverImage:
-      "https://images.unsplash.com/photo-1747640730472-3070d5ed690d?q=80&w=1000&auto=format&fit=crop",
+      "https://thefoschini.vtexassets.com/arquivos/ids/221456937-1200-1600?v=638968942656930000&width=1200&height=1600&aspect=true",
   },
   "polarized-outdoor": {
     image:
-      "https://images.unsplash.com/photo-1473496169904-658ba7c44d8a?q=80&w=1000&auto=format&fit=crop",
+      "https://plus.unsplash.com/premium_photo-1752192844608-9e4be077452d?q=80&w=1770&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     hoverImage:
-      "https://images.unsplash.com/photo-1577803645773-f96470509666?q=80&w=1000&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1606196480588-43eaeb825006?q=80&w=1674&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
 }
 
