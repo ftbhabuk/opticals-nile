@@ -10,7 +10,7 @@ import { Seo, ProductJsonLd } from "@/src/components/Seo"
 
 const EASE = [0.16, 1, 0.3, 1] as const
 const shopCategories = categories.filter((category) =>
-  ["All", "Prescription", "Sunglasses", "Designer", "Lightweight", "Computer", "Sport", "Fashion"].includes(category)
+  ["All", "Prescription", "Sunglasses", "Designer", "Lightweight", "Computer", "Sport", "Fashion", "Premium", "Children"].includes(category)
 )
 
 export default function ShopPage() {
