@@ -46,7 +46,7 @@ export default function ShopPage() {
       <section className="relative flex h-[70vh] items-center justify-center overflow-hidden lg:h-[80vh]">
         <div className="absolute inset-0">
           <motion.img
-            src="https://images.unsplash.com/photo-1615468822882-4828d2602857?q=80&w=2000&auto=format&fit=crop"
+            src="/images/shop-hero.jpg"
             alt="The Nile Collection"
             className="h-full w-full object-cover"
             initial={{ scale: 1.06 }}
