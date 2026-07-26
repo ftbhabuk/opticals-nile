@@ -183,17 +183,6 @@ export const products: Product[] = [
     badge: "Spotlight",
   },
   {
-    id: "hugo-boss",
-    name: "Hugo Boss",
-    price: 7500,
-    image: "/images/products/boss-main.jpg",
-    hoverImage: "/images/products/boss-hover.jpg",
-    category: "Designer",
-    material: "Metal aviator",
-    fit: "Modern edge",
-    badge: "Icon",
-  },
-  {
     id: "emporio-armani",
     name: "Emporio Armani",
     price: 8500,
