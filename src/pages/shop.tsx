@@ -66,7 +66,7 @@ export default function ShopPage() {
             The Nile Collection
           </h1>
           <p className="text-lg leading-relaxed text-white/70 lg:text-xl">
-            Timeless pieces crafted with intention. 500+ styles in-store.
+            Collected with intention. 500+ styles in-store.
           </p>
         </motion.div>
       </section>
@@ -126,7 +126,7 @@ export default function ShopPage() {
               {filteredProducts.length} {filteredProducts.length === 1 ? "style" : "styles"} shown
             </p>
             <p className="text-sm text-black/45">
-              Prices shown are starting prices. Final lens pricing depends on prescription.
+              Prices shown are for frames only. Lens packages available in-store.
             </p>
           </div>
 
@@ -201,8 +201,8 @@ export default function ShopPage() {
             Want something different?
           </h2>
           <p className="mx-auto mb-8 max-w-lg leading-relaxed text-black/45">
-            Don&rsquo;t see what you&rsquo;re looking for? We can source specific frames, lenses, and
-            prescription types. Just give us a call.
+            Don&rsquo;t see what you&rsquo;re looking for? We can source specific frames and styles.
+            Just give us a call or visit us in-store.
           </p>
           <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
             <a
