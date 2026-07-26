@@ -67,7 +67,7 @@ export function ProductCard({
           <span
             className={`pointer-events-none absolute bottom-4 left-4 right-4 translate-y-2 border-t pt-3 text-[10px] uppercase tracking-[0.2em] opacity-0 transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100 ${t.labelBorder} ${t.labelText}`}
           >
-            Fitted in-store
+            Authentic piece
           </span>
         </div>
 
