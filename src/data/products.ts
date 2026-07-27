@@ -214,6 +214,17 @@ export const products: Product[] = [
     fit: "Universal browline",
     badge: "Convertible",
   },
+  {
+    id: "adjustable-tint",
+    name: "Adjustable Tint Round",
+    price: 3500,
+    image: "/images/products/adjustable-tint-main.jpg",
+    hoverImage: "/images/products/adjustable-tint-hover.jpg",
+    category: "Sunglasses",
+    material: "Manual zoom ND filter",
+    fit: "Retro round",
+    badge: "Adjustable",
+  },
 ]
 
 export const featuredProducts = products.slice(0, 6)
