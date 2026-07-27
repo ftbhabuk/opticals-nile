@@ -12,7 +12,7 @@ const EYEWEAR_TYPES = [
       { v: "100%", l: "precision" },
     ],
     image:
-      "https://images.unsplash.com/photo-1625591339971-4c9a87a66871?q=80&w=1644&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "/images/agent-1.jpg",
     imageAlt: "Premium medical eyeglasses",
   },
   {
@@ -25,7 +25,7 @@ const EYEWEAR_TYPES = [
       { v: "Polarized", l: "options" },
     ],
     image:
-      "https://images.unsplash.com/photo-1572635196237-14b3f281503f?q=80&w=1180&auto=format&fit=crop",
+      "/images/agent-2.jpg",
     imageAlt: "Premium sunglasses",
   },
   {
@@ -38,7 +38,7 @@ const EYEWEAR_TYPES = [
       { v: "Lightweight", l: "frames" },
     ],
     image:
-      "https://images.unsplash.com/photo-1741332528297-219f88563345?q=80&w=774&auto=format&fit=crop",
+      "/images/agent-3.jpg",
     imageAlt: "Sports and computer glasses",
   },
   {
@@ -51,12 +51,10 @@ const EYEWEAR_TYPES = [
       { v: "New", l: "arrivals" },
     ],
     image:
-      "https://images.unsplash.com/photo-1747640730472-3070d5ed690d?q=80&w=1035&auto=format&fit=crop",
+      "/images/agent-4.jpg",
     imageAlt: "Luxury fashion frames",
   },
 ]
-
-const FALLBACK_IMAGE = "/images/spectacles-showcase.png"
 
 const STICKY_TOP = 88
 const STICKY_STEP = 18
@@ -181,11 +179,7 @@ export function StackingAgentCards() {
                       alt={item.imageAlt}
                       loading="lazy"
                       className="absolute inset-0 h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
-                      onError={(event) => {
-                        const image = event.currentTarget
-                        if (image.src.endsWith(FALLBACK_IMAGE)) return
-                        image.src = FALLBACK_IMAGE
-                      }}
+                      onError={() => {}}
                     />
                     <div
                       className="absolute inset-0 pointer-events-none"

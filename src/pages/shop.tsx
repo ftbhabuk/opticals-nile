@@ -35,7 +35,7 @@ export default function ShopPage() {
   return (
     <div className="min-h-screen bg-[#F8F4ED] text-[#111] antialiased">
       <Seo
-        title="Shop Eyewear — Prescription, Sunglasses & Specialty Frames | Nile Opticals"
+        title="Shop Eyewear — Prescription, Sunglasses & Specialty Frames"
         description="Browse 500+ premium frames at Nile Opticals, Pokhara. Prescription glasses, polarized sunglasses, blue-cut computer glasses, and fashion frames from Ray-Ban, Oakley, Gucci & more."
         canonicalPath="/shop"
         ogImage="/images/landing.png"

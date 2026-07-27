@@ -51,21 +51,21 @@ const values = [
     description:
       "Our team brings years of certified optical experience, ensuring every prescription is accurate and every recommendation is informed.",
     image:
-      "https://images.unsplash.com/photo-1705357311681-17449eb278d1?q=80&w=1036&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "/images/journey-hero-1.jpg",
   },
   {
     title: "Curated Selection",
     description:
       "500+ frames from the world's leading brands, displayed in a browsable, well-lit space designed for discovery.",
     image:
-      "https://images.unsplash.com/photo-1608539733292-190446b22b83?q=80&w=1552&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      "/images/journey-hero-2.jpg",
   },
   {
     title: "Community Roots",
     description:
       "Proud to serve Pokhara from our Newroad shop. We're your neighbors, and your eye health is our commitment.",
     image:
-      "https://images.unsplash.com/photo-1596462502278-27bfdc403348?q=80&w=1400&auto=format&fit=crop",
+      "/images/journey-hero-3.jpg",
   },
 ]
 
@@ -172,7 +172,7 @@ export default function JourneyPage() {
       <section className="relative h-[70vh] lg:h-[80vh] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0">
           <motion.img
-            src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?q=80&w=2000&auto=format&fit=crop"
+            src="/images/journey-hero-3.jpg"
             alt="Nile Opticals shop"
             className="w-full h-full object-cover"
             initial={{ scale: 1.06 }}
@@ -309,14 +309,14 @@ export default function JourneyPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
             <div className="md:row-span-3 rounded-2xl overflow-hidden border border-black/[0.07] h-[300px] md:h-full">
               <img
-                src="https://images.unsplash.com/photo-1776950227879-6e3b44cbe830?q=80&w=1400&auto=format&fit=crop"
+                src="/images/journey-1.jpg"
                 alt="Nile Opticals shop interior"
                 className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
               />
             </div>
             <div className="rounded-2xl overflow-hidden border border-black/[0.07] h-[250px]">
               <img
-                src="https://images.unsplash.com/photo-1641810780759-2e5cd4569da3?q=80&w=987&auto=format&fit=crop"
+                src="/images/journey-2.jpg"
                 alt="Frames display"
                 className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
               />

@@ -26,19 +26,34 @@ const routes: RouteConfig[] = [
   { path: "/journey", componentPath: "@/src/pages/journey", outFile: "journey/index.html" },
 ]
 
-function injectIntoTemplate(template: string, bodyHtml: string, helmet: any): string {
-  const headTags =
-    (helmet?.title?.toString() || "") +
-    (helmet?.meta?.toString() || "") +
-    (helmet?.link?.toString() || "") +
-    (helmet?.script?.toString() || "") +
-    (helmet?.noscript?.toString() || "")
+function extractHelmetTags(html: string): { headTags: string; bodyHtml: string } {
+  const headTags: string[] = []
 
-  let html = template
+  const patterns: RegExp[] = [
+    /<title>[\s\S]*?<\/title>/g,
+    /<link[^>]*rel="canonical"[^>]*\/?>/gi,
+    /<script type="application\/ld\+json">[\s\S]*?<\/script>/g,
+    /<meta\s[^>]*\/?>/gi,
+  ]
+
+  let result = html
+  for (const pattern of patterns) {
+    result = result.replace(pattern, (match) => {
+      if (/charset|viewport/i.test(match)) return match
+      headTags.push(match)
+      return ""
+    })
+  }
+
+  return { headTags: headTags.join("\n    "), bodyHtml: result }
+}
+
+function injectIntoTemplate(template: string, rawBodyHtml: string): string {
+  const { headTags, bodyHtml } = extractHelmetTags(rawBodyHtml)
+
+  return template
     .replace('<div id="root"></div>', `<div id="root">${bodyHtml}</div>`)
     .replace("</head>", `${headTags}</head>`)
-
-  return html
 }
 
 async function prerenderRoute(route: RouteConfig) {
@@ -47,20 +62,16 @@ async function prerenderRoute(route: RouteConfig) {
   const module = await import(route.componentPath)
   const Component = module.default
 
-  const helmetContext: any = {}
-
   const app = (
-    <HelmetProvider context={helmetContext}>
+    <HelmetProvider>
       <StaticRouter location={route.path}>
         <Component />
       </StaticRouter>
     </HelmetProvider>
   )
 
-  const bodyHtml = renderToStaticMarkup(app)
-  const helmet = helmetContext.helmet
-
-  const html = injectIntoTemplate(template, bodyHtml, helmet)
+  const rawBodyHtml = renderToStaticMarkup(app)
+  const html = injectIntoTemplate(template, rawBodyHtml)
 
   const outDir = path.join(distDir, path.dirname(route.outFile))
   if (!fs.existsSync(outDir)) {

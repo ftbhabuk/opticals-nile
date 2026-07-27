@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 
 const NAV_LINKS = [
@@ -24,6 +24,7 @@ const GLASS_STYLE_SOLID = {
 export default function Navigation() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const navRef = useRef<HTMLDivElement>(null);
   const location = useLocation();
   const isJourney = location.pathname === "/journey";
 
@@ -36,11 +37,30 @@ export default function Navigation() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    if (!open) return;
+    const handler = (e: MouseEvent) => {
+      if (navRef.current && !navRef.current.contains(e.target as Node)) {
+        setOpen(false);
+      }
+    };
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    document.addEventListener("mousedown", handler);
+    document.addEventListener("keydown", handleKey);
+    return () => {
+      document.removeEventListener("mousedown", handler);
+      document.removeEventListener("keydown", handleKey);
+    };
+  }, [open]);
+
   const close = () => setOpen(false);
   const onHero = !isScrolled;
 
   return (
     <div
+      ref={navRef}
       className={`fixed z-50 flex justify-center pointer-events-none transition-all duration-500 ${
         isScrolled ? "top-4 inset-x-0" : "top-0 inset-x-0"
       }`}
