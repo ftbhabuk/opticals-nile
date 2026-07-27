@@ -12,7 +12,7 @@ const EYEWEAR_TYPES = [
       { v: "100%", l: "precision" },
     ],
     image:
-      "https://images.unsplash.com/photo-1711564354334-ee51baa830c2?q=80&w=988&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1625591339971-4c9a87a66871?q=80&w=1644&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     imageAlt: "Premium medical eyeglasses",
   },
   {

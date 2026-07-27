@@ -51,14 +51,14 @@ const values = [
     description:
       "Our team brings years of certified optical experience, ensuring every prescription is accurate and every recommendation is informed.",
     image:
-      "https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=1400&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1705357311681-17449eb278d1?q=80&w=1036&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
   {
     title: "Curated Selection",
     description:
       "500+ frames from the world's leading brands, displayed in a browsable, well-lit space designed for discovery.",
     image:
-      "https://images.unsplash.com/photo-1577803645773-f96470509666?q=80&w=1400&auto=format&fit=crop",
+      "https://images.unsplash.com/photo-1608539733292-190446b22b83?q=80&w=1552&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
   {
     title: "Community Roots",

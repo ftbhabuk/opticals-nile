@@ -203,6 +203,17 @@ export const products: Product[] = [
     material: "Sporty frame",
     fit: "Bold profile",
   },
+  {
+    id: "magnetic-clip",
+    name: "Magnetic Clip-On",
+    price: 4500,
+    image: "/images/products/magnetic-clip-main.jpg",
+    hoverImage: "/images/products/magnetic-clip-hover.jpg",
+    category: "Sunglasses",
+    material: "Acetate + magnetic clip",
+    fit: "Universal browline",
+    badge: "Convertible",
+  },
 ]
 
 export const featuredProducts = products.slice(0, 6)
