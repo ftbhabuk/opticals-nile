@@ -22,23 +22,43 @@ const routes = [
   { path: "/journey", changefreq: "monthly", priority: 0.8 },
 ]
 
+const productIds = [
+  "classic-acetate", "aviator-sun", "titanium-wire", "blue-light",
+  "tortoise-statement", "polarized-outdoor", "wayfarer-classic",
+  "clubmaster-browline", "prada-statement", "oakley-sport",
+  "gucci-cateye", "burberry-classic", "cartier-signature",
+  "kids-colorful", "versace-medusa", "dolce-gabbana",
+  "emporio-armani", "police", "magnetic-clip",
+]
+
 function generateSitemap() {
   const today = new Date().toISOString().split("T")[0]
 
   const urlEntries = routes
     .map((route) => {
       const url = `${baseUrl}${route.path}`
-      return `  <url>
+      let entry = `  <url>
     <loc>${url}</loc>
     <lastmod>${today}</lastmod>
     <changefreq>${route.changefreq}</changefreq>
-    <priority>${route.priority}</priority>
-  </url>`
+    <priority>${route.priority}</priority>`
+
+      if (route.path === "/shop") {
+        const imageEntries = productIds
+          .flatMap((id) => [`/images/products/${id}-main.jpg`, `/images/products/${id}-hover.jpg`])
+          .map((img) => `    <image:image><image:loc>${baseUrl}${img}</image:loc></image:image>`)
+          .join("\n")
+        entry += `\n${imageEntries}`
+      }
+
+      entry += `\n  </url>`
+      return entry
     })
     .join("\n")
 
   const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 ${urlEntries}
 </urlset>`
 

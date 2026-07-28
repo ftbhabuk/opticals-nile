@@ -14,6 +14,8 @@ export function HeroSection() {
             alt="Premium eyewear at Nile Opticals"
             className="h-full w-full object-cover scale-x-[-1]"
             style={{ objectPosition: "center 23%" }}
+            fetchPriority="high"
+            loading="eager"
           />
           <div className="absolute inset-0 bg-foreground/20" />
           <div

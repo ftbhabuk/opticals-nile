@@ -12,7 +12,7 @@ interface SeoProps {
 }
 
 const SITE_NAME = "Nile Opticals"
-const DEFAULT_OG_IMAGE = "/og-default.png"
+const DEFAULT_OG_IMAGE = "/images/og-image.png"
 
 function getSiteUrl(): string {
   // Check process.env first (Node.js/prerender), then import.meta.env (browser/Vite)
@@ -80,6 +80,8 @@ export function LocalBusinessJsonLd() {
     name: "Nile Opticals",
     description: "Premium eyewear boutique and optical clinic on Newroad, Pokhara. Prescription eyeglasses, designer sunglasses, contact lenses, and comprehensive eye exams.",
     url,
+    logo: `${url}/logo.svg`,
+    image: `${url}/images/og-image.png`,
     telephone: "+977-61-520-XXXX",
     address: {
       "@type": "PostalAddress",
@@ -149,5 +151,33 @@ export function ProductJsonLd(products: Product[]) {
         category: product.category,
       },
     })),
+  }
+}
+
+export function BreadcrumbJsonLd(items: { label: string; href: string }[]) {
+  return {
+    "@type": "BreadcrumbList",
+    itemListElement: items.map((item, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: item.label,
+      item: `${getSiteUrl()}${item.href}`,
+    })),
+  }
+}
+
+export function WebSiteJsonLd() {
+  return {
+    "@type": "WebSite",
+    name: "Nile Opticals",
+    url: getSiteUrl(),
+    potentialAction: {
+      "@type": "SearchAction",
+      target: {
+        "@type": "EntryPoint",
+        urlTemplate: `${getSiteUrl()}/shop?q={search_term_string}`,
+      },
+      "query-input": "required name=search_term_string",
+    },
   }
 }

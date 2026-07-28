@@ -4,7 +4,7 @@ import { useInView } from "@/hooks/use-in-view"
 
 import { Tag } from "@/components/tag"
 import { Footer } from "@/components/footer"
-import { Seo } from "@/src/components/Seo"
+import { Seo, BreadcrumbJsonLd } from "@/src/components/Seo"
 
 const timeline = [
   {
@@ -165,8 +165,9 @@ export default function JourneyPage() {
         title="Your Journey to Perfect Vision — Nile Opticals Experience"
         description="From expert consultation to precision exams and custom fitting, discover the Nile Opticals experience on Newroad, Pokhara. 6-step journey to your perfect eyewear."
         canonicalPath="/journey"
-        ogImage="/images/landing.png"
+        ogImage="/images/og-image.png"
         ogType="website"
+        jsonLd={BreadcrumbJsonLd([{ label: "Home", href: "/" }, { label: "Journey", href: "/journey" }])}
       />
       {/* HERO */}
       <section className="relative h-[70vh] lg:h-[80vh] flex items-center justify-center overflow-hidden">
@@ -178,6 +179,8 @@ export default function JourneyPage() {
             initial={{ scale: 1.06 }}
             animate={{ scale: 1.14 }}
             transition={{ duration: 16, ease: "linear", repeat: Infinity, repeatType: "reverse" }}
+            fetchPriority="high"
+            loading="eager"
           />
           <div className="absolute inset-0 bg-black/45" />
         </div>
@@ -259,6 +262,7 @@ export default function JourneyPage() {
                   <img
                     src={value.image}
                     alt={value.title}
+                    loading="lazy"
                     className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                   />
                 </div>
@@ -311,6 +315,7 @@ export default function JourneyPage() {
               <img
                 src="/images/journey-1.jpg"
                 alt="Nile Opticals shop interior"
+                loading="lazy"
                 className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
               />
             </div>
@@ -318,20 +323,23 @@ export default function JourneyPage() {
               <img
                 src="/images/journey-2.jpg"
                 alt="Frames display"
+                loading="lazy"
                 className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
               />
             </div>
             <div className="rounded-2xl overflow-hidden border border-black/[0.07] h-[250px]">
               <img
-                src="https://plus.unsplash.com/premium_photo-1700822899973-6ca101047daa?q=80&w=987&auto=format&fit=crop"
+                src="/images/journey-3.jpg"
                 alt="Shop entrance"
+                loading="lazy"
                 className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
               />
             </div>
             <div className="rounded-2xl overflow-hidden border border-black/[0.07] h-[250px]">
               <img
-                src="https://plus.unsplash.com/premium_photo-1661299306807-d93a1b0d3a2d?q=80&w=2600&auto=format&fit=crop"
+                src="/images/journey-4.jpg"
                 alt="Optical shop display"
+                loading="lazy"
                 className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
               />
             </div>

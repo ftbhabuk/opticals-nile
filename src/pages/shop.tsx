@@ -6,7 +6,7 @@ import { ProductCard } from "@/components/product-card"
 import { Footer } from "@/components/footer"
 import { Skeleton } from "@/components/ui/skeleton"
 import { categories, products } from "@/src/data/products"
-import { Seo, ProductJsonLd } from "@/src/components/Seo"
+import { Seo, ProductJsonLd, BreadcrumbJsonLd } from "@/src/components/Seo"
 
 const EASE = [0.16, 1, 0.3, 1] as const
 const shopCategories = categories.filter((category) =>
@@ -38,9 +38,9 @@ export default function ShopPage() {
         title="Shop Eyewear — Prescription, Sunglasses & Specialty Frames"
         description="Browse 500+ premium frames at Nile Opticals, Pokhara. Prescription glasses, polarized sunglasses, blue-cut computer glasses, and fashion frames from Ray-Ban, Oakley, Gucci & more."
         canonicalPath="/shop"
-        ogImage="/images/landing.png"
+        ogImage="/images/og-image.png"
         ogType="website"
-        jsonLd={ProductJsonLd(products)}
+        jsonLd={[ProductJsonLd(products), BreadcrumbJsonLd([{ label: "Home", href: "/" }, { label: "Shop", href: "/shop" }])]}
       />
       {/* HERO */}
       <section className="relative flex h-[70vh] items-center justify-center overflow-hidden lg:h-[80vh]">
@@ -52,6 +52,8 @@ export default function ShopPage() {
             initial={{ scale: 1.06 }}
             animate={{ scale: 1.14 }}
             transition={{ duration: 16, ease: "linear", repeat: Infinity, repeatType: "reverse" }}
+            fetchPriority="high"
+            loading="eager"
           />
           <div className="absolute inset-0 bg-black/45" />
         </div>
