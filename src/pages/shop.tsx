@@ -224,7 +224,7 @@ export default function ShopPage() {
             </a>
           </div>
           <p className="mt-6 text-xs text-black/30">
-            Owned &amp; operated by Rabindra
+            Walk-ins welcome &middot; Pokhara 9, Newroad, 18th Street
           </p>
         </div>
       </section>
