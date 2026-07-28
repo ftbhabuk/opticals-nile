@@ -208,14 +208,14 @@ export default function ShopPage() {
           </p>
           <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
             <a
-              href="tel:061520XXXX"
+              href="tel:+9779846743043"
               className="inline-flex items-center gap-2 border-b border-black/80 pb-1 text-sm uppercase tracking-widest transition-all duration-300 hover:gap-4"
             >
-              Call 061-520-XXXX
+              Call +977-984-674-3043
             </a>
             <span className="hidden text-black/20 sm:inline">/</span>
             <a
-              href="https://wa.me/9779841XXXXX"
+              href="https://wa.me/9779846743043"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 border-b border-black/80 pb-1 text-sm uppercase tracking-widest transition-all duration-300 hover:gap-4"

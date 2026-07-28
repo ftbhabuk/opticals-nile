@@ -8,25 +8,20 @@ const EASE = "cubic-bezier(0.16, 1, 0.3, 1)"
 const footerLinks = {
   explore: [
     { label: "All Frames", href: "/shop" },
-    { label: "Prescription", href: "/#types" },
-    { label: "Sunglasses", href: "/#types" },
-    { label: "Lenses & Brands", href: "/#brands" },
+    { label: "Sunglasses", href: "/shop" },
+    { label: "Designer Brands", href: "/#brands" },
   ],
   visit: [
-    { label: "Location & Hours", href: "/journey#gallery" },
     { label: "Our Journey", href: "/journey" },
-    { label: "Call Us", href: "tel:061520XXXX" },
-    {
-      label: "WhatsApp",
-      href: "https://wa.me/9779841XXXXX",
-      external: true,
-    },
+    { label: "Contact", href: "https://wa.me/9779846743043", external: true },
+    { label: "Terms", href: "/terms" },
+    { label: "FAQ", href: "/faq" },
   ],
   shop: [
     { label: "Browse Frames", href: "/shop" },
     { label: "Custom Orders", href: "/shop#custom" },
     { label: "Get Directions",
-      href: "https://www.google.com/maps/dir//Pokhara+9,+Newroad,+18th+Street,+Purnima+Marga",
+      href: "https://www.google.com/maps/dir//Kumari+Bank+Ltd,+New+Rd,+Pokhara+33700",
       external: true,
     },
   ],
@@ -125,20 +120,14 @@ export function Footer({ reveal = false }: { reveal?: boolean }) {
           <FadeIn className="lg:col-span-1">
             <h3 className="text-xl font-light tracking-tight mb-4">Visit Us</h3>
             <p className="text-white/50 text-sm mb-6 leading-relaxed">
-              Pokhara 9, Newroad, 18th Street
+              Near Kumari Bank Ltd., New Road
               <br />
-              Purnima Marga
+              Pokhara 33700
             </p>
             <div className="space-y-2 text-sm text-white/40">
               <p>Mon – Sat: 10:00 AM – 8:00 PM</p>
               <p>Sunday: 11:00 AM – 7:00 PM</p>
             </div>
-            <a
-              href="/journey"
-              className="inline-block mt-6 text-xs tracking-[0.15em] uppercase text-white/50 hover:text-white transition-colors"
-            >
-              Get Directions →
-            </a>
           </FadeIn>
 
           <FooterColumn title="Explore" links={footerLinks.explore} delay={100} />
@@ -182,7 +171,7 @@ export function Footer({ reveal = false }: { reveal?: boolean }) {
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-6 text-xs text-white/40">
-            <span>Pokhara 9 · Newroad · 18th Street</span>
+            <span>New Road · Pokhara 33700</span>
             <span>© {new Date().getFullYear()} Nile Opticals. All rights reserved.</span>
           </div>
         </div>

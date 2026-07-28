@@ -13,7 +13,7 @@ const EYEWEAR_TYPES = [
     ],
     image:
       "/images/agent-1.jpg",
-    imageAlt: "Premium medical eyeglasses",
+    imageAlt: "Premium prescription medical eyeglasses lenses at Nile Opticals Pokhara",
   },
   {
     index: "02",
@@ -26,7 +26,7 @@ const EYEWEAR_TYPES = [
     ],
     image:
       "/images/agent-2.jpg",
-    imageAlt: "Premium sunglasses",
+    imageAlt: "Designer premium UV polarized sunglasses collection at Nile Opticals Pokhara",
   },
   {
     index: "03",
@@ -39,7 +39,7 @@ const EYEWEAR_TYPES = [
     ],
     image:
       "/images/agent-3.jpg",
-    imageAlt: "Sports and computer glasses",
+    imageAlt: "Lightweight sports computer blue-cut glasses frames at Nile Opticals Pokhara",
   },
   {
     index: "04",
@@ -52,7 +52,7 @@ const EYEWEAR_TYPES = [
     ],
     image:
       "/images/agent-4.jpg",
-    imageAlt: "Luxury fashion frames",
+    imageAlt: "Premium luxury designer fashion eyewear frames at Nile Opticals Pokhara",
   },
 ]
 

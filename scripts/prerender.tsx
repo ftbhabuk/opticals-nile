@@ -24,6 +24,8 @@ const routes: RouteConfig[] = [
   { path: "/", componentPath: "@/src/App", outFile: "index.html" },
   { path: "/shop", componentPath: "@/src/pages/shop", outFile: "shop/index.html" },
   { path: "/journey", componentPath: "@/src/pages/journey", outFile: "journey/index.html" },
+  { path: "/faq", componentPath: "@/src/pages/faq", outFile: "faq/index.html" },
+  { path: "/terms", componentPath: "@/src/pages/terms", outFile: "terms/index.html" },
 ]
 
 function extractHelmetTags(html: string): { headTags: string; bodyHtml: string } {
@@ -83,7 +85,7 @@ async function prerenderRoute(route: RouteConfig) {
 
   console.log(`  ✅ Written to ${route.outFile} (${html.length} chars)`)
 
-  const hasContent = html.includes("Nile Opticals") || html.includes("Nile Collection") || html.includes("Your Journey")
+  const hasContent = html.includes("Nile Opticals") || html.includes("Nile Collection") || html.includes("Your Journey") || html.includes("Quick Answers") || html.includes("Terms &")
   if (!hasContent) {
     console.log("  ⚠️  Warning: Prerendered HTML may be empty (no expected content found)")
   }

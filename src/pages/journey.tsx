@@ -174,7 +174,7 @@ export default function JourneyPage() {
         <div className="absolute inset-0">
           <motion.img
             src="/images/journey-hero-3.jpg"
-            alt="Nile Opticals shop"
+            alt="Nile Opticals premium eyewear and optical clinic showroom on Newroad, Pokhara"
             className="w-full h-full object-cover"
             initial={{ scale: 1.06 }}
             animate={{ scale: 1.14 }}
@@ -261,7 +261,7 @@ export default function JourneyPage() {
                 <div className="aspect-[5/6] overflow-hidden mb-6 relative rounded-2xl border border-black/[0.07] transition-colors duration-500 group-hover:border-black/[0.14]">
                   <img
                     src={value.image}
-                    alt={value.title}
+                    alt={`Nile Opticals ${value.title.toLowerCase()} in Pokhara`}
                     loading="lazy"
                     className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
                   />
@@ -314,7 +314,7 @@ export default function JourneyPage() {
             <div className="md:row-span-3 rounded-2xl overflow-hidden border border-black/[0.07] h-[300px] md:h-full">
               <img
                 src="/images/journey-1.jpg"
-                alt="Nile Opticals shop interior"
+                alt="Nile Opticals premium eyewear shop interior on Newroad, Pokhara"
                 loading="lazy"
                 className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
               />
@@ -322,7 +322,7 @@ export default function JourneyPage() {
             <div className="rounded-2xl overflow-hidden border border-black/[0.07] h-[250px]">
               <img
                 src="/images/journey-2.jpg"
-                alt="Frames display"
+                alt="Designer frame display at Nile Opticals eyewear store in Pokhara"
                 loading="lazy"
                 className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
               />
@@ -330,7 +330,7 @@ export default function JourneyPage() {
             <div className="rounded-2xl overflow-hidden border border-black/[0.07] h-[250px]">
               <img
                 src="/images/journey-3.jpg"
-                alt="Shop entrance"
+                alt="Nile Opticals shop entrance on Newroad, 18th Street, Pokhara"
                 loading="lazy"
                 className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
               />
@@ -338,7 +338,7 @@ export default function JourneyPage() {
             <div className="rounded-2xl overflow-hidden border border-black/[0.07] h-[250px]">
               <img
                 src="/images/journey-4.jpg"
-                alt="Optical shop display"
+                alt="Nile Opticals optical clinic and eyewear display on Newroad, Pokhara"
                 loading="lazy"
                 className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
               />
@@ -350,13 +350,13 @@ export default function JourneyPage() {
               <div>
                 <h3 className="text-lg font-light mb-2">Location</h3>
                 <p className="text-sm text-black/45 leading-relaxed mb-4">
-                  Pokhara 9, Newroad, 18th Street
+                  Near Kumari Bank Ltd., New Road
                   <br />
-                  Purnima Marga
+                  Pokhara 33700
                 </p>
                 <div className="flex gap-3 flex-wrap">
                   <a
-                    href="https://www.google.com/maps/search/Pokhara+9,+Newroad,+18th+Street,+Purnima+Marga"
+                    href="https://www.google.com/maps/search/Kumari+Bank+Ltd,+New+Rd,+Pokhara+33700"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="px-4 py-2 text-xs font-light border border-black/20 rounded-lg hover:border-black/40 hover:bg-black/[0.02] transition-colors"
@@ -364,7 +364,7 @@ export default function JourneyPage() {
                     View on Map
                   </a>
                   <a
-                    href="https://www.google.com/maps/dir//Pokhara+9,+Newroad,+18th+Street,+Purnima+Marga"
+                    href="https://www.google.com/maps/dir//Kumari+Bank+Ltd,+New+Rd,+Pokhara+33700"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="px-4 py-2 text-xs font-light border border-black/20 rounded-lg hover:border-black/40 hover:bg-black/[0.02] transition-colors"
@@ -384,18 +384,21 @@ export default function JourneyPage() {
               <div>
                 <p className="text-xs text-black/30 uppercase tracking-widest mb-2">Contact</p>
                 <p className="text-sm text-black/45 leading-relaxed">
-                  <a href="tel:061520XXXX" className="hover:text-black/70 transition-colors">
-                    061-520-XXXX
+                  <a href="tel:+9779846743043" className="hover:text-black/70 transition-colors">
+                    +977-984-674-3043
                   </a>
                   <br />
                   <a
-                    href="https://wa.me/9779841XXXXX"
+                    href="https://wa.me/9779846743043"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="hover:text-black/70 transition-colors"
                   >
-                    WhatsApp: +977-9841-XXXXX
+                    Message on WhatsApp
                   </a>
+                </p>
+                <p className="mt-4 pt-4 border-t border-black/[0.06] text-xs text-black/30">
+                  Owned &amp; operated by Rabindra
                 </p>
               </div>
             </div>

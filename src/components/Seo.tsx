@@ -85,7 +85,7 @@ export function LocalBusinessJsonLd() {
     telephone: "+977-61-520-XXXX",
     address: {
       "@type": "PostalAddress",
-      streetAddress: "Pokhara 9, Newroad, 18th Street, Purnima Marga",
+      streetAddress: "Near Kumari Bank Ltd., New Road, Pokhara 33700",
       addressLocality: "Pokhara",
       addressRegion: "Gandaki Province",
       postalCode: "33700",
@@ -162,6 +162,20 @@ export function BreadcrumbJsonLd(items: { label: string; href: string }[]) {
       position: i + 1,
       name: item.label,
       item: `${getSiteUrl()}${item.href}`,
+    })),
+  }
+}
+
+export function FaqJsonLd(faqs: { question: string; answer: string }[]) {
+  return {
+    "@type": "FAQPage",
+    mainEntity: faqs.map((faq) => ({
+      "@type": "Question",
+      name: faq.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: faq.answer,
+      },
     })),
   }
 }

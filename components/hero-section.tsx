@@ -41,8 +41,7 @@ export function HeroSection() {
               Looking, Refined.
             </h1>
             <p className="text-white/70 text-sm md:text-base tracking-wide mb-5 max-w-md leading-relaxed">
-              Premium frames, precise lenses, and unhurried guidance — crafted for
-              how you live in Pokhara.
+               Premium frames, precise lenses, and unhurried guidance — crafted to last.
             </p>
             <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} className="mb-5">
               <a

@@ -20,6 +20,8 @@ const routes = [
   { path: "/", changefreq: "weekly", priority: 1.0 },
   { path: "/shop", changefreq: "daily", priority: 0.9 },
   { path: "/journey", changefreq: "monthly", priority: 0.8 },
+  { path: "/faq", changefreq: "monthly", priority: 0.5 },
+  { path: "/terms", changefreq: "monthly", priority: 0.3 },
 ]
 
 const productIds = [
