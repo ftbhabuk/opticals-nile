@@ -11,8 +11,8 @@ export default function App() {
   return (
     <div className="bg-white text-[#111] min-h-screen font-sans antialiased">
       <Seo
-        title="Nile Opticals — Premium Eyewear & Medical Eye Care in Pokhara"
-        description="Crystal clear vision for everyone. Premium eyeglasses, designer sunglasses, and certified eye care on Newroad, Pokhara. 15+ years trusted service with 500+ frame styles."
+        title="Nile Opticals — Luxury Designer Eyewear in Pokhara"
+        description="Premium designer frames and sunglasses from Prada, Gucci, Burberry, and more. 500+ authentic styles on New Road, Pokhara."
         canonicalPath="/"
         ogImage="/images/og-image.png"
         ogType="website"

@@ -56,6 +56,8 @@ export function Seo({
       <meta property="og:type" content={ogType} />
       <meta property="og:url" content={canonical} />
       <meta property="og:image" content={fullOgImage} />
+      <meta property="og:image:width" content="1200" />
+      <meta property="og:image:height" content="630" />
 
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={fullTitle} />
@@ -78,11 +80,11 @@ export function LocalBusinessJsonLd() {
     "@type": "Optician",
     "@id": `${url}#organization`,
     name: "Nile Opticals",
-    description: "Premium eyewear boutique and optical clinic on Newroad, Pokhara. Prescription eyeglasses, designer sunglasses, contact lenses, and comprehensive eye exams.",
+    description: "Premium designer eyewear boutique on New Road, Pokhara. Luxury frames and sunglasses from Prada, Gucci, Burberry, and more.",
     url,
     logo: `${url}/logo.svg`,
     image: `${url}/images/og-image.png`,
-    telephone: "+977-61-520-XXXX",
+    telephone: "+977-984-674-3043",
     address: {
       "@type": "PostalAddress",
       streetAddress: "Near Kumari Bank Ltd., New Road, Pokhara 33700",
