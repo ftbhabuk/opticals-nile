@@ -16,9 +16,20 @@ const shopCategories = categories.filter((category) =>
 export default function ShopPage() {
   const [activeCategory, setActiveCategory] = useState("All")
   const [catalogReady, setCatalogReady] = useState(false)
+  const [shuffled, setShuffled] = useState<typeof products>([])
 
+  useEffect(() => {
+    const copy = [...products]
+    for (let i = copy.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [copy[i], copy[j]] = [copy[j], copy[i]]
+    }
+    setShuffled(copy)
+  }, [])
+
+  const displayProducts = shuffled.length > 0 ? shuffled : products
   const filteredProducts =
-    activeCategory === "All" ? products : products.filter((p) => p.category === activeCategory)
+    activeCategory === "All" ? displayProducts : displayProducts.filter((p) => p.category === activeCategory)
 
   const siteUrl = (typeof import.meta !== "undefined" ? import.meta.env?.VITE_SITE_URL : undefined) || (typeof process !== "undefined" ? process.env?.VITE_SITE_URL : undefined) || "https://nileopticals.com"
 
