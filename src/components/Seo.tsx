@@ -114,7 +114,7 @@ export function LocalBusinessJsonLd() {
     ],
     sameAs: [
       "https://www.instagram.com/nileopticals",
-      "https://www.facebook.com/nileopticals",
+      "https://www.facebook.com/profile.php?id=61592797344880",
     ],
     priceRange: "₨3,900 - ₨9,500",
     currenciesAccepted: "NPR",

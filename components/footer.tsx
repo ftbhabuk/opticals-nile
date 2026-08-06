@@ -157,7 +157,7 @@ export function Footer({ reveal = false }: { reveal?: boolean }) {
                 <Instagram className="h-4 w-4 stroke-[1.5]" />
               </motion.a>
               <motion.a
-                href="https://www.facebook.com/nileopticals"
+                href="https://www.facebook.com/profile.php?id=61592797344880"
                 target="_blank"
                 rel="noopener noreferrer"
                 whileHover={{ scale: 1.15 }}

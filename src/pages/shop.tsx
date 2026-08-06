@@ -84,27 +84,6 @@ export default function ShopPage() {
         </motion.div>
       </section>
 
-      {/* CATEGORY FILTER */}
-      <section className="sticky top-0 z-30 border-b border-black/[0.08] bg-[#F8F4ED]/92 backdrop-blur-xl">
-        <div className="mx-auto max-w-7xl px-6 py-5">
-          <nav className="mx-auto flex w-fit max-w-full items-center gap-1 overflow-x-auto rounded-full border border-black/[0.08] bg-white/58 p-1 shadow-[0_12px_40px_rgba(20,17,13,0.06)] backdrop-blur-xl">
-            {shopCategories.map((category) => (
-              <button
-                key={category}
-                onClick={() => setActiveCategory(category)}
-                className={`shrink-0 rounded-full px-4 py-2 text-[10px] uppercase tracking-[0.18em] transition-all duration-300 ${
-                  activeCategory === category
-                    ? "bg-[#111] text-white shadow-sm"
-                    : "text-black/45 hover:bg-white/70 hover:text-black"
-                }`}
-              >
-                {category}
-              </button>
-            ))}
-          </nav>
-        </div>
-      </section>
-
       {/* FEATURED EDIT */}
       <section className="px-6 py-16 md:px-12 lg:px-20">
         <div className="mx-auto grid max-w-7xl gap-8 border-b border-black/[0.08] pb-16 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
@@ -128,6 +107,27 @@ export default function ShopPage() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* CATEGORY FILTER */}
+      <section className="sticky top-0 z-30 border-b border-black/[0.08] bg-[#F8F4ED]/92 backdrop-blur-xl">
+        <div className="mx-auto max-w-7xl px-6 py-5">
+          <nav className="mx-auto flex w-fit max-w-full items-center gap-1 overflow-x-auto rounded-full border border-black/[0.08] bg-white/58 p-1 shadow-[0_12px_40px_rgba(20,17,13,0.06)] backdrop-blur-xl">
+            {shopCategories.map((category) => (
+              <button
+                key={category}
+                onClick={() => setActiveCategory(category)}
+                className={`shrink-0 rounded-full px-4 py-2 text-[10px] uppercase tracking-[0.18em] transition-all duration-300 ${
+                  activeCategory === category
+                    ? "bg-[#111] text-white shadow-sm"
+                    : "text-black/45 hover:bg-white/70 hover:text-black"
+                }`}
+              >
+                {category}
+              </button>
+            ))}
+          </nav>
         </div>
       </section>
 
